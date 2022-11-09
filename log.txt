@@ -1,0 +1,37 @@
+Health, Risk, and Equity
+
+09:01 9 Nov 2022
+Built repository to prepare for primary data collection. Will start by creating a script to collect and clean data for regression model and for calculating risk scores. 
+After that, calculate silver level risk scores along with predictive rations by racial group. 
+Then, build a regression model for paid claims cost using risk score and other ACARA factors.
+Then use randomforests, XGBoost, and ridge regression to predict with a wider range of variables.
+Assess progress from there.
+Do all these steps first in R to get doen quick, then move to other options. 
+
+Need to get in the habit of creating virtual environments.
+Here is a process to use:
+
+1) Create venv in directory
+Set-Location <path to project>
+python -m venv venv
+
+2) Activate
+python venv/Scripts/Activate.ps1
+
+3) Update pip
+python -m pip install --upgrade pip
+
+4) Install libraries
+pip list
+pip install numpy
+pip install pandas
+pip install scipy
+pip install matplotlib
+
+Or 
+
+pip install -r requirements.txt
+
+
+5) Export dependencies
+pip freeze > requirements.txt
