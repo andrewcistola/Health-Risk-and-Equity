@@ -3252,3 +3252,8 @@ if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")",
 cat(paste(news, '\n', sep = ''), file = file, append = TRUE)
 df <- NULL
 print(news)
+
+### Reference
+cat('\n', file = file, append = TRUE)
+cat(paste('See https://datatools.ahrq.gov/meps-hc#varexpLabel for variable explorer or https://meps.ahrq.gov/mepsweb/data_stats/download_data_files_codebook.jsp?PUFId=H224 for the full varibale list.', '\n', sep = ''), file = file, append = TRUE)
+cat('\n', file = file, append = TRUE)

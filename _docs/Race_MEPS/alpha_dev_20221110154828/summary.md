@@ -52,3 +52,6 @@ Emergency Room Visits File (h206e)
 Outpatient Department Visits File (h206f)
 Office-Based Medical Provider Visits File (h206g)
 Home Health Visits File (h206h)
+
+See https://datatools.ahrq.gov/meps-hc#varexpLabel for variable explorer or https://meps.ahrq.gov/mepsweb/data_stats/download_data_files_codebook.jsp?PUFId=H224 for the full varibale list.
+

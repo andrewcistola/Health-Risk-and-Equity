@@ -131,3 +131,8 @@ Updated organization of repo to use tmp and wrap differewntly and have topic/sub
 Runnming import script to see if it works all the way through.
 If so then push changes.
 Next stapes are to start pulling and cleaning
+
+18:30
+Wrote cleaning script for person and event files. However I will need to gather and link the condition files. 
+Also, need to identify whether i will ahve enough info for risk scores
+Next steps are to gather files, update the import script and then add to celaning script.
