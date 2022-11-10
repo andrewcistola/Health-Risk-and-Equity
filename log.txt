@@ -16,7 +16,7 @@ Set-Location <path to project>
 python -m venv venv
 
 2) Activate
-python venv/Scripts/Activate.ps1
+venv\Scripts\Activate.ps1
 
 3) Update pip
 python -m pip install --upgrade pip
@@ -26,12 +26,105 @@ pip list
 pip install numpy
 pip install pandas
 pip install scipy
+pip install statsmodels
 pip install matplotlib
-
+pip install geopandas
+pip install scikit-learn
+pip install tensorflow
+pip install keras
 Or 
-
 pip install -r requirements.txt
-
 
 5) Export dependencies
 pip freeze > requirements.txt
+
+Need to figure out how to do same thing with R or just use anaconda.
+
+11:10
+Found source for consolidated individual files along with health encounter data.
+https://www.meps.ahrq.gov/mepsweb/data_stats/download_data_files_results.jsp?cboDataYear=All&cboDataTypeY=2%2CHousehold+Event+File&buttonYearandDataType=Search&cboPufNumber=All
+Downloaded individual file R scripts along with PDF versions of their documentation from 2020 to 2017
+Used file naming convention AHRQ_MEPS_ASCII_YEAR_SUBJECT where subject is either HOUSE for household file or OFFICE, OUTPATIENT, HOSPITAL, ER, OTHER for visit files.
+Still need to download all the visit files from 2020 to 2017.
+Once downloaded, I can build a sqlite db to access all of the files using a setup_import_db R script.
+
+12:22
+Sucessfully udpated virtual environment for project. Updated primary py script for setup_clean.
+
+14:28
+Organized alpha dev scripts for R and Python for the Race project. 
+Added comments to REAMDE to keep project updated
+Added summary and results files to python setup script (steill need to figure out best way to us ein R)
+Need to make GitHub Repo and identify backup option.
+
+14:44 
+Added xlsxwriter to libraries and reexported requirements (see log above).
+Setup process complete for python.
+
+16:32
+Incorporated method for sharing variables between R and Python.
+Next steps are to add GitHuib repo and gather 
+
+17:44 
+Added git repo using following steps 
+
+1a) Initialize local repo
+git init
+.gitignore
+
+1b) Large files
+git lfs install
+git lfs track "*.csv"
+
+2) Confirm SSH setup
+ssh-keygen -t rsa -b 4096 -C "andrewcistola@pm.me"
+Add to Github
+3) Create git repo on Github.com
+
+3) Add remote 
+git remote add origin https://github.com/andrewcistola/Health-Risk-and-Equity.git
+git pull origin main --allow-unrelated-histories
+
+4) Push changes
+git add -A
+git commit -a -m 'Repo setup'
+git push -f origin main
+
+
+2022 Nov 10 09:23
+Steps for staritng new session:
+
+Started session by 
+1) Open PS and bash terminal in project folder
+
+2) Activate environment
+> venv\Scripts\Activate.ps1
+
+3) fetch head from remote 
+$ Git pull origin main
+
+4) Run Setup scripts 
+RACE_MEPS_setup_alpha_dev.py
+RACE_MEPS_setup_alpha_dev.r
+
+5) Get to work
+
+If terminals crash
+
+1) Open bash terminal to project directory
+
+2) Run setup scripts again
+
+13:16
+Finished import to SQLite db for all household scripts. ran into a lot of issues but have a script that I am confiudent will work.
+Need to add scripts for visit level data.
+Then I can run end to end to debug.
+Then build a cleaning script in python where I pull the needed variables and generate an analytical file.
+
+14:02
+Downloaded 2018-2020 event files.
+Adding to import script.
+Moved R script and documentaiton to single year folders in docs subrepo
+
+
+

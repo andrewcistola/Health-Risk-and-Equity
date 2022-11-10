@@ -1,0 +1,142 @@
+# -----------------------------------------------------------------------------             
+# R programming statements for h220D data                                              
+#                                                                                           
+# This file contains programming statements needed to import the ASCII data                 
+# file (.dat) into R. The R programming language has the capability to produce              
+# appropriate standard errors for estimates from a survey with a complex sample             
+# design such as the Medical Expenditure Panel Survey (MEPS).                               
+#                                                       
+# The input file is the ASCII data file (h220D.dat) supplied in this PUF                
+# release, which can be extracted from the .zip file supplied at the MEPS                   
+# website: https://meps.ahrq.gov/mepsweb/data_stats/download_data_files.jsp                 
+#                                                       
+# This code imports the MEPS data into R as a data frame called 'h220D'.            
+#                                                       
+# Note that additional packages are needed to successfully run this code. To                
+# install these packages, run the 'install.packages' function (shown below).                
+# Once installed, the packages can be called using the 'library' function.                  
+# Packages only need to be installed once, but they must be called using the                
+# 'library' function every time a new R session is started.                                 
+#                                                       
+# Two options are available to run this code:                                               
+#                                                       
+#  1. Copy and paste the code into an interactive R session.                                
+#                                                       
+#     The user must first download the ASCII (.dat) file from the MEPS website              
+#     and save it to a local directory, which must be defined in the                        
+#     'meps_path' variable below. In this example, the local directory is                   
+#     called 'C:/MEPS'. Note that the path structure will differ on Mac and PC.             
+#                                                       
+#                                                       
+#  2. Call this code directly from an interactive R session.                                
+#                                                       
+#  (a) If the ASCII (.dat) file has already been downloaded from the MEPS                   
+#         website and saved to a local directory, the following code can be run             
+#         (after re-defining the 'meps_path' variable to point to the location              
+#         of the h220D.dat file.)                                   
+#                                                       
+#     meps_path <- "C:/MEPS/h220D.dat"                             
+#     source("https://meps.ahrq.gov/mepsweb/data_stats/download_data/pufs/h220D/h220Dru.txt")
+#     head(h220D) # view data                                       
+#                                                       
+#  (b) Alternatively, the ASCII (.dat) file can be downloaded directly from                 
+#         the MEPS website. The following code can be used to download and                  
+#         import the h220D data into R without having to manually download,             
+#         unzip, and store the file on your local computer.                         
+#                                                       
+#           url <- "https://meps.ahrq.gov/mepsweb/data_files/pufs/h220Ddat.zip" 
+#           download.file(url, temp <- tempfile())                              
+#                                                       
+#     meps_path <- unzip(temp, exdir = tempdir())                               
+#     source("https://meps.ahrq.gov/mepsweb/data_stats/download_data/pufs/h220D/h220Dru.txt")
+#                                                       
+#           unlink(temp)  # Unlink to delete temporary file                         
+#                                                       
+#           head(h220D) # view data                                 
+#                                                       
+# -----------------------------------------------------------------------------             
+                                                        
+# DEFINE 'meps_path' -----------------------------------------------------------            
+# 'meps_path' should point to the file path of the ASCII file (h220D.dat)               
+# Here, the 'exists' function checks whether meps_path is already defined. This             
+# feature is useful if calling this file from an external source.                           
+if(!exists("meps_path"))  meps_path = "C:/MEPS/h220D.dat"      
+
+# INSTALL PACKAGES ------------------------------------------------------------
+# Uncomment and run this portion if packages are not yet installed         
+#                                          
+# install.packages("readr")                            
+                                           
+# **************************************
+# LOAD PACKAGES ---------------------------------------------------------------
+
+# Run this for every new R session      
+
+library(readr)                          
+
+# DATA FILE INFO ------------------------------------------
+
+# Define start and end positions to read fixed-width file  
+
+
+pos_start <- c(
+1, 8, 11, 21, 37, 38, 54, 66, 68, 69, 
+73, 75, 79, 81, 84, 85, 87, 90, 92, 94, 
+96, 105, 115, 123, 132, 141, 150, 159, 167, 175, 
+183, 192, 200, 209, 219, 226, 234, 241, 249, 256, 
+263, 267, 273, 280, 287, 295, 304, 305, 317, 321)
+
+
+pos_end <- c(
+7, 10, 20, 36, 37, 53, 65, 67, 68, 72, 
+74, 78, 80, 83, 84, 86, 89, 91, 93, 95, 
+104, 114, 122, 131, 140, 149, 158, 166, 174, 182, 
+191, 199, 208, 218, 225, 233, 240, 248, 255, 262, 
+266, 272, 279, 286, 294, 303, 304, 316, 320, 321)
+
+
+var_names <- c(
+"DUID", "PID", "DUPERSID", "EVNTIDX", "EVENTRN", "ERHEVIDX", "FFEEIDX", "PANEL", "MPCDATA", "IPBEGYR", 
+"IPBEGMM", "IPENDYR", "IPENDMM", "NUMNIGHX", "EMERROOM", "SPECCOND", "RSNINHOS", "ANYOPER", "DSCHPMED", "FFIPTYPE", 
+"IPXP20X", "IPTC20X", "IPFSF20X", "IPFMR20X", "IPFMD20X", "IPFPV20X", "IPFVA20X", "IPFTR20X", "IPFOF20X", "IPFSL20X", 
+"IPFWC20X", "IPFOT20X", "IPFXP20X", "IPFTC20X", "IPDSF20X", "IPDMR20X", "IPDMD20X", "IPDPV20X", "IPDVA20X", "IPDTR20X", 
+"IPDOF20X", "IPDSL20X", "IPDWC20X", "IPDOT20X", "IPDXP20X", "IPDTC20X", "IMPFLAG", "PERWT20F", "VARSTR", "VARPSU")
+
+
+var_types <- c(
+"n", "n", "c", "c", "n", "c", "c", "n", "n", "n", 
+"n", "n", "n", "n", "n", "n", "n", "n", "n", "n", 
+"n", "n", "n", "n", "n", "n", "n", "n", "n", "n", 
+"n", "n", "n", "n", "n", "n", "n", "n", "n", "n", 
+"n", "n", "n", "n", "n", "n", "n", "n", "n", "n")
+
+
+var_types <- setNames(var_types, var_names)
+
+# IMPORT ASCII file -----------------------
+
+h220D <- read_fwf(                      
+meps_path,                                 
+     col_positions =                       
+         fwf_positions(                    
+             start = pos_start,            
+                 end   = pos_end,          
+                 col_names = var_names),   
+         col_types = var_types)            
+
+                                           
+# OPTIONAL: save as .Rdata file for easier loading ----------------------------
+# Run this to save a permanent .Rdata file in the local working directory      
+#                                          
+# save(h220D, file ="h220D.Rdata")  
+                                           
+# -----------------------------------------------------------------------------
+# NOTES:                                       
+#                                          
+#  1. This program has been tested on R version 3.6.0              
+#                                          
+#  2. This program will create a temporary data frame in R called 'h220D'.      
+#     You must run the 'save' command to permanently save the data to a local  
+#     folder                                   
+# -----------------------------------------------------------------------------
+

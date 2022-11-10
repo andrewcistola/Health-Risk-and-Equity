@@ -1,0 +1,150 @@
+# -----------------------------------------------------------------------------
+# R programming statements for h206e data
+#
+# This file contains programming statements needed to import the ASCII data 
+# file (.dat) into R. The R programming language has the capability to produce
+# appropriate standard errors for estimates from a survey with a complex sample 
+# design such as the Medical Expenditure Panel Survey (MEPS).
+# 
+# The input file is the ASCII data file (h206e.dat) supplied in this PUF 
+# release, which can be extracted from the .zip file supplied at the MEPS 
+# website: https://meps.ahrq.gov/mepsweb/data_stats/download_data_files.jsp
+#
+# This code imports the MEPS data into R as a data frame called 'h206e'.
+#  
+# Note that additional packages are needed to successfully run this code. To 
+# install these packages, run the 'install.packages' function (shown below). 
+# Once installed, the packages can be called using the 'library' function. 
+# Packages only need to be installed once, but they must be called using the 
+# 'library' function every time a new R session is started.
+#
+# Two options are available to run this code:
+#
+#  1. Copy and paste the code into an interactive R session. 
+#
+#     The user must first download the ASCII (.dat) file from the MEPS website
+#     and save it to a local directory, which must be defined in the 
+#     'meps_path' variable below. In this example, the local directory is  
+#     called "C:/MEPS". Note that the path structure will differ on Mac and PC.  
+# 
+#
+#  2. Call this code directly from an interactive R session. 
+#
+#     (a) If the ASCII (.dat) file has already been downloaded from the MEPS  
+#         website and saved to a local directory, the following code can be run 
+#         (after re-defining the 'meps_path' variable to point to the location 
+#         of the h206e.dat file.)
+#
+#           meps_path <- "C:/MEPS/h206e.dat"  
+#           source("https://meps.ahrq.gov/mepsweb/data_stats/download_data/pufs/h206e/h206eru.txt")
+#           head(h206e) # view data
+#
+#
+#     (b) Alternatively, the ASCII (.dat) file can be downloaded directly from
+#         the MEPS website. The following code can be used to download and 
+#         import the h206e data into R without having to manually download, 
+#         unzip, and store the file on your local computer.
+#
+#           url <- "https://meps.ahrq.gov/mepsweb/data_files/pufs/h206edat.zip"
+#           download.file(url, temp <- tempfile())
+#
+#           meps_path <- unzip(temp, exdir = tempdir())
+#           source("https://meps.ahrq.gov/mepsweb/data_stats/download_data/pufs/h206e/h206eru.txt")
+#
+#           unlink(temp)  # Unlink to delete temporary file
+#
+#           head(h206e) # view data
+#
+# -----------------------------------------------------------------------------
+
+
+# DEFINE 'meps_path' -----------------------------------------------------------
+# 'meps_path' should point to the file path of the ASCII file (h206e.dat) 
+# Here, the 'exists' function checks whether meps_path is already defined. This
+# feature is useful if calling this file from an external source.
+
+if(!exists("meps_path")) 
+  meps_path = "C:/MEPS/h206e.dat"  
+
+
+# INSTALL PACKAGES ------------------------------------------------------------
+# Uncomment and run this portion if packages are not yet installed
+#
+# install.packages("readr")
+
+
+# LOAD PACKAGES ---------------------------------------------------------------
+# Run this for every new R session
+
+library(readr)
+
+
+# DATA FILE INFO --------------------------------------------------------------
+
+# Define start and end positions to read fixed-width file 
+
+pos_start <- 
+  c(1, 8, 11, 21, 37, 38, 54, 66, 68, 69, 73, 75, 77, 79, 81,
+    83, 85, 87, 89, 91, 93, 95, 97, 99, 107, 116, 123, 131,
+    138, 146, 153, 160, 167, 175, 183, 190, 197, 204, 212, 221,
+    228, 235, 242, 249, 256, 263, 267, 273, 280, 287, 293, 300,
+    307, 315, 316, 328, 332)
+
+pos_end <- 
+  c(7, 10, 20, 36, 37, 53, 65, 67, 68, 72, 74, 76, 78, 80, 82,
+    84, 86, 88, 90, 92, 94, 96, 98, 106, 115, 122, 130, 137,
+    145, 152, 159, 166, 174, 182, 189, 196, 203, 211, 220, 227,
+    234, 241, 248, 255, 262, 266, 272, 279, 286, 292, 299, 306,
+    314, 315, 327, 331, 332)
+
+# Define variable names and types ('c' = character, 'n' = 'numeric') 
+
+var_names <- 
+  c("DUID", "PID", "DUPERSID", "EVNTIDX", "EVENTRN", "ERHEVIDX",
+    "FFEEIDX", "PANEL", "MPCDATA", "ERDATEYR", "ERDATEMM",
+    "VSTCTGRY", "VSTRELCN", "LABTEST_M18", "SONOGRAM_M18",
+    "XRAYS_M18", "MAMMOG_M18", "MRI_M18", "EKG_M18",
+    "RCVVAC_M18", "SURGPROC", "MEDPRESC", "FFERTYPE",
+    "ERXP18X", "ERTC18X", "ERFSF18X", "ERFMR18X", "ERFMD18X",
+    "ERFPV18X", "ERFVA18X", "ERFTR18X", "ERFOF18X", "ERFSL18X",
+    "ERFWC18X", "ERFOR18X", "ERFOU18X", "ERFOT18X", "ERFXP18X",
+    "ERFTC18X", "ERDSF18X", "ERDMR18X", "ERDMD18X", "ERDPV18X",
+    "ERDVA18X", "ERDTR18X", "ERDOF18X", "ERDSL18X", "ERDWC18X",
+    "ERDOR18X", "ERDOU18X", "ERDOT18X", "ERDXP18X", "ERDTC18X",
+    "IMPFLAG", "PERWT18F", "VARSTR", "VARPSU")
+
+var_types <- 
+  c("n", "n", "c", "c", "n", "c", "c", "n", "n", "n", "n", "n",
+    "n", "n", "n", "n", "n", "n", "n", "n", "n", "n", "n", "n",
+    "n", "n", "n", "n", "n", "n", "n", "n", "n", "n", "n", "n",
+    "n", "n", "n", "n", "n", "n", "n", "n", "n", "n", "n", "n",
+    "n", "n", "n", "n", "n", "n", "n", "n", "n")
+
+var_types <- setNames(var_types, var_names)
+
+# IMPORT ASCII (.dat) file ----------------------------------------------------
+
+h206e <- read_fwf(
+  meps_path,
+  col_positions = 
+    fwf_positions(
+      start = pos_start, 
+      end   = pos_end, 
+      col_names = var_names),
+  col_types = var_types)
+
+
+# OPTIONAL: save as .Rdata file for easier loading ----------------------------
+# Run this to save a permanent .Rdata file in the local working directory
+#
+# save(h206e, file = "h206e.Rdata")
+
+# -----------------------------------------------------------------------------
+# NOTES:
+# 
+#  1. This program has been tested on R version 3.6.0
+#
+#  2. This program will create a temporary data frame in R called 'h206e'.
+#     You must run the 'save' command to permanently save the data to a local
+#     folder
+# -----------------------------------------------------------------------------

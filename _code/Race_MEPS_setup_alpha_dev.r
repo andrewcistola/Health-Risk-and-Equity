@@ -2,7 +2,7 @@
 
 ## Libraries
 
-### Hadley Wickham
+## Data Sceience Basics
 library(tidyverse) # All of the libraries above in one line of code
 
 ### SQL
@@ -50,7 +50,7 @@ library(spatstat)
 ## Variables
 
 ### Standard Variables
-label_home = 'C://Users//'
+label_home = 'C://Users'
 label_user = 'drewc'
 label_character = 'neville'
 label_project = 'Health-Risk-and-Equity'
@@ -66,27 +66,21 @@ desc_reference = filter(df, Label == 'desc_reference')$Value
 desc_notes = filter(df, Label == 'desc_notes')$Value
 desc_status = filter(df, Label == 'desc_status')$Value
 desc_time = filter(df, Label == 'desc_time')$Value
-label_home = filter(df, Label == 'label_home')$Value
-label_user = filter(df, Label == 'label_user')$Value
-label_character = filter(df, Label == 'label_character')$Value
-label_project = filter(df, Label == 'label_project')$Value
-label_topic = filter(df, Label == 'label_topic')$Value
 label_subject = filter(df, Label == 'label_subject')$Value
 label_jobs = filter(df, Label == 'label_jobs')$Value
 label_version = filter(df, Label == 'label_version')$Value
 label_status = filter(df, Label == 'label_status')$Value
 label_reference = filter(df, Label == 'label_reference')$Value
-label_dir = filter(df, Label == 'label_dir')$Value
 label_time = filter(df, Label == 'label_time')$Value
 label_name = filter(df, Label == 'label_name')$Value
 
 ## Files
 
+### Directories
+setwd(paste(label_home, label_user, label_character, label_project, sep = '//'))
+
 ### Database
-db_con = dbConnect(RSQLite::SQLite(), paste(label_topic, '/_wrap/', label_name, '.db')) # create a connection to the postgres database
-
-
-
+db_con = dbConnect(RSQLite::SQLite(), paste(label_topic, '_wrap', label_name, 'database.db', sep = '//')) # create a connection to the postgres database
 
 # Import
 

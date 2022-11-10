@@ -44,15 +44,15 @@
 #         import the h224 data into R without having to manually download,             
 #         unzip, and store the file on your local computer.                         
 #                                                       
-#           url <- "https://meps.ahrq.gov/mepsweb/data_files/pufs/h224dat.zip" 
-#           download.file(url, temp <- tempfile())                              
+url <- "https://meps.ahrq.gov/mepsweb/data_files/pufs/h224dat.zip" 
+download.file(url, temp <- tempfile())                              
 #                                                       
-#     meps_path <- unzip(temp, exdir = tempdir())                               
-#     source("https://meps.ahrq.gov/mepsweb/data_stats/download_data/pufs/h224/h224ru.txt")
+meps_path <- unzip(temp, exdir = tempdir())                               
+source("https://meps.ahrq.gov/mepsweb/data_stats/download_data/pufs/h224/h224ru.txt")
 #                                                       
-#           unlink(temp)  # Unlink to delete temporary file                         
+unlink(temp)  # Unlink to delete temporary file                         
 #                                                       
-#           head(h224) # view data                                 
+head(h224) # view data                                 
 #                                                       
 # -----------------------------------------------------------------------------             
                                                         
@@ -692,7 +692,7 @@ meps_path,
 # OPTIONAL: save as .Rdata file for easier loading ----------------------------
 # Run this to save a permanent .Rdata file in the local working directory      
 #                                          
-# save(h224, file ="h224.Rdata")  
+save(h224, file ="h224.Rdata")  
                                            
 # -----------------------------------------------------------------------------
 # NOTES:                                       

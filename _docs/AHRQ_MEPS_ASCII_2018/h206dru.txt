@@ -1,0 +1,149 @@
+# -----------------------------------------------------------------------------
+# R programming statements for h206d data
+#
+# This file contains programming statements needed to import the ASCII data 
+# file (.dat) into R. The R programming language has the capability to produce
+# appropriate standard errors for estimates from a survey with a complex sample 
+# design such as the Medical Expenditure Panel Survey (MEPS).
+# 
+# The input file is the ASCII data file (h206d.dat) supplied in this PUF 
+# release, which can be extracted from the .zip file supplied at the MEPS 
+# website: https://meps.ahrq.gov/mepsweb/data_stats/download_data_files.jsp
+#
+# This code imports the MEPS data into R as a data frame called 'h206d'.
+#  
+# Note that additional packages are needed to successfully run this code. To 
+# install these packages, run the 'install.packages' function (shown below). 
+# Once installed, the packages can be called using the 'library' function. 
+# Packages only need to be installed once, but they must be called using the 
+# 'library' function every time a new R session is started.
+#
+# Two options are available to run this code:
+#
+#  1. Copy and paste the code into an interactive R session. 
+#
+#     The user must first download the ASCII (.dat) file from the MEPS website
+#     and save it to a local directory, which must be defined in the 
+#     'meps_path' variable below. In this example, the local directory is  
+#     called "C:/MEPS". Note that the path structure will differ on Mac and PC.  
+# 
+#
+#  2. Call this code directly from an interactive R session. 
+#
+#     (a) If the ASCII (.dat) file has already been downloaded from the MEPS  
+#         website and saved to a local directory, the following code can be run 
+#         (after re-defining the 'meps_path' variable to point to the location 
+#         of the h206d.dat file.)
+#
+#           meps_path <- "C:/MEPS/h206d.dat"  
+#           source("https://meps.ahrq.gov/mepsweb/data_stats/download_data/pufs/h206d/h206dru.txt")
+#           head(h206d) # view data
+#
+#
+#     (b) Alternatively, the ASCII (.dat) file can be downloaded directly from
+#         the MEPS website. The following code can be used to download and 
+#         import the h206d data into R without having to manually download, 
+#         unzip, and store the file on your local computer.
+#
+#           url <- "https://meps.ahrq.gov/mepsweb/data_files/pufs/h206ddat.zip"
+#           download.file(url, temp <- tempfile())
+#
+#           meps_path <- unzip(temp, exdir = tempdir())
+#           source("https://meps.ahrq.gov/mepsweb/data_stats/download_data/pufs/h206d/h206dru.txt")
+#
+#           unlink(temp)  # Unlink to delete temporary file
+#
+#           head(h206d) # view data
+#
+# -----------------------------------------------------------------------------
+
+
+# DEFINE 'meps_path' -----------------------------------------------------------
+# 'meps_path' should point to the file path of the ASCII file (h206d.dat) 
+# Here, the 'exists' function checks whether meps_path is already defined. This
+# feature is useful if calling this file from an external source.
+
+if(!exists("meps_path")) 
+  meps_path = "C:/MEPS/h206d.dat"  
+
+
+# INSTALL PACKAGES ------------------------------------------------------------
+# Uncomment and run this portion if packages are not yet installed
+#
+# install.packages("readr")
+
+
+# LOAD PACKAGES ---------------------------------------------------------------
+# Run this for every new R session
+
+library(readr)
+
+
+# DATA FILE INFO --------------------------------------------------------------
+
+# Define start and end positions to read fixed-width file 
+
+pos_start <- 
+  c(1, 8, 11, 21, 37, 38, 54, 66, 68, 69, 73, 75, 79, 81, 84,
+    85, 87, 89, 91, 93, 95, 104, 114, 122, 131, 140, 149, 158,
+    166, 174, 182, 190, 198, 206, 215, 224, 234, 241, 248, 256,
+    264, 272, 279, 283, 289, 296, 303, 310, 318, 326, 334, 335,
+    347, 351)
+
+pos_end <- 
+  c(7, 10, 20, 36, 37, 53, 65, 67, 68, 72, 74, 78, 80, 83, 84,
+    86, 88, 90, 92, 94, 103, 113, 121, 130, 139, 148, 157, 165,
+    173, 181, 189, 197, 205, 214, 223, 233, 240, 247, 255, 263,
+    271, 278, 282, 288, 295, 302, 309, 317, 325, 333, 334, 346,
+    350, 351)
+
+# Define variable names and types ('c' = character, 'n' = 'numeric') 
+
+var_names <- 
+  c("DUID", "PID", "DUPERSID", "EVNTIDX", "EVENTRN", "ERHEVIDX",
+    "FFEEIDX", "PANEL", "MPCDATA", "IPBEGYR", "IPBEGMM",
+    "IPENDYR", "IPENDMM", "NUMNIGHX", "EMERROOM", "SPECCOND",
+    "RSNINHOS", "ANYOPER", "DSCHPMED", "FFIPTYPE", "IPXP18X",
+    "IPTC18X", "IPFSF18X", "IPFMR18X", "IPFMD18X", "IPFPV18X",
+    "IPFVA18X", "IPFTR18X", "IPFOF18X", "IPFSL18X", "IPFWC18X",
+    "IPFOR18X", "IPFOU18X", "IPFOT18X", "IPFXP18X", "IPFTC18X",
+    "IPDSF18X", "IPDMR18X", "IPDMD18X", "IPDPV18X", "IPDVA18X",
+    "IPDTR18X", "IPDOF18X", "IPDSL18X", "IPDWC18X", "IPDOR18X",
+    "IPDOU18X", "IPDOT18X", "IPDXP18X", "IPDTC18X", "IMPFLAG",
+    "PERWT18F", "VARSTR", "VARPSU")
+
+var_types <- 
+  c("n", "n", "c", "c", "n", "c", "c", "n", "n", "n", "n", "n",
+    "n", "n", "n", "n", "n", "n", "n", "n", "n", "n", "n", "n",
+    "n", "n", "n", "n", "n", "n", "n", "n", "n", "n", "n", "n",
+    "n", "n", "n", "n", "n", "n", "n", "n", "n", "n", "n", "n",
+    "n", "n", "n", "n", "n", "n")
+
+var_types <- setNames(var_types, var_names)
+
+# IMPORT ASCII (.dat) file ----------------------------------------------------
+
+h206d <- read_fwf(
+  meps_path,
+  col_positions = 
+    fwf_positions(
+      start = pos_start, 
+      end   = pos_end, 
+      col_names = var_names),
+  col_types = var_types)
+
+
+# OPTIONAL: save as .Rdata file for easier loading ----------------------------
+# Run this to save a permanent .Rdata file in the local working directory
+#
+# save(h206d, file = "h206d.Rdata")
+
+# -----------------------------------------------------------------------------
+# NOTES:
+# 
+#  1. This program has been tested on R version 3.6.0
+#
+#  2. This program will create a temporary data frame in R called 'h206d'.
+#     You must run the 'save' command to permanently save the data to a local
+#     folder
+# -----------------------------------------------------------------------------

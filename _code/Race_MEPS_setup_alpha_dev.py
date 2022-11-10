@@ -58,7 +58,7 @@ desc_status = 'In development'
 desc_time = str(datetime.datetime.now())
 
 ### Label Variables
-label_home = 'C://Users//'
+label_home = 'C://Users'
 label_user = 'drewc'
 label_character = 'neville'
 label_project = 'Health-Risk-and-Equity'
@@ -70,21 +70,20 @@ label_status = 'dev'
 label_reference = 'https://github.com/andrewcistola/Health-Risk-and_Equity.git'
 label_dir = label_home + '//' + label_user + '//' + label_character + '//' + label_project + '//'
 label_time = str(datetime.datetime.now()).replace('-', '').replace(' ', '').replace(':', '').split('.')[0]
-label_name = label_subject + '_' + label_jobs + '_' + label_version + '_' + label_status + '_' + label_time
+label_name = label_subject + '_' + label_version + '_' + label_status + '_' + label_time
 
 ## Repository
 
 ### Directories
 os.chdir(label_dir) # Set wd
-os.mkdir(label_topic + '/_tmp/')
-os.mkdir(label_topic + '/_wrap/')
-os.mkdir(label_topic + '/_tmp/' + label_name)
-os.mkdir(label_topic + '/_wrap/' + label_name)
+os.mkdir(label_topic + '//_tmp//')
+os.mkdir(label_topic + '//_wrap//')
+os.mkdir(label_topic + '//_wrap//' + label_name)
 
 ## Files
 
 ## SQlite Database
-db_con = sqlite3.connect(label_topic + '/_wrap/' + label_name + '/database.db') # Create local database file connection object
+db_con = sqlite3.connect(label_topic + '//_wrap//' + label_name + '//database.db') # Create local database file connection object
 db_cur = db_con.cursor() # Create cursor object for modidying connected database
 
 ### Variable List
@@ -136,24 +135,27 @@ df = pd.DataFrame(data = {
         , str(label_name)
         ]
      })
-df.to_csv(label_topic + '/_tmp/variables.csv', index = False)
+df.to_csv(label_topic + '//_tmp//variables.csv', index = False)
 
 ### Markdown Summary 
-text_md = open(label_topic + '/_wrap/' + label_name + '/summary.md', 'w')
+text_md = open(label_topic + '//_wrap//' + label_name + '//summary.md', 'w')
 text_md.write('# ' + desc_project + '\n')
-text_md.write('## ' + desc_title + '\n')
-text_md.write('#### ' + desc_author + '\n')
+text_md.write('#### ' + desc_title + '\n')
+text_md.write('### ' + desc_author + '\n')
 text_md.write('\n')
-text_md.write('##### ' + 'About:' + '\n')
+text_md.write('### ' + 'About' + '\n')
 text_md.write(desc_summary + '\n')
 text_md.write('\n')
-text_md.write('##### ' + 'Notes:' + '\n')
+text_md.write('#### ' + 'Notes:' + '\n')
 text_md.write(desc_notes + '\n')
 text_md.write('\n')
-text_md.write('##### ' + 'Status: ' + '\n')
+text_md.write('#### ' + 'Status: ' + '\n')
 text_md.write(desc_status + '\n') 
 text_md.write('\n')
-text_md.write('##### ' + 'Updated:' + '\n')
+text_md.write('#### ' + 'Reference: ' + '\n')
+text_md.write(desc_reference + '\n') 
+text_md.write('\n')
+text_md.write('#### ' + 'Updated:' + '\n')
 text_md.write(desc_time + '\n')
 text_md.write('\n')
 text_md.close()
@@ -163,7 +165,7 @@ df = pd.DataFrame(data = {
     'Info':             ['Project',     'Author',       'Summary',      'Reference',    'Notes',        'Updated']
     , 'Descriptive':    [desc_project,  desc_author,    desc_summary,   desc_reference, desc_notes,     desc_time]
      })
-with pd.ExcelWriter(label_topic + '\\_wrap\\' + label_name + '/results.xlsx', mode = 'w', engine = 'xlsxwriter') as writer:
+with pd.ExcelWriter(label_topic + '//_wrap//' + label_name + '//results.xlsx', mode = 'w', engine = 'xlsxwriter') as writer:
     df.to_excel(writer, sheet_name = 'Info', index = False)
 
 
