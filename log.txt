@@ -126,5 +126,8 @@ Downloaded 2018-2020 event files.
 Adding to import script.
 Moved R script and documentaiton to single year folders in docs subrepo
 
-
-
+15:49
+Updated organization of repo to use tmp and wrap differewntly and have topic/subject specific directories (with subdirectories for each version and time) within each standard subrepo.
+Runnming import script to see if it works all the way through.
+If so then push changes.
+Next stapes are to start pulling and cleaning

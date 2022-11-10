@@ -8,22 +8,22 @@ This would represent how a history of systematic racism and barriers to care cou
 Health equity efforts should be focused on neutralizing arbitrage opporunties based on defacto discrimination and instead incentivize issuers to address disparities in access to care.<br>
 With the addition of race and zip code to the EDGE server in 2025, CMS will have the ability to reform the ACA risk adjustmenr program to improve these disparities<br>
 The purpose of this study is to identify how the ACA Risk Adjustment program interacts with known health disparities in health care utilization among raical groups.<br>
-This study uses publcily available data from the Medical Expenditure Panel Survey (MEPS) from Agency for Healthcare Research and Quality (AHRQ) (2), the Area Health Resource Files (AHRF) from the Health Reseources and Services Administration (HRSA) (3). 
+This study uses publcily available data from the Medical Expenditure Panel Survey (MEPS) from Agency for Healthcare Research and Quality (AHRQ) (https://meps.ahrq.gov/mepsweb/data_stats/download_data_files.jsp), the Area Health Resource Files (AHRF) from the Health Reseources and Services Administration (HRSA) (https://data.hrsa.gov/topics/health-workforce/ahrf). 
 Evidence from this study can identify 1) Whether there is evidence that the phenomenon is present in the program 2) Avenues for reforming the program to eliminate the phenomonen<br>
 This analysis serves to fulfill part of the the requirements for the PhD in Public Health-Heath Services Research at the University of Florida.
 
 ### Contents
-`Race` Results from analysis using individual level racial identifiers
-`` Results from analysis using area level information
-`_archive` Old Content kept for reference
-`_code` Code scripts used in the analysis labeled by function
-`_data` Raw and staged data files used for analysis.
-`_docs` DOcumentation, presentations, manuscripts, references.
-`_fig` Tables, figures as single images or workbooks with results.
-`.venv` Virtual Python environment
-`log.txt` Log of activity by date and time
-`requirements_py.txt` Portable list of python libraries used in virtual environment
-`requirements_R.txt` Portable list of R libraries used in virtual environment
+`_archive` Old Content kept for reference (untracked)<br>
+`_code` Code scripts used in the analysis labeled by function<br>
+`_data` Raw and staged data files used for analysis.<br>
+`_docs` Documentation, presentations, manuscripts, references.<br>
+`_fig` Tables, figures as single images or workbooks with results.<br>
+`_tmp` Temporary files (untracked)<br>
+`_wrap` Results organized by topic, subject, version, and time.<br>
+`venv` Virtual Python environment (untracked)<br>
+`log.txt` Log of activity by date and time<br>
+`requirements_py.txt` Portable list of python libraries used in virtual environment<br>
+`requirements_R.txt` Portable list of R libraries used in virtual environment<br>
 
 ### References
 1. Dickman SL, Gaffney A, McGregor A, et al. Trends in Health Care Use Among Black and White Persons in the US, 1963-2019. JAMA Netw Open. 2022;5(6):e2217383. doi:10.1001/jamanetworkopen.2022.17383
@@ -31,7 +31,7 @@ This analysis serves to fulfill part of the the requirements for the PhD in Publ
 3. https://data.hrsa.gov/topics/health-workforce/ahrf
 
 ### Contact
-Andrew S. Cistola, MPH
+Andrew S. Cistola, MPH<br>
 andrewcistola@ufl.edu
 
 ### Updated
