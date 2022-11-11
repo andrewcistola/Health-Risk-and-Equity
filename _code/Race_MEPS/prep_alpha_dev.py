@@ -94,6 +94,7 @@ df_X3.info()
 df_Q1 = pd.merge(df_W, df_X2, on = ['PERSON_ID', 'YEAR'], how = 'inner')
 df_Q1 = pd.merge(df_Q1, df_Y2, on = ['PERSON_ID', 'YEAR'], how = 'left')
 df_Q1 = pd.merge(df_Q1, df_Z2, on = ['PERSON_ID', 'YEAR'], how = 'left')
+df_Q1.to_csv('_data//' + label_name + '//' + label_run + '//analytical_Q1.csv', index = False)
 df_Q1.info()
 
 ### Save datafram info for output
@@ -108,6 +109,7 @@ df_Q2 = pd.merge(df_Q2, df_Y2, on = ['PERSON_ID', 'YEAR'], how = 'left')
 df_Q2 = pd.merge(df_Q2, df_Z1, on = ['PERSON_ID', 'YEAR'], how = 'left')
 df_Q2 = pd.merge(df_Q2, df_Z2, on = ['PERSON_ID', 'YEAR'], how = 'left')
 df_Q2 = pd.merge(df_Q2, df_X1, on = ['PERSON_ID', 'YEAR'], how = 'left')
+df_Q2.to_csv('_data//' + label_name + '//' + label_run + '//analytical_Q2.csv', index = False)
 df_Q2.info()
 
 ### Save dataframe info for output

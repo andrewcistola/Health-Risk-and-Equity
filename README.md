@@ -8,7 +8,7 @@ This would represent how a history of systematic racism and barriers to care cou
 Health equity efforts should be focused on neutralizing arbitrage opporunties based on defacto discrimination and instead incentivize issuers to address disparities in access to care.<br>
 With the addition of race and zip code to the EDGE server in 2025, CMS will have the ability to reform the ACA risk adjustmenr program to improve these disparities<br>
 The purpose of this study is to identify how the ACA Risk Adjustment program interacts with known health disparities in health care utilization among raical groups.<br>
-This study uses publcily available data from the Medical Expenditure Panel Survey (MEPS) from Agency for Healthcare Research and Quality (AHRQ) (https://meps.ahrq.gov/mepsweb/data_stats/download_data_files.jsp), the Area Health Resource Files (AHRF) from the Health Reseources and Services Administration (HRSA) (https://data.hrsa.gov/topics/health-workforce/ahrf). 
+This study uses publcily available data from the Medical Expenditure Panel Survey (MEPS) from Agency for Healthcare Research and Quality (AHRQ) (2), the Area Health Resource Files (AHRF) from the Health Reseources and Services Administration (HRSA) (3). 
 Evidence from this study can identify 1) Whether there is evidence that the phenomenon is present in the program 2) Avenues for reforming the program to eliminate the phenomonen<br>
 This analysis serves to fulfill part of the the requirements for the PhD in Public Health-Heath Services Research at the University of Florida.
 
