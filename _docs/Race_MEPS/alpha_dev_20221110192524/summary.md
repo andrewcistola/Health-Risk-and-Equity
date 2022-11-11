@@ -15,13 +15,14 @@ In development
 github.com/andrewcistola/Health-Risk-and_Equity
 
 #### Updated:
-2022-11-10 15:48:28.795297
+2022-11-10 19:25:24.775998
 
 ### Import Results
 The following files were downloaded from https://meps.ahrq.gov/mepsweb/data_files/pufs/ and saved to a local database:
 
 ##### AHRQ MEPS 2020
 Household Consolidated File (h224)
+Medical Conditions File (h222)
 Prescribed Medicines File (h220a)
 Dental Visits File (h220b)
 Other Medical Expenditures File (h220c)
@@ -33,6 +34,7 @@ Home Health Visits File (h220h)
 
 ##### AHRQ MEPS 2019
 Household Consolidated File (h216)
+Medical Conditions File (h214)
 Prescribed Medicines File (h213a)
 Dental Visits File (h213b)
 Other Medical Expenditures File (h213c)
@@ -44,6 +46,7 @@ Home Health Visits File (h213h)
 
 ##### AHRQ MEPS 2018
 Household Consolidated File (h209)
+Medical Conditions File (h207)
 Prescribed Medicines File (h206a)
 Dental Visits File (h206b)
 Other Medical Expenditures File (h206c)
@@ -55,5 +58,3 @@ Home Health Visits File (h206h)
 
 See https://datatools.ahrq.gov/meps-hc#varexpLabel for variable explorer or https://meps.ahrq.gov/mepsweb/data_stats/download_data_files_codebook.jsp?PUFId=H224 for the full varibale list.
 
-Medical Conditions File (h222)
-Medical Conditions File (h214)

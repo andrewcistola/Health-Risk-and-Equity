@@ -1,9 +1,10 @@
 # Import
 
 ## Setup
+db_con = dbConnect(RSQLite::SQLite(), '_data//Race_MEPS//alpha_dev_20221110201226//database.db') # create a connection to the postgres database
+file = '_docs//Race_MEPS//alpha_dev_20221110201226//summary.md'
 
 ### Prepare Summary Document
-file = paste('_docs', label_name, label_run, 'summary.md', sep = '//')
 cat(paste('### ', 'Import Results', '\n', sep = ''), file = file, append = TRUE)
 cat(paste('The following files were downloaded from https://meps.ahrq.gov/mepsweb/data_files/pufs/ and saved to a local database:', '\n', sep = ''), file = file, append = TRUE)
 cat('\n', file = file, append = TRUE)
@@ -629,6 +630,53 @@ cat(paste(news, '\n', sep = ''), file = file, append = TRUE)
 df <- NULL
 print(news)
 
+### R programming statements for h222 data
+name <- 'h222'
+description <- 'Medical Conditions'
+pos_start <- c(
+1, 8, 11, 21, 23, 36, 38, 39, 42, 44, 
+46, 48, 50, 52, 54, 56, 57, 60, 63, 69, 
+75, 81, 83, 84, 87, 90, 92, 94, 107, 111)
+pos_end <- c(
+7, 10, 20, 22, 35, 37, 38, 41, 43, 45, 
+47, 49, 51, 53, 55, 56, 59, 62, 68, 74, 
+80, 82, 83, 86, 89, 91, 93, 106, 110, 111)
+var_names <- c(
+"DUID", "PID", "DUPERSID", "CONDN", "CONDIDX", "PANEL", "CONDRN", "AGEDIAG", "CRND1", "CRND2", 
+"CRND3", "CRND4", "CRND5", "CRND6", "CRND7", "INJURY", "ACCDNWRK", "ICD10CDX", "CCSR1X", "CCSR2X", 
+"CCSR3X", "HHNUM", "IPNUM", "OPNUM", "OBNUM", "ERNUM", "RXNUM", "PERWT20F", "VARSTR", "VARPSU")
+var_types <- c(
+"c", "n", "c", "n", "c", "n", "n", "n", "n", "n", 
+"n", "n", "n", "n", "n", "n", "n", "c", "c", "c", 
+"c", "n", "n", "n", "n", "n", "n", "n", "n", "n")
+
+### the ASCII (.dat) file can be downloaded directly from the MEPS website. The following code can be used to download and import the <name> data into R without having to manually download, unzip, and store the file on your local computer.
+url <- paste('https://meps.ahrq.gov/mepsweb/data_files/pufs/', name, '/', name, 'dat.zip', sep = '')
+source <- paste('https://meps.ahrq.gov/mepsweb/data_stats/download_data/pufs/', name, '/', name, 'ru.txt', sep = '')
+exdir <- paste(label_home, label_user, label_character, label_project, '_tmp', sep = '//')
+download.file(url, temp <- tempfile())
+meps_path <- unzip(temp, exdir = exdir)                             
+source(source)
+unlink(temp) # Unlink to delete temporary file
+var_types <- setNames(var_types, var_names)
+df <- read_fwf(                      
+        meps_path                            
+        , col_positions = fwf_positions(                    
+            start = pos_start            
+            , end = pos_end 
+            , col_names = var_names
+            )
+        , col_types = var_types
+        )
+save(df, file = paste(exdir, '//', name, '.Rdata', sep = ''))
+dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
+news <- paste(name, "ERROR!!!")
+if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
+cat(paste(news, '\n', sep = ''), file = file, append = TRUE)
+df <- NULL
+print(news)
+
+
 ### R programming statements for h220a data
 name <- 'h220a'
 description <- 'Prescribed Medicines'
@@ -1054,6 +1102,140 @@ var_types <- c(
 ### the ASCII (.dat) file can be downloaded directly from the MEPS website. The following code can be used to download and import the <name> data into R without having to manually download, unzip, and store the file on your local computer.
 url <- paste('https://meps.ahrq.gov/mepsweb/data_files/pufs/', name, '/', name, 'dat.zip', sep = '')
 source <- paste('https://meps.ahrq.gov/mepsweb/data_stats/download_data/pufs/', name, '/', name, 'ru.txt', sep = '')
+exdir <- paste(label_home, label_user, label_character, label_project, '_tmp', sep = '//')
+download.file(url, temp <- tempfile())
+meps_path <- unzip(temp, exdir = exdir)                             
+source(source)
+unlink(temp) # Unlink to delete temporary file
+var_types <- setNames(var_types, var_names)
+df <- read_fwf(                      
+        meps_path                            
+        , col_positions = fwf_positions(                    
+            start = pos_start            
+            , end = pos_end 
+            , col_names = var_names
+            )
+        , col_types = var_types
+        )
+save(df, file = paste(exdir, '//', name, '.Rdata', sep = ''))
+dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
+news <- paste(name, "ERROR!!!")
+if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
+cat(paste(news, '\n', sep = ''), file = file, append = TRUE)
+df <- NULL
+print(news)
+
+### R programming statements for h220h data
+name <- 'h220h'
+description <- 'Home Health Visits'
+pos_start <- c(
+1, 8, 11, 21, 37, 38, 40, 44, 46, 47, 
+49, 50, 52, 54, 56, 58, 60, 62, 64, 66, 
+68, 70, 72, 74, 76, 78, 80, 82, 84, 86, 
+88, 90, 92, 94, 96, 99, 107, 115, 123, 130, 
+137, 144, 151, 159, 166, 173, 181, 189, 190, 202, 
+206)
+pos_end <- c(
+7, 10, 20, 36, 37, 39, 43, 45, 46, 48, 
+49, 51, 53, 55, 57, 59, 61, 63, 65, 67, 
+69, 71, 73, 75, 77, 79, 81, 83, 85, 87, 
+89, 91, 93, 95, 98, 106, 114, 122, 129, 136, 
+143, 150, 158, 165, 172, 180, 188, 189, 201, 205, 
+206)
+var_names <- c(
+"DUID", "PID", "DUPERSID", "EVNTIDX", "EVENTRN", "PANEL", "HHDATEYR", "HHDATEMM", "MPCELIG", "SELFAGEN", 
+"HHTYPE", "CNA_M18", "DIETICN_M18", "IVTHP_M18", "MEDLDOC_M18", "NURPRACT_M18", "OCCUPTHP_M18", "PHYSLTHP_M18", "RESPTHP_M18", "SOCIALW_M18", 
+"SPEECTHP_M18", "HCARWRKRPROFNONE_M18", "COMPANN_M18", "HMEMAKER_M18", "HHAIDE_M18", "HOSPICE_M18", "NURAIDE_M18", "PERSONAL_M18", "HCARWRKRNONPROFNONE_M18", "VSTRELCN", 
+"FREQCY", "DAYSPWK", "DAYSPMO", "SAMESVCE_M18", "HHDAYS", "HHSF20X", "HHMR20X", "HHMD20X", "HHPV20X", "HHVA20X", 
+"HHTR20X", "HHOF20X", "HHSL20X", "HHWC20X", "HHOT20X", "HHXP20X", "HHTC20X", "IMPFLAG", "PERWT20F", "VARSTR", 
+"VARPSU")
+var_types <- c(
+"n", "n", "c", "c", "n", "n", "n", "n", "n", "n", 
+"n", "n", "n", "n", "n", "n", "n", "n", "n", "n", 
+"n", "n", "n", "n", "n", "n", "n", "n", "n", "n", 
+"n", "n", "n", "n", "n", "n", "n", "n", "n", "n", 
+"n", "n", "n", "n", "n", "n", "n", "n", "n", "n", 
+"n")
+
+### the ASCII (.dat) file can be downloaded directly from the MEPS website. The following code can be used to download and import the <name> data into R without having to manually download, unzip, and store the file on your local computer.
+url <- paste('https://meps.ahrq.gov/mepsweb/data_files/pufs/', name, '/', name, 'dat.zip', sep = '')
+source <- paste('https://meps.ahrq.gov/mepsweb/data_stats/download_data/pufs/', name, '/', name, 'ru.txt', sep = '')
+exdir <- paste(label_home, label_user, label_character, label_project, '_tmp', sep = '//')
+download.file(url, temp <- tempfile())
+meps_path <- unzip(temp, exdir = exdir)                             
+source(source)
+unlink(temp) # Unlink to delete temporary file
+var_types <- setNames(var_types, var_names)
+df <- read_fwf(                      
+        meps_path                            
+        , col_positions = fwf_positions(                    
+            start = pos_start            
+            , end = pos_end 
+            , col_names = var_names
+            )
+        , col_types = var_types
+        )
+save(df, file = paste(exdir, '//', name, '.Rdata', sep = ''))
+dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
+news <- paste(name, "ERROR!!!")
+if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
+cat(paste(news, '\n', sep = ''), file = file, append = TRUE)
+df <- NULL
+print(news)
+
+### R programming statements for h220IF1 data
+name <- 'h220if1'
+description <- 'Appendix - Condition to Event'
+pos_start <- c(
+1, 11, 24, 40, 69, 70)
+pos_end <- c(
+10, 23, 39, 68, 69, 71)
+var_names <- c(
+"DUPERSID", "CONDIDX", "EVNTIDX", "CLNKIDX", "EVENTYPE", "PANEL")
+var_types <- c(
+"c", "c", "c", "c", "n", "n")
+
+### the ASCII (.dat) file can be downloaded directly from the MEPS website. The following code can be used to download and import the <name> data into R without having to manually download, unzip, and store the file on your local computer.
+url <- paste('https://meps.ahrq.gov/mepsweb/data_files/pufs/h220i/', name, 'dat.zip', sep = '')
+source <- paste('https://meps.ahrq.gov/mepsweb/data_stats/download_data/pufs/h220i/', name, 'ru.txt', sep = '')
+exdir <- paste(label_home, label_user, label_character, label_project, '_tmp', sep = '//')
+download.file(url, temp <- tempfile())
+meps_path <- unzip(temp, exdir = exdir)                             
+source(source)
+unlink(temp) # Unlink to delete temporary file
+var_types <- setNames(var_types, var_names)
+df <- read_fwf(                      
+        meps_path                            
+        , col_positions = fwf_positions(                    
+            start = pos_start            
+            , end = pos_end 
+            , col_names = var_names
+            )
+        , col_types = var_types
+        )
+save(df, file = paste(exdir, '//', name, '.Rdata', sep = ''))
+dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
+news <- paste(name, "ERROR!!!")
+if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
+cat(paste(news, '\n', sep = ''), file = file, append = TRUE)
+df <- NULL
+print(news)
+
+### R programming statements for h220IF2 data
+name <- 'h220if2'
+description <- 'Appendix - Prescritpion to Condition'
+pos_start <- c(
+1, 11, 43, 59, 75, 76)
+pos_end <- c(
+10, 42, 58, 74, 75, 77)
+var_names <- c(
+"DUPERSID", "RXLKIDX", "EVNTIDX", "LINKIDX", "EVENTYPE", "PANEL")
+var_types <- c(
+"c", "c", "c", "c", "n", "n")
+
+### the ASCII (.dat) file can be downloaded directly from the MEPS website. The following code can be used to download and import the <name> data into R without having to manually download, unzip, and store the file on your local computer.
+url <- paste('https://meps.ahrq.gov/mepsweb/data_files/pufs/h220i/', name, 'dat.zip', sep = '')
+source <- paste('https://meps.ahrq.gov/mepsweb/data_stats/download_data/pufs/h220i/', name, 'ru.txt', sep = '')
 exdir <- paste(label_home, label_user, label_character, label_project, '_tmp', sep = '//')
 download.file(url, temp <- tempfile())
 meps_path <- unzip(temp, exdir = exdir)                             
@@ -1696,6 +1878,52 @@ cat(paste(news, '\n', sep = ''), file = file, append = TRUE)
 df <- NULL
 print(news)
 
+### R programming statements for h214 data
+name <- 'h214'
+description <- 'Medical Conditions'
+pos_start <- c(
+1, 8, 11, 21, 23, 36, 38, 39, 42, 44, 
+46, 47, 49, 51, 52, 55, 58, 64, 70, 76, 
+78, 79, 82, 85, 87, 89, 101, 105)
+pos_end <- c(
+7, 10, 20, 22, 35, 37, 38, 41, 43, 45, 
+46, 48, 50, 51, 54, 57, 63, 69, 75, 77, 
+78, 81, 84, 86, 88, 100, 104, 105)
+var_names <- c(
+"DUID", "PID", "DUPERSID", "CONDN", "CONDIDX", "PANEL", "CONDRN", "AGEDIAG", "CRND1", "CRND2", 
+"CRND3", "CRND4", "CRND5", "INJURY", "ACCDNWRK", "ICD10CDX", "CCSR1X", "CCSR2X", "CCSR3X", "HHNUM", 
+"IPNUM", "OPNUM", "OBNUM", "ERNUM", "RXNUM", "PERWT19F", "VARSTR", "VARPSU")
+var_types <- c(
+"c", "n", "c", "n", "c", "n", "n", "n", "n", "n", 
+"n", "n", "n", "n", "n", "c", "c", "c", "c", "n", 
+"n", "n", "n", "n", "n", "n", "n", "n")
+
+### the ASCII (.dat) file can be downloaded directly from the MEPS website. The following code can be used to download and import the <name> data into R without having to manually download, unzip, and store the file on your local computer.
+url <- paste('https://meps.ahrq.gov/mepsweb/data_files/pufs/', name, '/', name, 'dat.zip', sep = '')
+source <- paste('https://meps.ahrq.gov/mepsweb/data_stats/download_data/pufs/', name, '/', name, 'ru.txt', sep = '')
+exdir <- paste(label_home, label_user, label_character, label_project, '_tmp', sep = '//')
+download.file(url, temp <- tempfile())
+meps_path <- unzip(temp, exdir = exdir)                             
+source(source)
+unlink(temp) # Unlink to delete temporary file
+var_types <- setNames(var_types, var_names)
+df <- read_fwf(                      
+        meps_path                            
+        , col_positions = fwf_positions(                    
+            start = pos_start            
+            , end = pos_end 
+            , col_names = var_names
+            )
+        , col_types = var_types
+        )
+save(df, file = paste(exdir, '//', name, '.Rdata', sep = ''))
+dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
+news <- paste(name, "ERROR!!!")
+if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
+cat(paste(news, '\n', sep = ''), file = file, append = TRUE)
+df <- NULL
+print(news)
+
 ### R programming statements for h213a data
 name <- 'h213a'
 description <- 'Prescribed Medicines'
@@ -2113,6 +2341,82 @@ var_types <- c(
 ### the ASCII (.dat) file can be downloaded directly from the MEPS website. The following code can be used to download and import the <name> data into R without having to manually download, unzip, and store the file on your local computer.
 url <- paste('https://meps.ahrq.gov/mepsweb/data_files/pufs/', name, '/', name, 'dat.zip', sep = '')
 source <- paste('https://meps.ahrq.gov/mepsweb/data_stats/download_data/pufs/', name, '/', name, 'ru.txt', sep = '')
+exdir <- paste(label_home, label_user, label_character, label_project, '_tmp', sep = '//')
+download.file(url, temp <- tempfile())
+meps_path <- unzip(temp, exdir = exdir)                             
+source(source)
+unlink(temp) # Unlink to delete temporary file
+var_types <- setNames(var_types, var_names)
+df <- read_fwf(                      
+        meps_path                            
+        , col_positions = fwf_positions(                    
+            start = pos_start            
+            , end = pos_end 
+            , col_names = var_names
+            )
+        , col_types = var_types
+        )
+save(df, file = paste(exdir, '//', name, '.Rdata', sep = ''))
+dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
+news <- paste(name, "ERROR!!!")
+if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
+cat(paste(news, '\n', sep = ''), file = file, append = TRUE)
+df <- NULL
+print(news)
+
+### R programming statements for h213IF1 data
+name <- 'h213if1'
+description <- 'Appendix - Condition to Event'
+pos_start <- c(
+1, 11, 24, 40, 69, 70)
+pos_end <- c(
+10, 23, 39, 68, 69, 71)
+var_names <- c(
+"DUPERSID", "CONDIDX", "EVNTIDX", "CLNKIDX", "EVENTYPE", "PANEL")
+var_types <- c(
+"c", "c", "c", "c", "n", "n")
+
+### the ASCII (.dat) file can be downloaded directly from the MEPS website. The following code can be used to download and import the <name> data into R without having to manually download, unzip, and store the file on your local computer.
+url <- paste('https://meps.ahrq.gov/mepsweb/data_files/pufs/h213i/', name, 'dat.zip', sep = '')
+source <- paste('https://meps.ahrq.gov/mepsweb/data_stats/download_data/pufs/h213i/', name, 'ru.txt', sep = '')
+exdir <- paste(label_home, label_user, label_character, label_project, '_tmp', sep = '//')
+download.file(url, temp <- tempfile())
+meps_path <- unzip(temp, exdir = exdir)                             
+source(source)
+unlink(temp) # Unlink to delete temporary file
+var_types <- setNames(var_types, var_names)
+df <- read_fwf(                      
+        meps_path                            
+        , col_positions = fwf_positions(                    
+            start = pos_start            
+            , end = pos_end 
+            , col_names = var_names
+            )
+        , col_types = var_types
+        )
+save(df, file = paste(exdir, '//', name, '.Rdata', sep = ''))
+dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
+news <- paste(name, "ERROR!!!")
+if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
+cat(paste(news, '\n', sep = ''), file = file, append = TRUE)
+df <- NULL
+print(news)
+
+### R programming statements for h213IF2 data
+name <- 'h213if2'
+description <- 'Appendix - Prescritpion to Condition'
+pos_start <- c(
+1, 11, 43, 59, 75, 76)
+pos_end <- c(
+10, 42, 58, 74, 75, 77)
+var_names <- c(
+"DUPERSID", "RXLKIDX", "EVNTIDX", "LINKIDX", "EVENTYPE", "PANEL")
+var_types <- c(
+"c", "c", "c", "c", "n", "n")
+
+### the ASCII (.dat) file can be downloaded directly from the MEPS website. The following code can be used to download and import the <name> data into R without having to manually download, unzip, and store the file on your local computer.
+url <- paste('https://meps.ahrq.gov/mepsweb/data_files/pufs/h213i/', name, 'dat.zip', sep = '')
+source <- paste('https://meps.ahrq.gov/mepsweb/data_stats/download_data/pufs/h213i/', name, 'ru.txt', sep = '')
 exdir <- paste(label_home, label_user, label_character, label_project, '_tmp', sep = '//')
 download.file(url, temp <- tempfile())
 meps_path <- unzip(temp, exdir = exdir)                             
@@ -2779,6 +3083,52 @@ cat(paste(news, '\n', sep = ''), file = file, append = TRUE)
 df <- NULL
 print(news)
 
+### R programming statements for h207 data
+name <- 'h207'
+description <- 'Medical Conditions'
+pos_start <- c(
+1, 8, 11, 21, 23, 36, 38, 39, 42, 44, 
+46, 47, 49, 51, 52, 55, 58, 64, 70, 76, 
+78, 79, 82, 85, 87, 89, 101, 105)
+pos_end <- c(
+7, 10, 20, 22, 35, 37, 38, 41, 43, 45, 
+46, 48, 50, 51, 54, 57, 63, 69, 75, 77, 
+78, 81, 84, 86, 88, 100, 104, 105)
+var_names <- c(
+"DUID", "PID", "DUPERSID", "CONDN", "CONDIDX", "PANEL", "CONDRN", "AGEDIAG", "CRND1", "CRND2", 
+"CRND3", "CRND4", "CRND5", "INJURY", "ACCDNWRK", "ICD10CDX", "CCSR1X", "CCSR2X", "CCSR3X", "HHNUM", 
+"IPNUM", "OPNUM", "OBNUM", "ERNUM", "RXNUM", "PERWT19F", "VARSTR", "VARPSU")
+var_types <- c(
+"c", "n", "c", "n", "c", "n", "n", "n", "n", "n", 
+"n", "n", "n", "n", "n", "c", "c", "c", "c", "n", 
+"n", "n", "n", "n", "n", "n", "n", "n")
+
+### the ASCII (.dat) file can be downloaded directly from the MEPS website. The following code can be used to download and import the <name> data into R without having to manually download, unzip, and store the file on your local computer.
+url <- paste('https://meps.ahrq.gov/mepsweb/data_files/pufs/', name, '/', name, 'dat.zip', sep = '')
+source <- paste('https://meps.ahrq.gov/mepsweb/data_stats/download_data/pufs/', name, '/', name, 'ru.txt', sep = '')
+exdir <- paste(label_home, label_user, label_character, label_project, '_tmp', sep = '//')
+download.file(url, temp <- tempfile())
+meps_path <- unzip(temp, exdir = exdir)                             
+source(source)
+unlink(temp) # Unlink to delete temporary file
+var_types <- setNames(var_types, var_names)
+df <- read_fwf(                      
+        meps_path                            
+        , col_positions = fwf_positions(                    
+            start = pos_start            
+            , end = pos_end 
+            , col_names = var_names
+            )
+        , col_types = var_types
+        )
+save(df, file = paste(exdir, '//', name, '.Rdata', sep = ''))
+dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
+news <- paste(name, "ERROR!!!")
+if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
+cat(paste(news, '\n', sep = ''), file = file, append = TRUE)
+df <- NULL
+print(news)
+
 ### R programming statements for h206a data
 name <- 'h206a'
 description <- 'Prescribed Medicines'
@@ -3252,6 +3602,86 @@ if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")",
 cat(paste(news, '\n', sep = ''), file = file, append = TRUE)
 df <- NULL
 print(news)
+
+
+### R programming statements for h213IF1 data
+name <- 'h206if1'
+description <- 'Appendix - Condition to Event'
+pos_start <- 
+  c(1, 11, 24, 40, 69, 70)
+pos_end <- 
+  c(10, 23, 39, 68, 69, 71)
+var_names <- 
+  c("DUPERSID", "CONDIDX", "EVNTIDX", "CLNKIDX", "EVENTYPE",
+    "PANEL")
+var_types <- 
+  c("c", "c", "c", "c", "n", "n")
+
+### the ASCII (.dat) file can be downloaded directly from the MEPS website. The following code can be used to download and import the <name> data into R without having to manually download, unzip, and store the file on your local computer.
+url <- paste('https://meps.ahrq.gov/mepsweb/data_files/pufs/h206i/', name, 'dat.zip', sep = '')
+source <- paste('https://meps.ahrq.gov/mepsweb/data_stats/download_data/pufs/h206i/', name, 'ru.txt', sep = '')
+exdir <- paste(label_home, label_user, label_character, label_project, '_tmp', sep = '//')
+download.file(url, temp <- tempfile())
+meps_path <- unzip(temp, exdir = exdir)                             
+source(source)
+unlink(temp) # Unlink to delete temporary file
+var_types <- setNames(var_types, var_names)
+df <- read_fwf(                      
+        meps_path                            
+        , col_positions = fwf_positions(                    
+            start = pos_start            
+            , end = pos_end 
+            , col_names = var_names
+            )
+        , col_types = var_types
+        )
+save(df, file = paste(exdir, '//', name, '.Rdata', sep = ''))
+dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
+news <- paste(name, "ERROR!!!")
+if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
+cat(paste(news, '\n', sep = ''), file = file, append = TRUE)
+df <- NULL
+print(news)
+
+### R programming statements for h213IF2 data
+name <- 'h206if2'
+description <- 'Appendix - Prescritpion to Condition'
+pos_start <- 
+  c(1, 11, 43, 59, 75, 76)
+pos_end <- 
+  c(10, 42, 58, 74, 75, 77)
+var_names <- 
+  c("DUPERSID", "RXLKIDX", "EVNTIDX", "LINKIDX", "EVENTYPE",
+    "PANEL")
+var_types <- 
+  c("c", "c", "c", "c", "n", "n")
+
+### the ASCII (.dat) file can be downloaded directly from the MEPS website. The following code can be used to download and import the <name> data into R without having to manually download, unzip, and store the file on your local computer.
+url <- paste('https://meps.ahrq.gov/mepsweb/data_files/pufs/h206i/', name, 'dat.zip', sep = '')
+source <- paste('https://meps.ahrq.gov/mepsweb/data_stats/download_data/pufs/h206i/', name, 'ru.txt', sep = '')
+exdir <- paste(label_home, label_user, label_character, label_project, '_tmp', sep = '//')
+download.file(url, temp <- tempfile())
+meps_path <- unzip(temp, exdir = exdir)                             
+source(source)
+unlink(temp) # Unlink to delete temporary file
+var_types <- setNames(var_types, var_names)
+df <- read_fwf(                      
+        meps_path                            
+        , col_positions = fwf_positions(                    
+            start = pos_start            
+            , end = pos_end 
+            , col_names = var_names
+            )
+        , col_types = var_types
+        )
+save(df, file = paste(exdir, '//', name, '.Rdata', sep = ''))
+dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
+news <- paste(name, "ERROR!!!")
+if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
+cat(paste(news, '\n', sep = ''), file = file, append = TRUE)
+df <- NULL
+print(news)
+
 
 ### Reference
 cat('\n', file = file, append = TRUE)

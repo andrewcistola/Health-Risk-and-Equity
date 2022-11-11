@@ -1,0 +1,134 @@
+# -----------------------------------------------------------------------------             
+# R programming statements for h222 data                                              
+#                                                                                           
+# This file contains programming statements needed to import the ASCII data                 
+# file (.dat) into R. The R programming language has the capability to produce              
+# appropriate standard errors for estimates from a survey with a complex sample             
+# design such as the Medical Expenditure Panel Survey (MEPS).                               
+#                                                       
+# The input file is the ASCII data file (h222.dat) supplied in this PUF                
+# release, which can be extracted from the .zip file supplied at the MEPS                   
+# website: https://meps.ahrq.gov/mepsweb/data_stats/download_data_files.jsp                 
+#                                                       
+# This code imports the MEPS data into R as a data frame called 'h222'.            
+#                                                       
+# Note that additional packages are needed to successfully run this code. To                
+# install these packages, run the 'install.packages' function (shown below).                
+# Once installed, the packages can be called using the 'library' function.                  
+# Packages only need to be installed once, but they must be called using the                
+# 'library' function every time a new R session is started.                                 
+#                                                       
+# Two options are available to run this code:                                               
+#                                                       
+#  1. Copy and paste the code into an interactive R session.                                
+#                                                       
+#     The user must first download the ASCII (.dat) file from the MEPS website              
+#     and save it to a local directory, which must be defined in the                        
+#     'meps_path' variable below. In this example, the local directory is                   
+#     called 'C:/MEPS'. Note that the path structure will differ on Mac and PC.             
+#                                                       
+#                                                       
+#  2. Call this code directly from an interactive R session.                                
+#                                                       
+#  (a) If the ASCII (.dat) file has already been downloaded from the MEPS                   
+#         website and saved to a local directory, the following code can be run             
+#         (after re-defining the 'meps_path' variable to point to the location              
+#         of the h222.dat file.)                                   
+#                                                       
+#     meps_path <- "C:/MEPS/h222.dat"                             
+#     source("https://meps.ahrq.gov/mepsweb/data_stats/download_data/pufs/h222/h222ru.txt")
+#     head(h222) # view data                                       
+#                                                       
+#  (b) Alternatively, the ASCII (.dat) file can be downloaded directly from                 
+#         the MEPS website. The following code can be used to download and                  
+#         import the h222 data into R without having to manually download,             
+#         unzip, and store the file on your local computer.                         
+#                                                       
+#           url <- "https://meps.ahrq.gov/mepsweb/data_files/pufs/h222dat.zip" 
+#           download.file(url, temp <- tempfile())                              
+#                                                       
+#     meps_path <- unzip(temp, exdir = tempdir())                               
+#     source("https://meps.ahrq.gov/mepsweb/data_stats/download_data/pufs/h222/h222ru.txt")
+#                                                       
+#           unlink(temp)  # Unlink to delete temporary file                         
+#                                                       
+#           head(h222) # view data                                 
+#                                                       
+# -----------------------------------------------------------------------------             
+                                                        
+# DEFINE 'meps_path' -----------------------------------------------------------            
+# 'meps_path' should point to the file path of the ASCII file (h222.dat)               
+# Here, the 'exists' function checks whether meps_path is already defined. This             
+# feature is useful if calling this file from an external source.                           
+if(!exists("meps_path"))  meps_path = "C:/MEPS/h222.dat"      
+
+# INSTALL PACKAGES ------------------------------------------------------------
+# Uncomment and run this portion if packages are not yet installed         
+#                                          
+# install.packages("readr")                            
+                                           
+# **************************************
+# LOAD PACKAGES ---------------------------------------------------------------
+
+# Run this for every new R session      
+
+library(readr)                          
+
+# DATA FILE INFO ------------------------------------------
+
+# Define start and end positions to read fixed-width file  
+
+
+pos_start <- c(
+1, 8, 11, 21, 23, 36, 38, 39, 42, 44, 
+46, 48, 50, 52, 54, 56, 57, 60, 63, 69, 
+75, 81, 83, 84, 87, 90, 92, 94, 107, 111)
+
+
+pos_end <- c(
+7, 10, 20, 22, 35, 37, 38, 41, 43, 45, 
+47, 49, 51, 53, 55, 56, 59, 62, 68, 74, 
+80, 82, 83, 86, 89, 91, 93, 106, 110, 111)
+
+
+var_names <- c(
+"DUID", "PID", "DUPERSID", "CONDN", "CONDIDX", "PANEL", "CONDRN", "AGEDIAG", "CRND1", "CRND2", 
+"CRND3", "CRND4", "CRND5", "CRND6", "CRND7", "INJURY", "ACCDNWRK", "ICD10CDX", "CCSR1X", "CCSR2X", 
+"CCSR3X", "HHNUM", "IPNUM", "OPNUM", "OBNUM", "ERNUM", "RXNUM", "PERWT20F", "VARSTR", "VARPSU")
+
+
+var_types <- c(
+"c", "n", "c", "n", "c", "n", "n", "n", "n", "n", 
+"n", "n", "n", "n", "n", "n", "n", "c", "c", "c", 
+"c", "n", "n", "n", "n", "n", "n", "n", "n", "n")
+
+
+var_types <- setNames(var_types, var_names)
+
+# IMPORT ASCII file -----------------------
+
+h222 <- read_fwf(                      
+meps_path,                                 
+     col_positions =                       
+         fwf_positions(                    
+             start = pos_start,            
+                 end   = pos_end,          
+                 col_names = var_names),   
+         col_types = var_types)            
+
+                                           
+# OPTIONAL: save as .Rdata file for easier loading ----------------------------
+# Run this to save a permanent .Rdata file in the local working directory      
+#                                          
+# save(h222, file ="h222.Rdata")  
+                                           
+# -----------------------------------------------------------------------------
+# NOTES:                                       
+#                                          
+#  1. This program has been tested on R version 3.6.0              
+#                                          
+#  2. This program will create a temporary data frame in R called 'h222'.      
+#     You must run the 'save' command to permanently save the data to a local  
+#     folder                                   
+# -----------------------------------------------------------------------------
+

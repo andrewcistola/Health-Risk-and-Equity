@@ -62,6 +62,3 @@ setwd(paste(label_home, label_user, label_character, label_project, sep = '//'))
 
 ### Database
 db_con = dbConnect(RSQLite::SQLite(), paste('_data', label_name, label_run, 'database.db', sep = '//')) # create a connection to the postgres database
-
-# Import
-
