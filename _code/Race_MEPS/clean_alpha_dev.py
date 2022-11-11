@@ -1,9 +1,7 @@
 # Clean
 
-## SQlite Database in data subrepo
-db_con = sqlite3.connect('_data//Race_MEPS//alpha_dev_20221110201226//database.db') # Create local database file connection object
-
 ### Query all individuals with marketplace coverage for full year in age range
+label_query = 'households'
 QUERY = """
     SELECT
         2020 AS YEAR
@@ -52,9 +50,10 @@ QUERY = """
     """
 df_W = pd.read_sql_query(QUERY, db_con)
 df_W
-df_W.to_csv('_data//Race_MEPS//alpha_dev_20221110201226//households.csv', index = False)
+df_W.to_csv('_data//' + label_name + '//' + label_run + '//' + label_query + '.csv', index = False)
 
 ### Query all events that match ID for given year from each setting
+label_query = 'conditions'
 QUERY = """
     SELECT
         2020 AS YEAR
@@ -109,9 +108,10 @@ QUERY = """
     """
 df_X = pd.read_sql_query(QUERY, db_con)
 df_X
-df_X.to_csv('_data//Race_MEPS//alpha_dev_20221110201226//conditions.csv', index = False)
+df_X.to_csv('_data//' + label_name + '//' + label_run + '//' + label_query + '.csv', index = False)
 
 ### Query all events that match ID for given year from each setting
+label_query = 'events'
 QUERY = """
     SELECT
         2020 AS YEAR
@@ -548,10 +548,13 @@ QUERY = """
         ON SQ.DUPERSID = H.DUPERSID
     """
 df_Y = pd.read_sql_query(QUERY, db_con)
+df_Y = df_Y[df_Y['SETTING'] != 'DENTAL'] # Drop rows by condition
+df_Y = df_Y.dropna()
 df_Y
-df_Y.to_csv('_data//Race_MEPS//alpha_dev_20221110201226//events.csv', index = False)
+df_Y.to_csv('_data//' + label_name + '//' + label_run + '//' + label_query + '.csv', index = False)
 
 ### Query all events that match ID for given year from each setting
+label_query = 'appendix'
 QUERY = """
     SELECT
         2020 AS YEAR
@@ -606,11 +609,104 @@ QUERY = """
     """
 df_Z = pd.read_sql_query(QUERY, db_con)
 df_Z
-df_Z.to_csv('_data//Race_MEPS//alpha_dev_20221110201226//appendix.csv', index = False)
+df_Z.to_csv('_data//' + label_name + '//' + label_run + '//' + label_query + '.csv', index = False)
 
-### Merge to build table for calculating risk scores
+### Merge to build clean table
 df_XZ = pd.merge(df_Z, df_X.filter(['YEAR', 'CONDITION_ID', 'EVENT_ID', 'ICD10']), on = ['YEAR', 'CONDITION_ID'], how = 'left')
-df_XZ = df_XZ.filter(['YEAR', 'PERSON_ID', 'ICD10'])
-df_XZ = df_XZ.drop_duplicates()
-df_WXZ = pd.merge(df_W, df_XZ, on = ['YEAR', 'PERSON_ID'], how = 'left')
-df_WXZ.to_csv('_data//Race_MEPS//alpha_dev_20221110201226//clean.csv', index = False)
+df_XZ = df_XZ.filter(['PERSON_ID', 'CONDITION_ID', 'EVENT_ID', 'YEAR', 'ICD10'])
+df_XYZ = pd.merge(df_XZ, df_Y.filter(['EVENT_ID', 'SETTING', 'PAID']), on = ['EVENT_ID'], how = 'left')
+df_WXYZ = pd.merge(df_W, df_XYZ, on = ['YEAR', 'PERSON_ID'], how = 'left')
+df_WXYZ.to_csv('_data//' + label_name + '//' + label_run + '//clean.csv', index = False)
+
+### Save datafram info for output
+buffer = io.StringIO()
+df_WXYZ.info(buf = buffer)
+info = buffer.getvalue()
+
+### Clean Memory
+df_W = []
+df_X = []
+df_Y = []
+df_Z = []
+df_WY = []
+df_XZ = []
+#df_WXYZ = []
+
+### Markdown Summary in docs subrepo
+text_md = open('_docs//' + label_name + '//' + label_run + '//summary.md', 'a')
+text_md.write('### ' + 'Data Cleaning Summary' + '\n')
+text_md.write('Raw data was subset for the following conditions:' + '\n')
+text_md.write('\n')
+text_md.write('##### ' + 'Households' + '\n')
+text_md.write('Individuals 26-64 with marketplace coverage for full year' + '\n')
+text_md.write("""
+    SELECT
+        2020 AS YEAR # Repeated for each year
+        , DUPERSID AS PERSON_ID
+        , AGELAST AS AGE
+        , SEX
+        , RACETHX AS RACE
+        , POVCAT20 AS FPL_GROUP
+        , POVLEV20 AS FPL_PERCENT
+    FROM h224 W # Repeated for each household year file
+    WHERE
+        AGELAST > 25
+        AND AGELAST < 65
+        AND PRSTX20 = 1 # Variable name charges for each year
+        AND INSCOV20 = 1 # Variable name charges for each year
+    """ + '\n')
+text_md.write('\n')
+text_md.write('##### ' + 'Events' + '\n')
+text_md.write('Non-Dental events for year individual has marketpalce coverage' + '\n')
+text_md.write(""" 
+    SELECT
+        2020 AS YEAR # Repeated for each year
+        , SQ.DUPERSID AS PERSON_ID
+        , 'OUTPATIENT' AS SETTING
+        , F.EVNTIDX AS EVENT_ID
+        , F.OPFPV20X + F.OPDPV20X AS PAID # Combined Doctor and facility payments from privtae insurers for settings that provided both (variable name changes each year)
+    FROM (
+        SELECT DISTINCT Y.DUPERSID 
+        FROM h224 Y # Repeated for each household year file
+        WHERE
+            Y.AGELAST > 25
+            AND Y.AGELAST < 65
+            AND Y.PRSTX20 = 1 # Variable name charges for each year
+            AND Y.INSCOV20 = 1 # Variable name charges for each year
+        ) SQ
+    LEFT JOIN h220f F # Repeated for each event file in year
+        ON SQ.DUPERSID = F.DUPERSID
+
+Then paid amounts were summed by person and year and joined to household records (exclduing dental).
+The setting of the event for each condition was also collected for each event that documented a ICD10 code.
+
+    """ + '\n')
+text_md.write('\n')
+text_md.write('##### ' + 'Conditions' + '\n')
+text_md.write('Any for individual in same year as marketpalce coverage' + '\n')
+text_md.write("""
+    SELECT
+        2020 AS YEAR # Repeated for each year
+        , SQ.DUPERSID AS PERSON_ID
+        , Z.CONDIDX AS CONDITION_ID
+        , Z.EVNTIDX AS EVENT_ID
+    FROM (
+        SELECT DISTINCT DUPERSID 
+        FROM h224 # Repeated for each household year file
+        WHERE
+            AGELAST > 25
+            AND AGELAST < 65
+            AND PRSTX20 = 1 # Variable name charges for each year
+            AND INSCOV20 = 1 # Variable name charges for each year
+        ) SQ
+    LEFT JOIN h220if1 Z # Repeated for each appendix file
+        ON SQ.DUPERSID = Z.DUPERSID
+
+All distinct conditions were kept and joined to household records.
+    """ + '\n')
+text_md.write('\n')
+text_md.write('Final Data for analysis-' + '\n')
+text_md.write('\n')
+text_md.write(info)
+text_md.write('\n')
+text_md.close()

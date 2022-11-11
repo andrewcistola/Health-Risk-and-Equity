@@ -1,10 +1,7 @@
 # Import
 
-## Setup
-db_con = dbConnect(RSQLite::SQLite(), '_data//Race_MEPS//alpha_dev_20221110201226//database.db') # create a connection to the postgres database
-file = '_docs//Race_MEPS//alpha_dev_20221110201226//summary.md'
-
 ### Prepare Summary Document
+file = paste('_docs', label_name, label_run, 'summary.md', sep = '//')
 cat(paste('### ', 'Import Results', '\n', sep = ''), file = file, append = TRUE)
 cat(paste('The following files were downloaded from https://meps.ahrq.gov/mepsweb/data_files/pufs/ and saved to a local database:', '\n', sep = ''), file = file, append = TRUE)
 cat('\n', file = file, append = TRUE)
@@ -622,7 +619,6 @@ df <- read_fwf(
             )
         , col_types = var_types
         )
-save(df, file = paste(exdir, '//', name, '.Rdata', sep = ''))
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
@@ -668,7 +664,6 @@ df <- read_fwf(
             )
         , col_types = var_types
         )
-save(df, file = paste(exdir, '//', name, '.Rdata', sep = ''))
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
@@ -731,7 +726,6 @@ df <- read_fwf(
             )
         , col_types = var_types
         )
-save(df, file = paste(exdir, '//', name, '.Rdata', sep = ''))
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
@@ -789,7 +783,6 @@ df <- read_fwf(
             )
         , col_types = var_types
         )
-save(df, file = paste(exdir, '//', name, '.Rdata', sep = ''))
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
@@ -835,7 +828,6 @@ df <- read_fwf(
             )
         , col_types = var_types
         )
-save(df, file = paste(exdir, '//', name, '.Rdata', sep = ''))
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
@@ -889,7 +881,6 @@ df <- read_fwf(
             )
         , col_types = var_types
         )
-save(df, file = paste(exdir, '//', name, '.Rdata', sep = ''))
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
@@ -947,7 +938,6 @@ df <- read_fwf(
             )
         , col_types = var_types
         )
-save(df, file = paste(exdir, '//', name, '.Rdata', sep = ''))
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
@@ -1005,7 +995,6 @@ df <- read_fwf(
             )
         , col_types = var_types
         )
-save(df, file = paste(exdir, '//', name, '.Rdata', sep = ''))
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
@@ -1059,7 +1048,6 @@ df <- read_fwf(
             )
         , col_types = var_types
         )
-save(df, file = paste(exdir, '//', name, '.Rdata', sep = ''))
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
@@ -1117,7 +1105,6 @@ df <- read_fwf(
             )
         , col_types = var_types
         )
-save(df, file = paste(exdir, '//', name, '.Rdata', sep = ''))
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
@@ -1175,7 +1162,6 @@ df <- read_fwf(
             )
         , col_types = var_types
         )
-save(df, file = paste(exdir, '//', name, '.Rdata', sep = ''))
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
@@ -1213,7 +1199,6 @@ df <- read_fwf(
             )
         , col_types = var_types
         )
-save(df, file = paste(exdir, '//', name, '.Rdata', sep = ''))
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
@@ -1251,7 +1236,6 @@ df <- read_fwf(
             )
         , col_types = var_types
         )
-save(df, file = paste(exdir, '//', name, '.Rdata', sep = ''))
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
@@ -1870,7 +1854,6 @@ df <- read_fwf(
             )
         , col_types = var_types
         )
-save(df, file = paste(exdir, '//', name, '.Rdata', sep = ''))
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
@@ -1916,7 +1899,6 @@ df <- read_fwf(
             )
         , col_types = var_types
         )
-save(df, file = paste(exdir, '//', name, '.Rdata', sep = ''))
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
@@ -1970,7 +1952,6 @@ df <- read_fwf(
             )
         , col_types = var_types
         )
-save(df, file = paste(exdir, '//', name, '.Rdata', sep = ''))
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
@@ -2028,7 +2009,6 @@ df <- read_fwf(
             )
         , col_types = var_types
         )
-save(df, file = paste(exdir, '//', name, '.Rdata', sep = ''))
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
@@ -2074,7 +2054,6 @@ df <- read_fwf(
             )
         , col_types = var_types
         )
-save(df, file = paste(exdir, '//', name, '.Rdata', sep = ''))
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
@@ -2128,7 +2107,6 @@ df <- read_fwf(
             )
         , col_types = var_types
         )
-save(df, file = paste(exdir, '//', name, '.Rdata', sep = ''))
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
@@ -2186,7 +2164,6 @@ df <- read_fwf(
             )
         , col_types = var_types
         )
-save(df, file = paste(exdir, '//', name, '.Rdata', sep = ''))
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
@@ -2244,7 +2221,6 @@ df <- read_fwf(
             )
         , col_types = var_types
         )
-save(df, file = paste(exdir, '//', name, '.Rdata', sep = ''))
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
@@ -2298,7 +2274,6 @@ df <- read_fwf(
             )
         , col_types = var_types
         )
-save(df, file = paste(exdir, '//', name, '.Rdata', sep = ''))
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
@@ -2356,7 +2331,6 @@ df <- read_fwf(
             )
         , col_types = var_types
         )
-save(df, file = paste(exdir, '//', name, '.Rdata', sep = ''))
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
@@ -2394,7 +2368,6 @@ df <- read_fwf(
             )
         , col_types = var_types
         )
-save(df, file = paste(exdir, '//', name, '.Rdata', sep = ''))
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
@@ -2432,7 +2405,6 @@ df <- read_fwf(
             )
         , col_types = var_types
         )
-save(df, file = paste(exdir, '//', name, '.Rdata', sep = ''))
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
@@ -3075,7 +3047,6 @@ df <- read_fwf(
             )
         , col_types = var_types
         )
-save(df, file = paste(exdir, '//', name, '.Rdata', sep = ''))
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
@@ -3121,7 +3092,6 @@ df <- read_fwf(
             )
         , col_types = var_types
         )
-save(df, file = paste(exdir, '//', name, '.Rdata', sep = ''))
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
@@ -3186,7 +3156,6 @@ df <- read_fwf(
             )
         , col_types = var_types
         )
-save(df, file = paste(exdir, '//', name, '.Rdata', sep = ''))
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
@@ -3249,7 +3218,6 @@ df <- read_fwf(
             )
         , col_types = var_types
         )
-save(df, file = paste(exdir, '//', name, '.Rdata', sep = ''))
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
@@ -3295,7 +3263,6 @@ df <- read_fwf(
             )
         , col_types = var_types
         )
-save(df, file = paste(exdir, '//', name, '.Rdata', sep = ''))
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
@@ -3355,7 +3322,6 @@ df <- read_fwf(
             )
         , col_types = var_types
         )
-save(df, file = paste(exdir, '//', name, '.Rdata', sep = ''))
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
@@ -3416,7 +3382,6 @@ df <- read_fwf(
             )
         , col_types = var_types
         )
-save(df, file = paste(exdir, '//', name, '.Rdata', sep = ''))
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
@@ -3478,7 +3443,6 @@ df <- read_fwf(
             )
         , col_types = var_types
         )
-save(df, file = paste(exdir, '//', name, '.Rdata', sep = ''))
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
@@ -3534,7 +3498,6 @@ df <- read_fwf(
             )
         , col_types = var_types
         )
-save(df, file = paste(exdir, '//', name, '.Rdata', sep = ''))
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
@@ -3595,7 +3558,6 @@ df <- read_fwf(
             )
         , col_types = var_types
         )
-save(df, file = paste(exdir, '//', name, '.Rdata', sep = ''))
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
@@ -3635,7 +3597,6 @@ df <- read_fwf(
             )
         , col_types = var_types
         )
-save(df, file = paste(exdir, '//', name, '.Rdata', sep = ''))
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
@@ -3674,7 +3635,6 @@ df <- read_fwf(
             )
         , col_types = var_types
         )
-save(df, file = paste(exdir, '//', name, '.Rdata', sep = ''))
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')

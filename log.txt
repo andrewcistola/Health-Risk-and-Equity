@@ -136,3 +136,15 @@ Next stapes are to start pulling and cleaning
 Wrote cleaning script for person and event files. However I will need to gather and link the condition files. 
 Also, need to identify whether i will ahve enough info for risk scores
 Next steps are to gather files, update the import script and then add to celaning script.
+
+22:03
+Finished cleaning script and data is now available to calculate risk scores.
+Will have to mopdify Table 3 to use only first three ICD10 code indicators.
+
+2022 Nov 11 12:28
+Finished script for calculating all variablers for analytical files.
+Assembled files for a regresison model and for a machine learning model. 
+Still need to calculate risk scores from DIY files (listed steps in calc sript)
+ICD10 and visit count available as proxy for risk score for preliminary analysis. 
+Next steps are to build regression models in R and machine learning models in python
+Then vizualize results and report. 
