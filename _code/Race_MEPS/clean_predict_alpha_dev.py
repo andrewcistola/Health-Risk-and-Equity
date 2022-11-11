@@ -52,8 +52,7 @@ QUERY = """
     """
 df_W = pd.read_sql_query(QUERY, db_con)
 df_W
-with pd.ExcelWriter('_fig//Race_MEPS//alpha_dev_20221110201226//results.xlsx', mode = 'a', engine = 'xlsxwriter') as writer:
-    df_W.to_excel(writer, sheet_name = 'Households', index = False)
+df_W.to_csv('_data//Race_MEPS//alpha_dev_20221110201226//households.csv', index = False)
 
 ### Query all events that match ID for given year from each setting
 QUERY = """
@@ -61,6 +60,7 @@ QUERY = """
         2020 AS YEAR
         , SQ.DUPERSID AS PERSON_ID
         , X.ICD10CDX AS ICD10
+        , CONDIDX AS CONDITION_ID
     FROM (
         SELECT DISTINCT DUPERSID 
         FROM h224
@@ -77,6 +77,7 @@ QUERY = """
         2019 AS YEAR
         , SQ.DUPERSID AS PERSON_ID
         , X.ICD10CDX AS ICD10
+        , CONDIDX AS CONDITION_ID
     FROM (
         SELECT DISTINCT DUPERSID 
         FROM h216
@@ -93,6 +94,7 @@ QUERY = """
         2018 AS YEAR
         , SQ.DUPERSID AS PERSON_ID
         , X.ICD10CDX AS ICD10
+        , CONDIDX AS CONDITION_ID
     FROM (
         SELECT DISTINCT DUPERSID 
         FROM h209
@@ -107,8 +109,7 @@ QUERY = """
     """
 df_X = pd.read_sql_query(QUERY, db_con)
 df_X
-with pd.ExcelWriter('_fig//Race_MEPS//alpha_dev_20221110201226//results.xlsx', mode = 'a', engine = 'xlsxwriter') as writer:
-    df_X.to_excel(writer, sheet_name = 'Conditions', index = False)
+df_X.to_csv('_data//Race_MEPS//alpha_dev_20221110201226//conditions.csv', index = False)
 
 ### Query all events that match ID for given year from each setting
 QUERY = """
@@ -116,7 +117,7 @@ QUERY = """
         2020 AS YEAR
         , SQ.DUPERSID AS PERSON_ID
         , 'RX' AS SETTING
-        , A.LINKIDX AS EVENTID
+        , A.LINKIDX AS EVENT_ID
         , A.RXPV20X AS PAID
     FROM (
         SELECT DISTINCT Y.DUPERSID 
@@ -134,7 +135,7 @@ QUERY = """
         2020 AS YEAR
         , SQ.DUPERSID AS PERSON_ID
         , 'DENTAL' AS SETTING
-        , B.EVNTIDX AS EVENTID
+        , B.EVNTIDX AS EVENT_ID
         , B.DVPV20X AS PAID
     FROM (
         SELECT DISTINCT Y.DUPERSID 
@@ -152,7 +153,7 @@ QUERY = """
         2020 AS YEAR
         , SQ.DUPERSID AS PERSON_ID
         , 'OTHER' AS SETTING
-        , C.EVNTIDX AS EVENTID
+        , C.EVNTIDX AS EVENT_ID
         , C.OMPV20X AS PAID
     FROM (
         SELECT DISTINCT Y.DUPERSID 
@@ -170,7 +171,7 @@ QUERY = """
         2020 AS YEAR
         , SQ.DUPERSID AS PERSON_ID
         , 'INPATIENT' AS SETTING
-        , D.EVNTIDX AS EVENTID
+        , D.EVNTIDX AS EVENT_ID
         , D.IPFPV20X + D.IPDPV20X AS PAID
     FROM (
         SELECT DISTINCT Y.DUPERSID 
@@ -188,7 +189,7 @@ QUERY = """
         2020 AS YEAR
         , SQ.DUPERSID AS PERSON_ID
         , 'ER' AS SETTING
-        , E.EVNTIDX AS EVENTID
+        , E.EVNTIDX AS EVENT_ID
         , E.ERFPV20X + E.ERDPV20X AS PAID
     FROM (
         SELECT DISTINCT Y.DUPERSID 
@@ -206,7 +207,7 @@ QUERY = """
         2020 AS YEAR
         , SQ.DUPERSID AS PERSON_ID
         , 'OUTPATIENT' AS SETTING
-        , F.EVNTIDX AS EVENTID
+        , F.EVNTIDX AS EVENT_ID
         , F.OPFPV20X + F.OPDPV20X AS PAID
     FROM (
         SELECT DISTINCT Y.DUPERSID 
@@ -224,7 +225,7 @@ QUERY = """
         2020 AS YEAR
         , SQ.DUPERSID AS PERSON_ID
         , 'OFFICE' AS SETTING
-        , G.EVNTIDX AS EVENTID
+        , G.EVNTIDX AS EVENT_ID
         , G.OBPV20X AS PAID
     FROM (
         SELECT DISTINCT Y.DUPERSID 
@@ -242,7 +243,7 @@ QUERY = """
         2020 AS YEAR
         , SQ.DUPERSID AS PERSON_ID
         , 'HOME' AS SETTING
-        , H.EVNTIDX AS EVENTID
+        , H.EVNTIDX AS EVENT_ID
         , H.HHPV20X AS PAID
     FROM (
         SELECT DISTINCT Y.DUPERSID 
@@ -261,7 +262,7 @@ QUERY = """
         2019 AS YEAR
         , SQ.DUPERSID AS PERSON_ID
         , 'RX' AS SETTING
-        , A.LINKIDX AS EVENTID
+        , A.LINKIDX AS EVENT_ID
         , A.RXPV19X AS PAID
     FROM (
         SELECT DISTINCT Y.DUPERSID 
@@ -279,7 +280,7 @@ QUERY = """
         2019 AS YEAR
         , SQ.DUPERSID AS PERSON_ID
         , 'DENTAL' AS SETTING
-        , B.EVNTIDX AS EVENTID
+        , B.EVNTIDX AS EVENT_ID
         , B.DVPV19X AS PAID
     FROM (
         SELECT DISTINCT Y.DUPERSID 
@@ -297,7 +298,7 @@ QUERY = """
         2019 AS YEAR
         , SQ.DUPERSID AS PERSON_ID
         , 'OTHER' AS SETTING
-        , C.EVNTIDX AS EVENTID
+        , C.EVNTIDX AS EVENT_ID
         , C.OMPV19X AS PAID
     FROM (
         SELECT DISTINCT Y.DUPERSID 
@@ -315,7 +316,7 @@ QUERY = """
         2019 AS YEAR
         , SQ.DUPERSID AS PERSON_ID
         , 'INPATIENT' AS SETTING
-        , D.EVNTIDX AS EVENTID
+        , D.EVNTIDX AS EVENT_ID
         , D.IPFPV19X + D.IPDPV19X AS PAID
     FROM (
         SELECT DISTINCT Y.DUPERSID 
@@ -333,7 +334,7 @@ QUERY = """
         2019 AS YEAR
         , SQ.DUPERSID AS PERSON_ID
         , 'ER' AS SETTING
-        , E.EVNTIDX AS EVENTID
+        , E.EVNTIDX AS EVENT_ID
         , E.ERFPV19X + E.ERDPV19X AS PAID
     FROM (
         SELECT DISTINCT Y.DUPERSID 
@@ -351,7 +352,7 @@ QUERY = """
         2019 AS YEAR
         , SQ.DUPERSID AS PERSON_ID
         , 'OUTPATIENT' AS SETTING
-        , F.EVNTIDX AS EVENTID
+        , F.EVNTIDX AS EVENT_ID
         , F.OPFPV19X + F.OPDPV19X AS PAID
     FROM (
         SELECT DISTINCT Y.DUPERSID 
@@ -369,7 +370,7 @@ QUERY = """
         2019 AS YEAR
         , SQ.DUPERSID AS PERSON_ID
         , 'OFFICE' AS SETTING
-        , G.EVNTIDX AS EVENTID
+        , G.EVNTIDX AS EVENT_ID
         , G.OBPV19X AS PAID
     FROM (
         SELECT DISTINCT Y.DUPERSID 
@@ -387,7 +388,7 @@ QUERY = """
         2019 AS YEAR
         , SQ.DUPERSID AS PERSON_ID
         , 'HOME' AS SETTING
-        , H.EVNTIDX AS EVENTID
+        , H.EVNTIDX AS EVENT_ID
         , H.HHPV19X AS PAID
     FROM (
         SELECT DISTINCT Y.DUPERSID 
@@ -406,7 +407,7 @@ QUERY = """
         2018 AS YEAR
         , SQ.DUPERSID AS PERSON_ID
         , 'RX' AS SETTING
-        , A.LINKIDX AS EVENTID
+        , A.LINKIDX AS EVENT_ID
         , A.RXPV18X AS PAID
     FROM (
         SELECT DISTINCT Y.DUPERSID 
@@ -424,7 +425,7 @@ QUERY = """
         2018 AS YEAR
         , SQ.DUPERSID AS PERSON_ID
         , 'DENTAL' AS SETTING
-        , B.EVNTIDX AS EVENTID
+        , B.EVNTIDX AS EVENT_ID
         , B.DVPV18X AS PAID
     FROM (
         SELECT DISTINCT Y.DUPERSID 
@@ -442,7 +443,7 @@ QUERY = """
         2018 AS YEAR
         , SQ.DUPERSID AS PERSON_ID
         , 'OTHER' AS SETTING
-        , C.EVNTIDX AS EVENTID
+        , C.EVNTIDX AS EVENT_ID
         , C.OMPV18X AS PAID
     FROM (
         SELECT DISTINCT Y.DUPERSID 
@@ -460,7 +461,7 @@ QUERY = """
         2018 AS YEAR
         , SQ.DUPERSID AS PERSON_ID
         , 'INPATIENT' AS SETTING
-        , D.EVNTIDX AS EVENTID
+        , D.EVNTIDX AS EVENT_ID
         , D.IPFPV18X + D.IPDPV18X AS PAID
     FROM (
         SELECT DISTINCT Y.DUPERSID 
@@ -478,7 +479,7 @@ QUERY = """
         2018 AS YEAR
         , SQ.DUPERSID AS PERSON_ID
         , 'ER' AS SETTING
-        , E.EVNTIDX AS EVENTID
+        , E.EVNTIDX AS EVENT_ID
         , E.ERFPV18X + E.ERDPV18X AS PAID
     FROM (
         SELECT DISTINCT Y.DUPERSID 
@@ -496,7 +497,7 @@ QUERY = """
         2018 AS YEAR
         , SQ.DUPERSID AS PERSON_ID
         , 'OUTPATIENT' AS SETTING
-        , F.EVNTIDX AS EVENTID
+        , F.EVNTIDX AS EVENT_ID
         , F.OPFPV18X + F.OPDPV18X AS PAID
     FROM (
         SELECT DISTINCT Y.DUPERSID 
@@ -514,7 +515,7 @@ QUERY = """
         2018 AS YEAR
         , SQ.DUPERSID AS PERSON_ID
         , 'OFFICE' AS SETTING
-        , G.EVNTIDX AS EVENTID
+        , G.EVNTIDX AS EVENT_ID
         , G.OBPV18X AS PAID
     FROM (
         SELECT DISTINCT Y.DUPERSID 
@@ -532,7 +533,7 @@ QUERY = """
         2018 AS YEAR
         , SQ.DUPERSID AS PERSON_ID
         , 'HOME' AS SETTING
-        , H.EVNTIDX AS EVENTID
+        , H.EVNTIDX AS EVENT_ID
         , H.HHPV18X AS PAID
     FROM (
         SELECT DISTINCT Y.DUPERSID 
@@ -548,15 +549,15 @@ QUERY = """
     """
 df_Y = pd.read_sql_query(QUERY, db_con)
 df_Y
-with pd.ExcelWriter('_fig//Race_MEPS//alpha_dev_20221110201226//results.xlsx', mode = 'a', engine = 'xlsxwriter') as writer:
-    df_Y.to_excel(writer, sheet_name = 'Events', index = False)
+df_Y.to_csv('_data//Race_MEPS//alpha_dev_20221110201226//events.csv', index = False)
 
 ### Query all events that match ID for given year from each setting
 QUERY = """
     SELECT
         2020 AS YEAR
         , SQ.DUPERSID AS PERSON_ID
-        , Z.CLNKIDX AS LINK
+        , Z.CONDIDX AS CONDITION_ID
+        , Z.EVNTIDX AS EVENT_ID
     FROM (
         SELECT DISTINCT DUPERSID 
         FROM h224
@@ -572,7 +573,8 @@ QUERY = """
     SELECT
         2019 AS YEAR
         , SQ.DUPERSID AS PERSON_ID
-        , Z.CLNKIDX AS LINK
+        , Z.CONDIDX AS CONDITION_ID
+        , Z.EVNTIDX AS EVENT_ID
     FROM (
         SELECT DISTINCT DUPERSID 
         FROM h216 Z
@@ -588,7 +590,8 @@ QUERY = """
     SELECT
         2018 AS YEAR
         , SQ.DUPERSID AS PERSON_ID
-        , Z.CLNKIDX AS LINK
+        , Z.CONDIDX AS CONDITION_ID
+        , Z.EVNTIDX AS EVENT_ID
     FROM (
         SELECT DISTINCT DUPERSID 
         FROM h209
@@ -603,5 +606,11 @@ QUERY = """
     """
 df_Z = pd.read_sql_query(QUERY, db_con)
 df_Z
-with pd.ExcelWriter('_fig//Race_MEPS//alpha_dev_20221110201226//results.xlsx', mode = 'a', engine = 'xlsxwriter') as writer:
-    df_Z.to_excel(writer, sheet_name = 'Appendix', index = False)
+df_Z.to_csv('_data//Race_MEPS//alpha_dev_20221110201226//appendix.csv', index = False)
+
+### Merge to build table for calculating risk scores
+df_XZ = pd.merge(df_Z, df_X.filter(['YEAR', 'CONDITION_ID', 'EVENT_ID', 'ICD10']), on = ['YEAR', 'CONDITION_ID'], how = 'left')
+df_XZ = df_XZ.filter(['YEAR', 'PERSON_ID', 'ICD10'])
+df_XZ = df_XZ.drop_duplicates()
+df_WXZ = pd.merge(df_W, df_XZ, on = ['YEAR', 'PERSON_ID'], how = 'left')
+df_WXZ.to_csv('_data//Race_MEPS//alpha_dev_20221110201226//clean.csv', index = False)
