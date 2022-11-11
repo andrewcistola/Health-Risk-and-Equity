@@ -1,5 +1,6 @@
 ### Posit (Hadley Wickham)
 install.packages("tidyverse") # All of the libraries above in one line of code
+install.packages("skimr") # SUmmary statistics and glimpse for dataframes
 
 ### SQL
 install.packages("RSQLite") # SQLite databases in R

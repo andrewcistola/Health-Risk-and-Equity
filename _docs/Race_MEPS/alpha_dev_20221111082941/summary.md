@@ -737,3 +737,634 @@ Data columns (total 388 columns):
 dtypes: float64(386), int64(2)
 memory usage: 16.5 MB
 
+
+###  Regression Modeling Result Summary 
+The following results were collected using  R version 4.2.2 (2022-10-31 ucrt) 
+
+####  Regression Step 1: Import and Clean Data 
+
+Source:  _data//Race_MEPS//alpha_dev_20221111082941//analytical_Q1.csv 
+
+W (ID variables):  PERSON_ID 
+X (Predictor variables):  NON_WHITE AGE SEX FPL_PERCENT ICD10_TOTAL 
+Y (Outcome variables):  PAID_TOTAL 
+Z (Subgroup variables):  YEAR 
+
+── Data Summary ────────────────────────
+                           Values 
+Name                       df_WXYZ
+Number of rows             1880   
+Number of columns          15     
+_______________________           
+Column type frequency:            
+  numeric                  15     
+________________________          
+Group variables            None   
+
+── Variable type: numeric ──────────────────────────────────────────────────────
+   skim_variable n_missing complete_rate    mean           sd           p0
+ 1 PERSON_ID             0             1 2.39e+9 91857556.    2290112102  
+ 2 YEAR                  0             1 2.02e+3        0.826       2018  
+ 3 AGE                   0             1 4.84e+1       11.7           26  
+ 4 SEX                   0             1 1.59e+0        0.493          1  
+ 5 RACE                  0             1 2.11e+0        0.927          1  
+ 6 FPL_PERCENT           0             1 3.52e+2      302.           -58.3
+ 7 ICD10_TOTAL           0             1 2.69e+0        3.09           0  
+ 8 PAID_TOTAL            0             1 4.84e+3    31058.             0  
+ 9 VISITS_TOTAL          0             1 1.32e+1       25.8            0  
+10 HISPANIC              0             1 2.32e-1        0.422          0  
+11 WHITE                 0             1 5.52e-1        0.497          0  
+12 BLACK                 0             1 1.11e-1        0.314          0  
+13 ASIAN                 0             1 8.40e-2        0.278          0  
+14 OTHER                 0             1 2.13e-2        0.144          0  
+15 NON_WHITE             0             1 4.48e-1        0.497          0  
+           p25         p50         p75        p100 hist 
+ 1 2321611101  2327305102  2464788101  2579815101  ▇▁▂▂▁
+ 2       2018        2019        2020        2020  ▇▁▇▁▇
+ 3         39          51          59          64  ▃▃▃▆▇
+ 4          1           2           2           2  ▆▁▁▁▇
+ 5          2           2           2           5  ▃▇▂▁▁
+ 6        165.        273.        443.       2728. ▇▂▁▁▁
+ 7          0           2           4          27  ▇▁▁▁▁
+ 8          0         167.       1490.     788296. ▇▁▁▁▁
+ 9          0           5          15         388  ▇▁▁▁▁
+10          0           0           0           1  ▇▁▁▁▂
+11          0           1           1           1  ▆▁▁▁▇
+12          0           0           0           1  ▇▁▁▁▁
+13          0           0           0           1  ▇▁▁▁▁
+14          0           0           0           1  ▇▁▁▁▁
+15          0           0           1           1  ▇▁▁▁▆
+
+####  Regression Step 2: Test for OLS Assumptions 
+
+####  Regression Step 2: Test for OLS Assumptions 
+
+##### Results for Subgroup:  2018 
+
+
+OLS Assumption 0: Sampling (Random sample, observations > predictors, predictor is independent) 
+
+
+Call:
+lm(formula = F, data = D)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-22352  -4226  -1747    535 301635 
+
+Coefficients:
+             Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  3869.334   4151.198   0.932   0.3516    
+NON_WHITE   -2384.320   1591.573  -1.498   0.1346    
+AGE            24.933     68.495   0.364   0.7160    
+SEX         -3204.503   1590.461  -2.015   0.0443 *  
+FPL_PERCENT     2.315      2.554   0.906   0.3651    
+ICD10_TOTAL  1528.564    253.589   6.028 2.83e-09 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 19250 on 630 degrees of freedom
+Multiple R-squared:  0.07401,	Adjusted R-squared:  0.06666 
+F-statistic: 10.07 on 5 and 630 DF,  p-value: 2.732e-09
+
+OLS Assumption 1: Specification (Relationship between predictor and outcome is linear) 
+
+	Rainbow test
+
+data:  OLS
+Rain = 0.27075, df1 = 318, df2 = 312, p-value = 1
+
+Significant = Non-linearity
+
+OLS Assumption 2:  Normality (Errors are normal with a mean = 0) 
+
+	Robust Jarque Bera Test
+
+data:  resid(OLS)
+X-squared = 1022871194, df = 2, p-value < 2.2e-16
+
+Signficiant = Non-normal
+
+
+	Anderson-Darling test of goodness-of-fit
+	Null hypothesis: uniform distribution
+
+data:  resid(OLS)
+An = Inf, p-value = 9.434e-07
+
+Signficiant = Non-normal
+
+OLS Assumption 3: No Autocorrelation (Error terms are not correlated with each other) 
+
+	Durbin-Watson test
+
+data:  OLS
+DW = 1.9916, p-value = 0.4509
+alternative hypothesis: true autocorrelation is greater than 0
+
+Signficiant = Autocorrelation
+
+OLS Assumption 4: Homoskedasticity (Error is even across observations) 
+
+	studentized Breusch-Pagan test
+
+data:  OLS
+BP = 12.967, df = 5, p-value = 0.02369
+
+Signficiant = Homoscedastic
+
+
+	Goldfeld-Quandt test
+
+data:  OLS
+GQ = 0.79538, df1 = 312, df2 = 312, p-value = 0.9782
+alternative hypothesis: variance increases from segment 1 to 2
+
+Significant = Heteroscedastic
+
+
+####  Regression Step 2: Test for OLS Assumptions 
+
+##### Results for Subgroup:  2019 
+
+
+OLS Assumption 0: Sampling (Random sample, observations > predictors, predictor is independent) 
+
+
+Call:
+lm(formula = F, data = D)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-51794  -8061  -3374   2302 762521 
+
+Coefficients:
+             Estimate Std. Error t value Pr(>|t|)    
+(Intercept) -4314.218  10793.871  -0.400   0.6895    
+NON_WHITE    8851.814   4059.604   2.180   0.0296 *  
+AGE            44.714    173.390   0.258   0.7966    
+SEX         -3239.089   4088.126  -0.792   0.4285    
+FPL_PERCENT     3.266      6.551   0.499   0.6182    
+ICD10_TOTAL  3479.909    661.052   5.264 1.97e-07 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 47930 on 592 degrees of freedom
+Multiple R-squared:  0.05102,	Adjusted R-squared:  0.04301 
+F-statistic: 6.366 on 5 and 592 DF,  p-value: 9.03e-06
+
+OLS Assumption 1: Specification (Relationship between predictor and outcome is linear) 
+
+	Rainbow test
+
+data:  OLS
+Rain = 19.56, df1 = 299, df2 = 293, p-value < 2.2e-16
+
+Significant = Non-linearity
+
+OLS Assumption 2:  Normality (Errors are normal with a mean = 0) 
+
+	Robust Jarque Bera Test
+
+data:  resid(OLS)
+X-squared = 8886483438, df = 2, p-value < 2.2e-16
+
+Signficiant = Non-normal
+
+
+	Anderson-Darling test of goodness-of-fit
+	Null hypothesis: uniform distribution
+
+data:  resid(OLS)
+An = Inf, p-value = 1.003e-06
+
+Signficiant = Non-normal
+
+OLS Assumption 3: No Autocorrelation (Error terms are not correlated with each other) 
+
+	Durbin-Watson test
+
+data:  OLS
+DW = 2.0123, p-value = 0.5522
+alternative hypothesis: true autocorrelation is greater than 0
+
+Signficiant = Autocorrelation
+
+OLS Assumption 4: Homoskedasticity (Error is even across observations) 
+
+	studentized Breusch-Pagan test
+
+data:  OLS
+BP = 12.581, df = 5, p-value = 0.02764
+
+Signficiant = Homoscedastic
+
+
+	Goldfeld-Quandt test
+
+data:  OLS
+GQ = 0.83993, df1 = 293, df2 = 293, p-value = 0.932
+alternative hypothesis: variance increases from segment 1 to 2
+
+Significant = Heteroscedastic
+
+
+##### Results for Subgroup:  2020 
+
+
+OLS Assumption 0: Sampling (Random sample, observations > predictors, predictor is independent) 
+
+
+Call:
+lm(formula = F, data = D)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-22994  -3533  -1283    675 140615 
+
+Coefficients:
+             Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  4071.733   2917.896   1.395   0.1634    
+NON_WHITE    -938.565   1066.230  -0.880   0.3790    
+AGE             2.624     45.620   0.058   0.9542    
+SEX         -2354.956   1062.058  -2.217   0.0269 *  
+FPL_PERCENT    -1.552      1.772  -0.876   0.3816    
+ICD10_TOTAL  1629.610    190.098   8.572   <2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 13080 on 640 degrees of freedom
+Multiple R-squared:  0.1158,	Adjusted R-squared:  0.1089 
+F-statistic: 16.77 on 5 and 640 DF,  p-value: 1.381e-15
+
+OLS Assumption 1: Specification (Relationship between predictor and outcome is linear) 
+
+	Rainbow test
+
+data:  OLS
+Rain = 1.6385, df1 = 323, df2 = 317, p-value = 5.747e-06
+
+Significant = Non-linearity
+
+OLS Assumption 2:  Normality (Errors are normal with a mean = 0) 
+
+	Robust Jarque Bera Test
+
+data:  resid(OLS)
+X-squared = 28462243, df = 2, p-value < 2.2e-16
+
+Signficiant = Non-normal
+
+
+	Anderson-Darling test of goodness-of-fit
+	Null hypothesis: uniform distribution
+
+data:  resid(OLS)
+An = Inf, p-value = 9.288e-07
+
+Signficiant = Non-normal
+
+OLS Assumption 3: No Autocorrelation (Error terms are not correlated with each other) 
+
+	Durbin-Watson test
+
+data:  OLS
+DW = 2.0337, p-value = 0.6589
+alternative hypothesis: true autocorrelation is greater than 0
+
+Signficiant = Autocorrelation
+
+OLS Assumption 4: Homoskedasticity (Error is even across observations) 
+
+	studentized Breusch-Pagan test
+
+data:  OLS
+BP = 19.883, df = 5, p-value = 0.001314
+
+Signficiant = Homoscedastic
+
+
+	Goldfeld-Quandt test
+
+data:  OLS
+GQ = 1.706, df1 = 317, df2 = 317, p-value = 1.157e-06
+alternative hypothesis: variance increases from segment 1 to 2
+
+Significant = Heteroscedastic
+
+
+####  Regression Step 3: Create Generalized Linear Models 
+
+##### Linear 
+
+Generalized model for DV = Y, regression = linear 
+
+Call:
+glm(formula = F, family = gaussian(), data = D)
+
+Deviance Residuals: 
+   Min      1Q  Median      3Q     Max  
+-33750   -5056   -1573     685  774132  
+
+Coefficients:
+              Estimate Std. Error t value Pr(>|t|)    
+(Intercept) -4.550e+04  1.716e+06  -0.027   0.9788    
+NON_WHITE    1.735e+03  1.453e+03   1.194   0.2326    
+AGE          2.377e+01  6.228e+01   0.382   0.7028    
+SEX         -2.908e+03  1.454e+03  -2.000   0.0456 *  
+FPL_PERCENT  1.279e+00  2.364e+00   0.541   0.5886    
+ICD10_TOTAL  2.207e+03  2.416e+02   9.133   <2e-16 ***
+YEAR         2.310e+01  8.500e+02   0.027   0.9783    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for gaussian family taken to be 923091199)
+
+    Null deviance: 1.8125e+12  on 1879  degrees of freedom
+Residual deviance: 1.7289e+12  on 1873  degrees of freedom
+AIC: 44153
+
+Number of Fisher Scoring iterations: 2
+
+F-Test for overdispersion:  0 
+
+##### Log Transform Y 
+
+Generalized model for DV = log(Y), regression = linear 
+
+Call:
+glm(formula = F, family = gaussian(), data = D)
+
+Deviance Residuals: 
+     Min        1Q    Median        3Q       Max  
+-12.9220   -2.1757   -0.0936    2.1275    8.7263  
+
+Coefficients:
+              Estimate Std. Error t value Pr(>|t|)    
+(Intercept) -2.006e+02  1.532e+02  -1.310  0.19037    
+NON_WHITE   -3.599e-01  1.297e-01  -2.775  0.00557 ** 
+AGE          3.546e-03  5.559e-03   0.638  0.52365    
+SEX         -3.895e-02  1.297e-01  -0.300  0.76405    
+FPL_PERCENT -2.113e-04  2.110e-04  -1.001  0.31686    
+ICD10_TOTAL  7.806e-01  2.157e-02  36.195  < 2e-16 ***
+YEAR         1.005e-01  7.587e-02   1.325  0.18527    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for gaussian family taken to be 7.354068)
+
+    Null deviance: 25131  on 1879  degrees of freedom
+Residual deviance: 13774  on 1873  degrees of freedom
+AIC: 9095.3
+
+Number of Fisher Scoring iterations: 2
+
+F-Test for overdispersion:  0 
+
+##### Y Squared 
+
+Generalized model for DV = Y^2, regression = linear 
+
+Call:
+glm(formula = F, family = gaussian(), data = D)
+
+Deviance Residuals: 
+       Min          1Q      Median          3Q         Max  
+-1.181e+10  -1.863e+09  -6.896e+08   4.002e+08   6.173e+11  
+
+Coefficients:
+              Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  2.017e+11  1.140e+12   0.177 0.859652    
+NON_WHITE    1.923e+09  9.655e+08   1.991 0.046580 *  
+AGE          3.399e+07  4.139e+07   0.821 0.411606    
+SEX         -9.399e+08  9.661e+08  -0.973 0.330725    
+FPL_PERCENT  1.382e+06  1.571e+06   0.880 0.379155    
+ICD10_TOTAL  5.481e+08  1.606e+08   3.413 0.000656 ***
+YEAR        -1.009e+08  5.649e+08  -0.179 0.858288    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for gaussian family taken to be 4.076962e+20)
+
+    Null deviance: 7.7033e+23  on 1879  degrees of freedom
+Residual deviance: 7.6362e+23  on 1873  degrees of freedom
+AIC: 94563
+
+Number of Fisher Scoring iterations: 2
+
+F-Test for overdispersion:  0 
+
+##### Logistic 
+
+Generalized model for DV = Y > 0, regression = binomial 
+
+Call:
+glm(formula = F, family = binomial(), data = D)
+
+Deviance Residuals: 
+       Min          1Q      Median          3Q         Max  
+-2.409e-06  -2.409e-06  -2.409e-06  -2.409e-06  -2.409e-06  
+
+Coefficients:
+              Estimate Std. Error z value Pr(>|z|)
+(Intercept) -2.657e+01  2.011e+07       0        1
+NON_WHITE   -2.363e-14  1.703e+04       0        1
+AGE         -4.780e-16  7.300e+02       0        1
+SEX          2.373e-14  1.704e+04       0        1
+FPL_PERCENT -2.883e-17  2.771e+01       0        1
+ICD10_TOTAL -1.037e-15  2.832e+03       0        1
+YEAR        -1.522e-14  9.963e+03       0        1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 0.0000e+00  on 1879  degrees of freedom
+Residual deviance: 1.0907e-08  on 1873  degrees of freedom
+AIC: 14
+
+Number of Fisher Scoring iterations: 25
+
+F-Test for overdispersion:  1 
+
+##### Poisson 
+
+Generalized model for DV = Y, regression = poisson 
+
+Call:
+glm(formula = F, family = poisson(), data = D)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-641.98   -77.51   -64.07   -47.53  2393.53  
+
+Coefficients:
+              Estimate Std. Error z value Pr(>|z|)    
+(Intercept) -1.900e+01  8.289e-01  -22.93   <2e-16 ***
+NON_WHITE    1.986e-01  6.942e-04  286.02   <2e-16 ***
+AGE          1.434e-02  3.336e-05  429.74   <2e-16 ***
+SEX         -5.512e-01  7.238e-04 -761.55   <2e-16 ***
+FPL_PERCENT  2.621e-04  1.066e-06  245.81   <2e-16 ***
+ICD10_TOTAL  1.931e-01  5.575e-05 3464.05   <2e-16 ***
+YEAR         1.319e-02  4.106e-04   32.14   <2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for poisson family taken to be 1)
+
+    Null deviance: 45435675  on 1879  degrees of freedom
+Residual deviance: 35807956  on 1873  degrees of freedom
+AIC: Inf
+
+Number of Fisher Scoring iterations: 8
+
+F-Test for overdispersion:  0 
+
+##### Negative Binomial 
+
+Generalized model for DV = Y, regression = negative binomial 
+
+Call:
+glm.nb(formula = F, data = D, init.theta = 0.1306871902, link = log)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-1.8456  -1.4140  -0.7183  -0.2970   5.4447  
+
+Coefficients:
+              Estimate Std. Error z value Pr(>|z|)    
+(Intercept) -1.656e+02  1.563e+02  -1.060  0.28916    
+NON_WHITE   -2.908e-01  1.323e-01  -2.198  0.02792 *  
+AGE         -2.295e-03  5.671e-03  -0.405  0.68575    
+SEX         -7.836e-01  1.324e-01  -5.921 3.21e-09 ***
+FPL_PERCENT -6.465e-04  2.153e-04  -3.003  0.00267 ** 
+ICD10_TOTAL  6.236e-01  2.200e-02  28.343  < 2e-16 ***
+YEAR         8.575e-02  7.739e-02   1.108  0.26787    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for Negative Binomial(0.1307) family taken to be 1)
+
+    Null deviance: 2575.0  on 1879  degrees of freedom
+Residual deviance: 2079.4  on 1873  degrees of freedom
+AIC: 24097
+
+Number of Fisher Scoring iterations: 1
+
+
+              Theta:  0.13069 
+          Std. Err.:  0.00413 
+
+ 2 x log-likelihood:  -24080.60100 
+
+F-Test for overdispersion:  0.000544155568472759 
+
+####  Regression Step 4: Hierarchical Linear Models 
+
+##### Fixed Efects 
+
+Hierarchical model for  DV = Y_log regression = linear with varying intercepts by RACE 
+Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+lmerModLmerTest]
+Formula: F
+   Data: D
+
+REML criterion at convergence: 9119.9
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-4.7606 -0.8063 -0.0289  0.7761  3.1955 
+
+Random effects:
+ Groups   Name        Variance Std.Dev.
+ RACE     (Intercept) 0.03904  0.1976  
+ Residual             7.35309  2.7117  
+Number of obs: 1880, groups:  RACE, 5
+
+Fixed effects:
+              Estimate Std. Error         df t value Pr(>|t|)    
+(Intercept)  2.112e+00  3.506e-01  2.483e+02   6.023 6.12e-09 ***
+AGE          4.241e-03  5.565e-03  1.866e+03   0.762    0.446    
+SEX         -4.746e-02  1.297e-01  1.874e+03  -0.366    0.714    
+FPL_PERCENT -2.027e-04  2.109e-04  1.783e+03  -0.961    0.337    
+ICD10_TOTAL  7.813e-01  2.152e-02  1.822e+03  36.303  < 2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Correlation of Fixed Effects:
+            (Intr) AGE    SEX    FPL_PE
+AGE         -0.699                     
+SEX         -0.555 -0.024              
+FPL_PERCENT -0.208 -0.047  0.052       
+ICD10_TOTAL  0.114 -0.233 -0.179  0.082
+
+      npar          logLik           AIC            LRT              Df   
+ Min.   :6.00   Min.   :-4562   Min.   :9134   Min.   :4.266   Min.   :1  
+ 1st Qu.:6.25   1st Qu.:-4562   1st Qu.:9134   1st Qu.:4.266   1st Qu.:1  
+ Median :6.50   Median :-4561   Median :9135   Median :4.266   Median :1  
+ Mean   :6.50   Mean   :-4561   Mean   :9135   Mean   :4.266   Mean   :1  
+ 3rd Qu.:6.75   3rd Qu.:-4560   3rd Qu.:9136   3rd Qu.:4.266   3rd Qu.:1  
+ Max.   :7.00   Max.   :-4560   Max.   :9136   Max.   :4.266   Max.   :1  
+                                               NA's   :1       NA's   :1  
+   Pr(>Chisq)     
+ Min.   :0.03889  
+ 1st Qu.:0.03889  
+ Median :0.03889  
+ Mean   :0.03889  
+ 3rd Qu.:0.03889  
+ Max.   :0.03889  
+ NA's   :1        
+
+##### Random Efects 
+
+Hierarchical model for  DV = Y_log regression = linear with varying coeffeicints of ICD10_TOTAL by RACE 
+Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+lmerModLmerTest]
+Formula: F
+   Data: D
+
+REML criterion at convergence: 9098.6
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-4.3013 -0.7581 -0.0463  0.7863  3.1857 
+
+Random effects:
+ Groups   Name        Variance Std.Dev. Corr 
+ RACE     (Intercept) 0.19810  0.4451        
+          ICD10_TOTAL 0.04829  0.2198   -0.84
+ Residual             7.22908  2.6887        
+Number of obs: 1880, groups:  RACE, 5
+
+Fixed effects:
+              Estimate Std. Error         df t value Pr(>|t|)    
+(Intercept)  1.766e+00  3.990e-01  3.819e+01   4.428 7.73e-05 ***
+AGE          5.200e-03  5.528e-03  1.867e+03   0.941  0.34702    
+SEX         -3.167e-02  1.287e-01  1.870e+03  -0.246  0.80568    
+FPL_PERCENT -1.910e-04  2.098e-04  1.836e+03  -0.911  0.36263    
+ICD10_TOTAL  9.402e-01  1.054e-01  3.638e+00   8.919  0.00134 ** 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Correlation of Fixed Effects:
+            (Intr) AGE    SEX    FPL_PE
+AGE         -0.615                     
+SEX         -0.490 -0.024              
+FPL_PERCENT -0.183 -0.048  0.053       
+ICD10_TOTAL -0.425 -0.035 -0.029  0.020
+
+      npar         logLik           AIC            LRT              Df   
+ Min.   :7.0   Min.   :-4560   Min.   :9117   Min.   :21.28   Min.   :2  
+ 1st Qu.:7.5   1st Qu.:-4557   1st Qu.:9121   1st Qu.:21.28   1st Qu.:2  
+ Median :8.0   Median :-4555   Median :9125   Median :21.28   Median :2  
+ Mean   :8.0   Mean   :-4555   Mean   :9125   Mean   :21.28   Mean   :2  
+ 3rd Qu.:8.5   3rd Qu.:-4552   3rd Qu.:9130   3rd Qu.:21.28   3rd Qu.:2  
+ Max.   :9.0   Max.   :-4549   Max.   :9134   Max.   :21.28   Max.   :2  
+                                              NA's   :1       NA's   :1  
+   Pr(>Chisq)      
+ Min.   :2.39e-05  
+ 1st Qu.:2.39e-05  
+ Median :2.39e-05  
+ Mean   :2.39e-05  
+ 3rd Qu.:2.39e-05  
+ Max.   :2.39e-05  
+ NA's   :1         
+

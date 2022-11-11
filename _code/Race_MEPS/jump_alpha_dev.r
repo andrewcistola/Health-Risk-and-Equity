@@ -1,9 +1,9 @@
-# Setup
+# Jump Back In
 
-## Libraries
-
-## Data Sceience Basics
+### Data Sceience Basics
 library(tidyverse) # All of the libraries above in one line of code
+library(skimr) # SUmmary statistics and glimpse for dataframes
+
 
 ### SQL
 library(RSQLite) # SQLite databases in R
@@ -28,8 +28,6 @@ library(ineq) # Gini coefficient and Lorenz curve
 ### Visualization
 library(RColorBrewer) # Creates nice looking color palettes especially for thematic maps in R
 
-## Variables
-
 ### Standard Variables
 label_home = 'C://Users'
 label_user = 'drewc'
@@ -37,7 +35,8 @@ label_character = 'neville'
 label_project = 'Health-Risk-and-Equity'
 label_topic = 'Race'
 
-### Python Variables
+### Import Variables
+setwd(paste(label_home, label_user, label_character, label_project, sep = '//'))
 df = read.csv(paste(label_home, label_user, label_character, label_project, '_tmp//variables.csv', sep = '//'))
 desc_project = filter(df, Label == 'desc_project')$Value
 desc_title = filter(df, Label == 'desc_title')$Value
@@ -55,10 +54,15 @@ label_time = filter(df, Label == 'label_time')$Value
 label_name = filter(df, Label == 'label_name')$Value
 label_run = filter(df, Label == 'label_run')$Value
 
-## Files
-
-### Directories
-setwd(paste(label_home, label_user, label_character, label_project, sep = '//'))
-
 ### Database
 db_con = dbConnect(RSQLite::SQLite(), paste('_data', label_name, label_run, 'database.db', sep = '//')) # create a connection to the postgres database
+
+### Style preferences
+low = 'blue3' # Standard map colorscheme
+mid = 'lightyellow' # Standard map colorscheme
+high = 'red3' # Standard map colorscheme
+na = 'grey50' # Standard map colorscheme
+line = 'black' # Standard map colorscheme
+breaks = 9 # Standard map colorscheme
+scheme = 'trad' # Standard map colorscheme
+font = 'Vollkorn' # Define font for all figs 
