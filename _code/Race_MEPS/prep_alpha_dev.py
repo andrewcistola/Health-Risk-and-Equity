@@ -109,6 +109,7 @@ df_Q2 = pd.merge(df_Q2, df_Y2, on = ['PERSON_ID', 'YEAR'], how = 'left')
 df_Q2 = pd.merge(df_Q2, df_Z1, on = ['PERSON_ID', 'YEAR'], how = 'left')
 df_Q2 = pd.merge(df_Q2, df_Z2, on = ['PERSON_ID', 'YEAR'], how = 'left')
 df_Q2 = pd.merge(df_Q2, df_X1, on = ['PERSON_ID', 'YEAR'], how = 'left')
+df_Q2 = df_Q2.groupby(['PERSON_ID', 'YEAR'], as_index = False).max()
 df_Q2.to_csv('_data//' + label_name + '//' + label_run + '//analytical_Q2.csv', index = False)
 df_Q2.info()
 

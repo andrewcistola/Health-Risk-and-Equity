@@ -148,3 +148,9 @@ Still need to calculate risk scores from DIY files (listed steps in calc sript)
 ICD10 and visit count available as proxy for risk score for preliminary analysis. 
 Next steps are to build regression models in R and machine learning models in python
 Then vizualize results and report. 
+
+2022 Nov 12 13:18
+Added script to model kitigawa Oaxaca blinder and got preliminary results using hand sleected variables
+Found expected result when log transfomred Y.
+Likely a few high spenders in non-white group. 
+This is promising, add more models next. 

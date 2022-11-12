@@ -1313,6 +1313,12 @@ ICD10_TOTAL  0.114 -0.233 -0.179  0.082
  Max.   :0.03889  
  NA's   :1        
 
+# ICC by Group
+
+Group |   ICC
+-------------
+RACE  | 0.005
+
 ##### Random Efects 
 
 Hierarchical model for  DV = Y_log regression = linear with varying coeffeicints of ICD10_TOTAL by RACE 
@@ -1367,4 +1373,27 @@ ICD10_TOTAL -0.425 -0.035 -0.029  0.020
  3rd Qu.:2.39e-05  
  Max.   :2.39e-05  
  NA's   :1         
+
+##### Intraclass Correlation Coefficient
+
+    Adjusted ICC: 0.073
+  Unadjusted ICC: 0.035
+
+
+### Machine Learning Result Summary
+The following results were collected using Python version 3.9.13 (tags/v3.9.13:6de2ca5, May 17 2022, 16:36:42) [MSC v.1929 64 bit (AMD64)]
+
+#### Mahcine Learning Step 1: Data Processing of Predictors and Outcomes
+Source: _data//Race_MEPS//alpha_dev_20221111082941//analytical_Q2.csv
+
+W (ID variables): PERSON_ID
+X (Predictor variables): RACE, AGE, SEX, ICD10_TOTAL, ICD10_YN, VISITS_TOTAL, VISITS_X_TYPE, PAID_X_TYPE
+Y (Outcome variables): PAID_TOTAL
+Z (Subgroup variables): YEAR
+
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 1880 entries, 0 to 1879
+Columns: 388 entries, PERSON_ID to ICD10_Z98
+dtypes: float64(17), int64(371)
+memory usage: 5.6 MB
 

@@ -7,7 +7,7 @@ X = c('NON_WHITE', 'AGE', 'SEX', 'FPL_PERCENT', 'ICD10_TOTAL')
 Y = 'PAID_TOTAL'
 Z = 'YEAR'
 
-### Import and Join Labels/Demographics (W) with Predictors (X) Outcomes (Y) and subgroups (Z))
+### Import Labels/Demographics (W) with Predictors (X) Outcomes (Y) and Shapes/Subgroups (Z)
 df_WXYZ = read.csv(paste('_data', label_name, label_run, 'analytical_Q1.csv', sep = '//'), stringsAsFactors = FALSE) # Import dataset from _data folder
 
 ### Recode Racial Groups
@@ -23,8 +23,6 @@ df_WXYZ$BLACK[df_WXYZ$RACE == 3] <- 1
 df_WXYZ$ASIAN[df_WXYZ$RACE == 4] <- 1
 df_WXYZ$OTHER[df_WXYZ$RACE == 5] <- 1
 df_WXYZ$NON_WHITE[df_WXYZ$RACE != 2] <- 1
-df_X = subset(df_WXYZ, select = c(W, X))
-df_Y = subset(df_WXYZ, select = c(W, Y))
 
 ### Export to Summary File
 file = paste('_docs', label_name, label_run, 'summary.md', sep = '//')
@@ -461,6 +459,7 @@ summary(MIX)
 cat(c('\n'), file = file, append = TRUE)
 summary(HLM_2)
 cat(c('\n'), file = file, append = TRUE)
+cat(c('####'), file = file, append = TRUE)
 icc(MIX)
 cat(c('\n'), file = file, append = TRUE)
 sink()

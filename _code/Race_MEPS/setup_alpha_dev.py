@@ -3,6 +3,7 @@
 ## Libraries
 
 ### Native Python Libraries
+import sys # Python version
 import os # Operating system navigation
 import io # Input output control
 import shutil # High level file operations
@@ -43,7 +44,7 @@ from keras.layers import Dense # Used for creating dense fully connected layers
 from keras.layers import Input # Used for designating input layers
 
 ### Other Tools
-import xlsxwriter # Python module for writing files in the Excel 2007+ XLSX file format (engine for pandas ExcelWriter class)
+import openpyxl # Engine for accessing .xlsx files from pandas
 
 ## Variables
 
@@ -168,5 +169,5 @@ df = pd.DataFrame(data = {
     'Info':             ['Project',     'Author',       'Summary',      'Reference',    'Notes',        'Updated']
     , 'Descriptive':    [desc_project,  desc_author,    desc_summary,   desc_reference, desc_notes,     desc_time]
      })
-with pd.ExcelWriter('_fig//' + label_name + '//' + label_run + '//results.xlsx', mode = 'w', engine = 'xlsxwriter') as writer:
+with pd.ExcelWriter('_fig//' + label_name + '//' + label_run + '//results.xlsx', mode = 'w', engine = 'openpyxl') as writer:
     df.to_excel(writer, sheet_name = 'Info', index = False)
