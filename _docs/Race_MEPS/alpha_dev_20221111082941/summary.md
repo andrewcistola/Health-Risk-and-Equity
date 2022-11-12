@@ -1379,7 +1379,6 @@ ICD10_TOTAL -0.425 -0.035 -0.029  0.020
     Adjusted ICC: 0.073
   Unadjusted ICC: 0.035
 
-
 ### Machine Learning Result Summary
 The following results were collected using Python version 3.9.13 (tags/v3.9.13:6de2ca5, May 17 2022, 16:36:42) [MSC v.1929 64 bit (AMD64)]
 
@@ -1396,4 +1395,53 @@ RangeIndex: 1880 entries, 0 to 1879
 Columns: 388 entries, PERSON_ID to ICD10_Z98
 dtypes: float64(17), int64(371)
 memory usage: 5.6 MB
+
+#### Learn Step 2: Manual Feature Selection Assisted with Unsupervised Learning
+Unsupervised learning models are used to review predictors for inclusion in a regression model. The regression model is trained on the reference group and predicts values for the focus group. The difference in predicted to actual values represents what is explained by group identififcation independent of the predictors.
+
+##### Principal Component Analysis
+See _fig//Race_MEPS//alpha_dev_20221111082941//results.xlsx
+
+##### K-Means
+See _fig//Race_MEPS//alpha_dev_20221111082941//results.xlsx
+
+##### Linear Regression
+Regression Model using hand selected variables: 
+
+Rsq: 0.25890049078599486
+
+       AGE       SEX  FPL_PERCENT  ICD10_TOTAL
+0 -0.02231 -0.296159    -0.170343     1.556312
+
+Absolute difference between groups: 0.37579456318369964
+Difference attributable to groups: 0.37579456318369964
+
+Regression Model using hand selected variables: 
+
+Rsq: 0.3145863065041834
+
+        AGE       SEX  ICD10_TOTAL  VISITS_TOTAL   ER_PAID  OFFICE_PAID
+0  0.068679 -0.195185     1.128202      0.565041  0.252211     0.333084
+
+Absolute difference between groups: 0.37579456318369964
+Difference attributable to groups: 0.37579456318369964
+
+#### Learn Step 3: Automated Feature Selection Assisted with Supervised Learning
+Supervised algorithms are used to automatically identify relevant features and predict outcomes. These models allow for the inclusion of more data in closer to raw form than OLS. The models are trained on the reference group and then predict values for the focus group. The difference in predicted to actual values represents what is explained by group identififcation independent of the predictors.
+For feature selection results, see _fig//Race_MEPS//alpha_dev_20221111082941//results.xlsx
+
+##### Random Forests
+Reference Group Rsq: 0.9941731984543332
+Absolute difference between groups: 0.37579456318369964
+Difference attributable to groups: 1.2518328753177448
+
+##### Recursive feature Elimination
+Reference Group Rsq: 0.6344018320582205
+Absolute difference between groups: 0.37579456318369964
+Difference attributable to groups: 0.36390643700851655
+
+##### Support Vector Machines
+Reference Group Rsq: 0.5364728372407639
+Absolute difference between groups: 0.37579456318369964
+Difference attributable to groups: 0.6609159572530423
 
