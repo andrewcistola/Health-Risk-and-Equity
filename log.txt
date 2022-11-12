@@ -154,3 +154,6 @@ Added script to model kitigawa Oaxaca blinder and got preliminary results using 
 Found expected result when log transfomred Y.
 Likely a few high spenders in non-white group. 
 This is promising, add more models next. 
+
+16:21
+Neural netowkr code started after finishing KOB. Will need to split up inot setting types but that could be beneifical anyway. 
