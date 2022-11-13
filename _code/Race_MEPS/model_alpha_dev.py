@@ -6,7 +6,7 @@ method_1 = 'Various machine learning models were trained on a reference populati
 group_1 = 'Non-Hispanic White (RACETH = 2)'
 group_2 = 'Hispanic, Black, Asian, or Other (RACETH <> 2)'
 W = 'PERSON_ID'
-X_label = 'RACE, AGE, SEX, ICD10_TOTAL, ICD10_YN, VISITS_TOTAL, VISITS_X_TYPE, PAID_X_TYPE'
+X_label = 'RACE, AGE, SEX, ICD10_TOTAL, ICD10_YN, VISITS_TOTAL'
 Y = 'PAID_TOTAL'
 Z = 'YEAR'
 
@@ -85,7 +85,7 @@ with pd.ExcelWriter('_fig//' + label_name + '//' + label_run + '//results.xlsx',
     result.to_excel(writer, sheet_name = label, index = False)
 
 ### Linear regression model with standard variables
-model_2 = 'Linear Regression'
+model_2 = 'Linear Regression using ACA Predictors'
 label = 'OLS'
 X_ACA = ['AGE', 'SEX', 'FPL_PERCENT', 'ICD10_TOTAL']
 x_1_ACA = StandardScaler().fit_transform(df_XY_1.filter(X_ACA).to_numpy())
@@ -95,13 +95,14 @@ OLS.fit(x_1_ACA, y_1) # Fit model
 result_1 = pd.DataFrame(OLS.coef_, columns = X_ACA)
 RSQ_1 = OLS.score(x_1_ACA, y_1) # rsq value
 y_2_pred = OLS.predict(x_2_ACA)
-ABS_1 = np.mean(y_1) - np.mean(y_2)
+y_1_pred = OLS.predict(x_1_ACA)
+OBS_1 = np.mean(y_1) - np.mean(y_2)
 KOB_1 = np.mean(y_2_pred) - np.mean(y_2)
 
 ### Linear regression model with hand selected variables
-model_2 = 'Linear Regression'
+model_2 = 'Linear Regression using ACA Predictors and Visits'
 label = 'OLS'
-X_hand = ['AGE', 'SEX', 'ICD10_TOTAL', 'VISITS_TOTAL', 'ER_PAID', 'OFFICE_PAID']
+X_hand = ['AGE', 'SEX', 'FPL_PERCENT', 'ICD10_TOTAL', 'VISITS_TOTAL']
 x_1_hand = StandardScaler().fit_transform(df_XY_1.filter(X_hand).to_numpy())
 x_2_hand = StandardScaler().fit_transform(df_XY_2.filter(X_hand).to_numpy())
 OLS = LinearRegression() # Linear Regression in scikit learn
@@ -109,7 +110,7 @@ OLS.fit(x_1_hand, y_1) # Fit model
 result_2 = pd.DataFrame(OLS.coef_, columns = X_hand)
 RSQ_2 = OLS.score(x_1_hand, y_1) # rsq value
 y_2_pred = OLS.predict(x_2_hand)
-ABS_2 = np.mean(y_1) - np.mean(y_2)
+OBS_2 = np.mean(y_1) - np.mean(y_2)
 KOB_2 = np.mean(y_2_pred) - np.mean(y_2)
 
 ### Export to Summary File
@@ -130,7 +131,7 @@ text_md.write('Rsq: ' + str(RSQ_1) + '\n')
 text_md.write('\n')
 text_md.write(str(result_1) + '\n')
 text_md.write('\n')
-text_md.write('Absolute difference between groups: ' + str(ABS_1) + '\n')
+text_md.write('Absolute difference between groups: ' + str(OBS_1) + '\n')
 text_md.write('Difference attributable to groups: ' + str(KOB_1) + '\n')
 text_md.write('\n')
 text_md.write('Regression Model using hand selected variables: ' + '\n')
@@ -139,7 +140,7 @@ text_md.write('Rsq: ' + str(RSQ_2) + '\n')
 text_md.write('\n')
 text_md.write(str(result_2) + '\n')
 text_md.write('\n')
-text_md.write('Absolute difference between groups: ' + str(ABS_2) + '\n')
+text_md.write('Absolute difference between groups: ' + str(OBS_2) + '\n')
 text_md.write('Difference attributable to groups: ' + str(KOB_2) + '\n')
 text_md.write('\n')
 text_md.close() # Close file
@@ -156,7 +157,7 @@ forest.fit(x_1, y_1) # Fit Forest model, This will take time
 result = pd.DataFrame({'Variables': X, 'Importances': forest.feature_importances_})
 RSQ_3 = forest.score(x_1, y_1) # rsq value
 y_2_pred = forest.predict(x_2)
-ABS_3 = np.mean(y_1) - np.mean(y_2)
+OBS_3 = np.mean(y_1) - np.mean(y_2)
 KOB_3 = np.mean(y_2_pred) - np.mean(y_2)
 with pd.ExcelWriter('_fig//' + label_name + '//' + label_run + '//results.xlsx', mode = 'a', engine = 'openpyxl', if_sheet_exists = 'replace') as writer:  
         result.to_excel(writer, sheet_name = label, index = False)
@@ -169,7 +170,7 @@ recursive.fit(x_1, y_1) # This will take time
 result = pd.DataFrame({'Variables': X, 'Rankings': recursive.ranking_})
 RSQ_4 = recursive.score(x_1, y_1) # rsq value
 y_2_pred = recursive.predict(x_2)
-ABS_4 = np.mean(y_1) - np.mean(y_2)
+OBS_4 = np.mean(y_1) - np.mean(y_2)
 KOB_4 = np.mean(y_2_pred) - np.mean(y_2)
 with pd.ExcelWriter('_fig//' + label_name + '//' + label_run + '//results.xlsx', mode = 'a', engine = 'openpyxl', if_sheet_exists = 'replace') as writer:  
         result.to_excel(writer, sheet_name = label, index = False)
@@ -182,7 +183,7 @@ vector.fit(x_1, y_1) # fit model
 result = pd.DataFrame({'Variables': X, 'Vectors': vector.coef_})
 RSQ_5 = vector.score(x_1, y_1) # rsq value
 y_2_pred = vector.predict(x_2)
-ABS_5 = np.mean(y_1) - np.mean(y_2)
+OBS_5 = np.mean(y_1) - np.mean(y_2)
 KOB_5 = np.mean(y_2_pred) - np.mean(y_2)
 with pd.ExcelWriter('_fig//' + label_name + '//' + label_run + '//results.xlsx', mode = 'a', engine = 'openpyxl', if_sheet_exists = 'replace') as writer:  
         result.to_excel(writer, sheet_name = label, index = False)
@@ -195,17 +196,17 @@ text_md.write('For feature selection results, see ' + '_fig//' + label_name + '/
 text_md.write('\n')
 text_md.write('##### ' + model_3 + '\n')
 text_md.write('Reference Group Rsq: ' + str(RSQ_3) + '\n')
-text_md.write('Absolute difference between groups: ' + str(ABS_3) + '\n')
+text_md.write('Absolute difference between groups: ' + str(OBS_3) + '\n')
 text_md.write('Difference attributable to groups: ' + str(KOB_3) + '\n')
 text_md.write('\n')
 text_md.write('##### ' + model_4 + '\n')
 text_md.write('Reference Group Rsq: ' + str(RSQ_4) + '\n')
-text_md.write('Absolute difference between groups: ' + str(ABS_4) + '\n')
+text_md.write('Absolute difference between groups: ' + str(OBS_4) + '\n')
 text_md.write('Difference attributable to groups: ' + str(KOB_4) + '\n')
 text_md.write('\n')
 text_md.write('##### ' + model_5 + '\n')
 text_md.write('Reference Group Rsq: ' + str(RSQ_5) + '\n')
-text_md.write('Absolute difference between groups: ' + str(ABS_5) + '\n')
+text_md.write('Absolute difference between groups: ' + str(OBS_5) + '\n')
 text_md.write('Difference attributable to groups: ' + str(KOB_5) + '\n')
 text_md.write('\n')
 text_md.close() # Close file
@@ -248,7 +249,7 @@ with pd.ExcelWriter('_fig//' + label_name + '//' + label_run + '//results.xlsx',
 
 ### Predict focus group
 y3_2_pred = network.predict(x3_2) # Predict values from test data
-ABS_6 = np.mean(y3_1) - np.mean(y3_2)
+OBS_6 = np.mean(y3_1) - np.mean(y3_2)
 KOB_6 = np.mean(y3_2_pred) - np.mean(y3_2)
 KOB_6
 
@@ -286,7 +287,7 @@ with pd.ExcelWriter('_fig//' + label_name + '//' + label_run + '//results.xlsx',
 
 ### Predict focus group
 y3_2_pred = network.predict(x3_2) # Predict values from test data
-ABS_7 = np.mean(y3_1) - np.mean(y3_2)
+OBS_7 = np.mean(y3_1) - np.mean(y3_2)
 KOB_7 = np.mean(y3_2_pred) - np.mean(y3_2)
 KOB_7
 
@@ -353,7 +354,7 @@ with pd.ExcelWriter('_fig//' + label_name + '//' + label_run + '//results.xlsx',
 
 #### Predict focus group
 y3_2_pred = network.predict(x3_2) # Predict values from test data
-ABS_8 = np.mean(y3_1) - np.mean(y3_2)
+OBS_8 = np.mean(y3_1) - np.mean(y3_2)
 KOB_8 = np.mean(y3_2_pred) - np.mean(y3_2)
 KOB_8
 
@@ -421,7 +422,7 @@ with pd.ExcelWriter('_fig//' + label_name + '//' + label_run + '//results.xlsx',
 
 #### Predict focus group
 y3_2_pred = network.predict(x3_2) # Predict values from test data
-ABS_9 = np.mean(y3_1) - np.mean(y3_2)
+OBS_9 = np.mean(y3_1) - np.mean(y3_2)
 KOB_9 = np.mean(y3_2_pred) - np.mean(y3_2)
 KOB_9
 
@@ -488,7 +489,7 @@ with pd.ExcelWriter('_fig//' + label_name + '//' + label_run + '//results.xlsx',
 
 #### Predict focus group
 y3_2_pred = network.predict(x3_2) # Predict values from test data
-ABS_10 = np.mean(y3_1) - np.mean(y3_2)
+OBS_10 = np.mean(y3_1) - np.mean(y3_2)
 KOB_10 = np.mean(y3_2_pred) - np.mean(y3_2)
 KOB_10
 
@@ -499,23 +500,33 @@ text_md.write(method_4 + '\n')
 text_md.write('For training results, see ' + '_fig//' + label_name + '//' + label_run + '//results.xlsx' + '\n')
 text_md.write('\n')
 text_md.write('##### ' + model_6 + '\n')
-text_md.write('Absolute difference between groups: ' + str(ABS_1) + '\n')
-text_md.write('Difference attributable to groups: ' + str(KOB_1) + '\n')
+text_md.write('Absolute difference between groups: ' + str(OBS_6) + '\n')
+text_md.write('Difference attributable to groups: ' + str(KOB_6) + '\n')
 text_md.write('\n')
 text_md.write('##### ' + model_7 + '\n')
-text_md.write('Absolute difference between groups: ' + str(ABS_2) + '\n')
-text_md.write('Difference attributable to groups: ' + str(KOB_2) + '\n')
+text_md.write('Absolute difference between groups: ' + str(OBS_7) + '\n')
+text_md.write('Difference attributable to groups: ' + str(KOB_7) + '\n')
 text_md.write('\n')
 text_md.write('##### ' + model_8 + '\n')
-text_md.write('Absolute difference between groups: ' + str(ABS_3) + '\n')
-text_md.write('Difference attributable to groups: ' + str(KOB_3) + '\n')
+text_md.write('Absolute difference between groups: ' + str(OBS_8) + '\n')
+text_md.write('Difference attributable to groups: ' + str(KOB_8) + '\n')
 text_md.write('\n')
 text_md.write('##### ' + model_9 + '\n')
-text_md.write('Absolute difference between groups: ' + str(ABS_3) + '\n')
-text_md.write('Difference attributable to groups: ' + str(KOB_3) + '\n')
+text_md.write('Absolute difference between groups: ' + str(OBS_9) + '\n')
+text_md.write('Difference attributable to groups: ' + str(KOB_9) + '\n')
 text_md.write('\n')
 text_md.write('##### ' + model_10 + '\n')
-text_md.write('Absolute difference between groups: ' + str(ABS_3) + '\n')
-text_md.write('Difference attributable to groups: ' + str(KOB_3) + '\n')
+text_md.write('Absolute difference between groups: ' + str(OBS_10) + '\n')
+text_md.write('Difference attributable to groups: ' + str(KOB_10) + '\n')
 text_md.write('\n')
 text_md.close() # Close file
+
+### Save Results
+label = 'KOB'
+ls_model = [model_1, model_2, model_3, model_4, model_5, model_6, model_7, model_8, model_9, model_10]
+ls_OBS = [OBS_1, OBS_2, OBS_3, OBS_4, OBS_5, OBS_6, OBS_7, OBS_8, OBS_9, OBS_10]
+ls_KOB = [KOB_1, KOB_2, KOB_3, KOB_4, KOB_5, KOB_6, KOB_7, KOB_8, KOB_9, KOB_10]
+result = pd.DataFrame({'Observed Difference per Person': ls_OBS, 'Kitigawa-Oaxaca-Blinder': ls_KOB, 'Machine Learning Model': ls_model})
+result.to_csv('_data//' + label_name + '//' + label_run + '//results_Q2.csv', index = False)
+with pd.ExcelWriter('_fig//' + label_name + '//' + label_run + '//results.xlsx', mode = 'a', engine = 'openpyxl', if_sheet_exists = 'replace') as writer:  
+        result.to_excel(writer, sheet_name = label, index = False)

@@ -25,6 +25,7 @@ install.packages("randomForestExplainer") # Complimentary to randfomForest packa
 
 ### Other
 install.packages("ineq") # Gini coefficient and Lorenz curve
+install.packages("rmarkdown") # Converting markdown documents
 
 ### Visualization
 install.packages("RColorBrewer") # Creates nice looking color palettes especially for thematic maps in R

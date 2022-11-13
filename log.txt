@@ -156,4 +156,9 @@ Likely a few high spenders in non-white group.
 This is promising, add more models next. 
 
 16:21
-Neural netowkr code started after finishing KOB. Will need to split up inot setting types but that could be beneifical anyway. 
+Neural netowkr code started after finishing KOB. Will need to split up inot setting types but that could be beneifical anyway.
+
+18:24
+Added deeep learning networks for ACA only, DX, then utilizaiton vairables by setting. 
+RTesults show expected KOB for ACA only, but parity for DX and negative for utilization.
+Next steps are to vizualize results and sent to committee. 

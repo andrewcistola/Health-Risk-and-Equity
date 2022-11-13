@@ -24,6 +24,7 @@ library(randomForestExplainer) # Complimentary to randfomForest package with too
 
 ### Other
 library(ineq) # Gini coefficient and Lorenz curve
+library(rmarkdown) # Converting markdown documents
 
 ### Visualization
 library(RColorBrewer) # Creates nice looking color palettes especially for thematic maps in R
