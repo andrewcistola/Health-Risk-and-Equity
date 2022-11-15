@@ -162,3 +162,6 @@ Neural netowkr code started after finishing KOB. Will need to split up inot sett
 Added deeep learning networks for ACA only, DX, then utilizaiton vairables by setting. 
 RTesults show expected KOB for ACA only, but parity for DX and negative for utilization.
 Next steps are to vizualize results and sent to committee. 
+
+2022 Nov 14 19:36
+Running from end to end with updates to summary file to hopefully helkp make it more readable. 

@@ -15,7 +15,7 @@ In development
 github.com/andrewcistola/Health-Risk-and_Equity
 
 #### Updated:
-2022-11-11 08:29:41.310273
+2022-11-14 19:33:51.334478
 
 ### Import Results
 The following files were downloaded from https://meps.ahrq.gov/mepsweb/data_files/pufs/ and saved to a local database:
@@ -136,8 +136,9 @@ Any for individual in same year as marketpalce coverage
 All distinct conditions were kept and joined to household records.
     
 
-Final Data for analysis-
+##### Final Analytical Data
 
+<pre>
 <class 'pandas.core.frame.DataFrame'>
 Int64Index: 109428 entries, 0 to 109427
 Data columns (total 12 columns):
@@ -158,6 +159,8 @@ Data columns (total 12 columns):
 dtypes: float64(6), int64(1), object(5)
 memory usage: 10.9+ MB
 
+</pre>
+
 ### Data Preparation Summary
 The following Columns were derived for this analysis:
 
@@ -169,13 +172,16 @@ The following Columns were derived for this analysis:
 ##### Descriptive Statistics
 The following statistics describe the population used for both analyses:
 
+<pre>
         AGE                                                    
       count       mean        std   min   25%   50%   75%   max
 YEAR                                                           
 2018  636.0  47.902516  11.703822  26.0  38.0  50.0  59.0  64.0
 2019  598.0  48.530100  11.704124  26.0  39.0  51.0  59.0  64.0
 2020  646.0  48.780186  11.572139  26.0  39.0  51.0  59.0  64.0
+</pre>
 
+<pre>
                   AGE                                                      
                 count       mean        std   min    25%   50%    75%   max
 YEAR RACE_DESC                                                             
@@ -194,14 +200,18 @@ YEAR RACE_DESC
      HISPANIC   158.0  48.082278  11.039573  26.0  39.25  50.0  58.00  64.0
      MISSING     17.0  42.588235  11.230866  27.0  34.00  44.0  51.00  62.0
      WHITE      342.0  49.444444  11.838905  26.0  40.00  52.0  60.00  64.0
+</pre>
 
+<pre>
      PERCENT_FEMALE                                             
               count      mean       std  min  25%  50%  75%  max
 YEAR                                                            
 2018          636.0  0.592767  0.491706  0.0  0.0  1.0  1.0  1.0
 2019          598.0  0.588629  0.492494  0.0  0.0  1.0  1.0  1.0
 2020          646.0  0.574303  0.494831  0.0  0.0  1.0  1.0  1.0
+</pre>
 
+<pre>
                PERCENT_FEMALE                                             
                         count      mean       std  min  25%  50%  75%  max
 YEAR RACE_DESC                                                            
@@ -220,14 +230,18 @@ YEAR RACE_DESC
      HISPANIC           158.0  0.594937  0.492465  0.0  0.0  1.0  1.0  1.0
      MISSING             17.0  0.705882  0.469668  0.0  0.0  1.0  1.0  1.0
      WHITE              342.0  0.538012  0.499283  0.0  0.0  1.0  1.0  1.0
+</pre>
 
+<pre>
      FPL_PERCENT                                                                    
            count        mean         std    min       25%     50%       75%      max
 YEAR                                                                                
 2018       636.0  351.596006  303.764140 -46.96  175.0425  267.91  428.9950  2411.90
 2019       598.0  350.502525  305.634736   0.00  159.5250  267.10  448.4375  2727.94
 2020       646.0  354.107043  298.758648 -58.32  159.9125  280.88  448.9600  2100.47
+</pre>
 
+<pre>
                FPL_PERCENT                                                                      
                      count        mean         std     min       25%      50%       75%      max
 YEAR RACE_DESC                                                                                  
@@ -246,9 +260,18 @@ YEAR RACE_DESC
      HISPANIC        158.0  266.409367  205.613912  -20.52  133.9050  193.920  350.3325  1186.10
      MISSING          17.0  280.407647  189.062492   51.99  147.6000  223.970  432.7500   617.14
      WHITE           342.0  410.961404  337.243111  -10.19  198.5850  311.140  519.4525  2100.47
+</pre>
 
+<pre>
+     ICD10_TOTAL                                              
+           count      mean       std  min  25%  50%  75%   max
+YEAR                                                          
+2018       636.0  2.834906  3.277618  0.0  0.0  2.0  4.0  22.0
+2019       598.0  2.633779  3.150815  0.0  0.0  2.0  4.0  27.0
+2020       646.0  2.600619  2.840177  0.0  0.0  2.0  4.0  19.0
+</pre>
 
-
+<pre>
                ICD10_TOTAL                                               
                      count      mean       std  min  25%  50%   75%   max
 YEAR RACE_DESC                                                           
@@ -267,14 +290,18 @@ YEAR RACE_DESC
      HISPANIC        158.0  1.911392  2.486600  0.0  0.0  1.0  3.00  17.0
      MISSING          17.0  2.941176  3.051036  0.0  0.0  2.0  4.00  10.0
      WHITE           342.0  2.915205  2.947508  0.0  1.0  2.0  4.00  19.0
+</pre>
 
+<pre>
      PAID_TOTAL                                                                    
           count         mean           std  min  25%      50%        75%        max
 YEAR                                                                               
 2018      636.0  4061.027028  19922.817240  0.0  0.0  176.495  1519.4175  317628.78
 2019      598.0  6854.093043  48993.248496  0.0  0.0  161.515  1484.8600  788295.78
 2020      646.0  3739.139195  13855.826243  0.0  0.0  168.710  1470.4350  160834.52
+</pre>
 
+<pre>
                PAID_TOTAL                                                                      
                     count          mean            std  min  25%      50%        75%        max
 YEAR RACE_DESC                                                                                 
@@ -293,14 +320,18 @@ YEAR RACE_DESC
      HISPANIC       158.0   2600.111329   11610.657570  0.0  0.0   23.550   612.6800  128095.73
      MISSING         17.0   4140.394706    6282.551758  0.0  0.0  317.300  5749.9600   15798.61
      WHITE          342.0   4692.452339   16563.907277  0.0  0.0  277.425  2173.5575  160834.52
+</pre>
 
+<pre>
      VISITS_TOTAL                                                  
             count       mean        std  min  25%  50%   75%    max
 YEAR                                                               
 2018        636.0  13.661950  25.215553  0.0  0.0  5.0  17.0  372.0
 2019        598.0  13.359532  28.080815  0.0  0.0  4.0  14.0  388.0
 2020        646.0  12.495356  24.038325  0.0  0.0  4.0  15.0  255.0
+</pre>
 
+<pre>
                VISITS_TOTAL                                                    
                       count       mean        std  min  25%   50%    75%    max
 YEAR RACE_DESC                                                                 
@@ -319,9 +350,11 @@ YEAR RACE_DESC
      HISPANIC         158.0   7.044304  11.133438  0.0  0.0   2.0  10.00   73.0
      MISSING           17.0  22.705882  39.968370  0.0  0.0  10.0  30.00  163.0
      WHITE            342.0  14.973684  27.859027  0.0  1.0   6.0  17.00  255.0
+</pre>
 
 ##### Research Question 1: Analytical File
 
+<pre>
 <class 'pandas.core.frame.DataFrame'>
 Int64Index: 1880 entries, 0 to 1879
 Data columns (total 9 columns):
@@ -339,34 +372,36 @@ Data columns (total 9 columns):
 dtypes: float64(5), int64(4)
 memory usage: 146.9 KB
 
+</pre>
 ##### Research Question 2: Analytical File
 
+<pre>
 <class 'pandas.core.frame.DataFrame'>
-Int64Index: 5562 entries, 0 to 5561
+RangeIndex: 1880 entries, 0 to 1879
 Data columns (total 388 columns):
  #    Column             Non-Null Count  Dtype  
 ---   ------             --------------  -----  
- 0    PERSON_ID          5562 non-null   int64  
- 1    YEAR               5562 non-null   int64  
- 2    AGE                5562 non-null   float64
- 3    SEX                5562 non-null   float64
- 4    RACE               5562 non-null   float64
- 5    FPL_PERCENT        5480 non-null   float64
- 6    ICD10_TOTAL        5058 non-null   float64
- 7    ER_PAID            933 non-null    float64
- 8    HOME_PAID          119 non-null    float64
- 9    INPATIENT_PAID     535 non-null    float64
- 10   OFFICE_PAID        4120 non-null   float64
- 11   OUTPATIENT_PAID    1251 non-null   float64
- 12   RX_PAID            3911 non-null   float64
- 13   PAID_TOTAL         4792 non-null   float64
- 14   ER_VISITS          1135 non-null   float64
- 15   HOME_VISITS        148 non-null    float64
- 16   INPATIENT_VISITS   593 non-null    float64
- 17   OFFICE_VISITS      4543 non-null   float64
- 18   OUTPATIENT_VISITS  1424 non-null   float64
- 19   RX_VISITS          4763 non-null   float64
- 20   VISITS_TOTAL       5058 non-null   float64
+ 0    PERSON_ID          1880 non-null   int64  
+ 1    YEAR               1880 non-null   int64  
+ 2    AGE                1880 non-null   float64
+ 3    SEX                1880 non-null   float64
+ 4    RACE               1880 non-null   float64
+ 5    FPL_PERCENT        1854 non-null   float64
+ 6    ICD10_TOTAL        1376 non-null   float64
+ 7    ER_PAID            169 non-null    float64
+ 8    HOME_PAID          11 non-null     float64
+ 9    INPATIENT_PAID     96 non-null     float64
+ 10   OFFICE_PAID        924 non-null    float64
+ 11   OUTPATIENT_PAID    231 non-null    float64
+ 12   RX_PAID            891 non-null    float64
+ 13   PAID_TOTAL         1217 non-null   float64
+ 14   ER_VISITS          213 non-null    float64
+ 15   HOME_VISITS        15 non-null     float64
+ 16   INPATIENT_VISITS   107 non-null    float64
+ 17   OFFICE_VISITS      1094 non-null   float64
+ 18   OUTPATIENT_VISITS  269 non-null    float64
+ 19   RX_VISITS          1186 non-null   float64
+ 20   VISITS_TOTAL       1376 non-null   float64
  21   ICD10_-15          199 non-null    float64
  22   ICD10_A04          1 non-null      float64
  23   ICD10_A08          3 non-null      float64
@@ -735,21 +770,24 @@ Data columns (total 388 columns):
  386  ICD10_Z97          1 non-null      float64
  387  ICD10_Z98          1 non-null      float64
 dtypes: float64(386), int64(2)
-memory usage: 16.5 MB
+memory usage: 5.6 MB
 
+</pre>
 
 ###  Regression Modeling Result Summary 
 The following results were collected using  R version 4.2.2 (2022-10-31 ucrt) 
 
 ####  Regression Step 1: Import and Clean Data 
 
-Source:  _data//Race_MEPS//alpha_dev_20221111082941//analytical_Q1.csv 
+Source:  _data//Race_MEPS//alpha_dev_20221114193351//analytical_Q1.csv 
 
 W (ID variables):  PERSON_ID 
 X (Predictor variables):  NON_WHITE AGE SEX FPL_PERCENT ICD10_TOTAL 
 Y (Outcome variables):  PAID_TOTAL 
 Z (Subgroup variables):  YEAR 
 
+
+<pre>
 ── Data Summary ────────────────────────
                            Values 
 Name                       df_WXYZ
@@ -795,15 +833,17 @@ Group variables            None
 14          0           0           0           1  ▇▁▁▁▁
 15          0           0           1           1  ▇▁▁▁▆
 
-####  Regression Step 2: Test for OLS Assumptions 
+</pre>
 
 ####  Regression Step 2: Test for OLS Assumptions 
 
 ##### Results for Subgroup:  2018 
 
 
-OLS Assumption 0: Sampling (Random sample, observations > predictors, predictor is independent) 
+#####  OLS Assumption 0: Sampling (Random sample, observations > predictors, predictor is independent) 
 
+
+<pre>
 
 Call:
 lm(formula = F, data = D)
@@ -827,24 +867,36 @@ Residual standard error: 19250 on 630 degrees of freedom
 Multiple R-squared:  0.07401,	Adjusted R-squared:  0.06666 
 F-statistic: 10.07 on 5 and 630 DF,  p-value: 2.732e-09
 
-OLS Assumption 1: Specification (Relationship between predictor and outcome is linear) 
+
+</pre>
+
+#####  OLS Assumption 1: Specification (Relationship between predictor and outcome is linear) 
+
+<pre>
 
 	Rainbow test
 
 data:  OLS
 Rain = 0.27075, df1 = 318, df2 = 312, p-value = 1
 
-Significant = Non-linearity
+[1] "Significant = Non-linearity"
 
-OLS Assumption 2:  Normality (Errors are normal with a mean = 0) 
+</pre>
+#####  OLS Assumption 2:  Normality (Errors are normal with a mean = 0) 
+
+
+<pre>
 
 	Robust Jarque Bera Test
 
 data:  resid(OLS)
 X-squared = 1022871194, df = 2, p-value < 2.2e-16
 
-Signficiant = Non-normal
+[1] "Significant = Non-normal"
 
+</pre>
+
+<pre>
 
 	Anderson-Darling test of goodness-of-fit
 	Null hypothesis: uniform distribution
@@ -852,9 +904,14 @@ Signficiant = Non-normal
 data:  resid(OLS)
 An = Inf, p-value = 9.434e-07
 
-Signficiant = Non-normal
+[1] "Signficiant = Non-normal"
 
-OLS Assumption 3: No Autocorrelation (Error terms are not correlated with each other) 
+</pre>
+
+#####  OLS Assumption 3: No Autocorrelation (Error terms are not correlated with each other) 
+
+
+<pre>
 
 	Durbin-Watson test
 
@@ -862,17 +919,28 @@ data:  OLS
 DW = 1.9916, p-value = 0.4509
 alternative hypothesis: true autocorrelation is greater than 0
 
-Signficiant = Autocorrelation
+[1] "Signficiant = Autocorrelation"
 
-OLS Assumption 4: Homoskedasticity (Error is even across observations) 
+</pre>
+
+#####  OLS Assumption 4: Homoskedasticity (Error is even across observations) 
+
+
+<pre>
 
 	studentized Breusch-Pagan test
 
 data:  OLS
 BP = 12.967, df = 5, p-value = 0.02369
 
-Signficiant = Homoscedastic
+[1] "Signficiant = Homoscedastic"
 
+</pre>
+
+#####  OLS Assumption 5: No Colinearity (Predictors are not correlated with each other) 
+
+
+<pre>
 
 	Goldfeld-Quandt test
 
@@ -880,16 +948,19 @@ data:  OLS
 GQ = 0.79538, df1 = 312, df2 = 312, p-value = 0.9782
 alternative hypothesis: variance increases from segment 1 to 2
 
-Significant = Heteroscedastic
+[1] "Signficiant = Heteroscedastic"
 
+</pre>
 
 ####  Regression Step 2: Test for OLS Assumptions 
 
 ##### Results for Subgroup:  2019 
 
 
-OLS Assumption 0: Sampling (Random sample, observations > predictors, predictor is independent) 
+#####  OLS Assumption 0: Sampling (Random sample, observations > predictors, predictor is independent) 
 
+
+<pre>
 
 Call:
 lm(formula = F, data = D)
@@ -913,24 +984,36 @@ Residual standard error: 47930 on 592 degrees of freedom
 Multiple R-squared:  0.05102,	Adjusted R-squared:  0.04301 
 F-statistic: 6.366 on 5 and 592 DF,  p-value: 9.03e-06
 
-OLS Assumption 1: Specification (Relationship between predictor and outcome is linear) 
+
+</pre>
+
+#####  OLS Assumption 1: Specification (Relationship between predictor and outcome is linear) 
+
+<pre>
 
 	Rainbow test
 
 data:  OLS
 Rain = 19.56, df1 = 299, df2 = 293, p-value < 2.2e-16
 
-Significant = Non-linearity
+[1] "Significant = Non-linearity"
 
-OLS Assumption 2:  Normality (Errors are normal with a mean = 0) 
+</pre>
+#####  OLS Assumption 2:  Normality (Errors are normal with a mean = 0) 
+
+
+<pre>
 
 	Robust Jarque Bera Test
 
 data:  resid(OLS)
 X-squared = 8886483438, df = 2, p-value < 2.2e-16
 
-Signficiant = Non-normal
+[1] "Significant = Non-normal"
 
+</pre>
+
+<pre>
 
 	Anderson-Darling test of goodness-of-fit
 	Null hypothesis: uniform distribution
@@ -938,9 +1021,14 @@ Signficiant = Non-normal
 data:  resid(OLS)
 An = Inf, p-value = 1.003e-06
 
-Signficiant = Non-normal
+[1] "Signficiant = Non-normal"
 
-OLS Assumption 3: No Autocorrelation (Error terms are not correlated with each other) 
+</pre>
+
+#####  OLS Assumption 3: No Autocorrelation (Error terms are not correlated with each other) 
+
+
+<pre>
 
 	Durbin-Watson test
 
@@ -948,17 +1036,28 @@ data:  OLS
 DW = 2.0123, p-value = 0.5522
 alternative hypothesis: true autocorrelation is greater than 0
 
-Signficiant = Autocorrelation
+[1] "Signficiant = Autocorrelation"
 
-OLS Assumption 4: Homoskedasticity (Error is even across observations) 
+</pre>
+
+#####  OLS Assumption 4: Homoskedasticity (Error is even across observations) 
+
+
+<pre>
 
 	studentized Breusch-Pagan test
 
 data:  OLS
 BP = 12.581, df = 5, p-value = 0.02764
 
-Signficiant = Homoscedastic
+[1] "Signficiant = Homoscedastic"
 
+</pre>
+
+#####  OLS Assumption 5: No Colinearity (Predictors are not correlated with each other) 
+
+
+<pre>
 
 	Goldfeld-Quandt test
 
@@ -966,14 +1065,19 @@ data:  OLS
 GQ = 0.83993, df1 = 293, df2 = 293, p-value = 0.932
 alternative hypothesis: variance increases from segment 1 to 2
 
-Significant = Heteroscedastic
+[1] "Signficiant = Heteroscedastic"
 
+</pre>
+
+####  Regression Step 2: Test for OLS Assumptions 
 
 ##### Results for Subgroup:  2020 
 
 
-OLS Assumption 0: Sampling (Random sample, observations > predictors, predictor is independent) 
+#####  OLS Assumption 0: Sampling (Random sample, observations > predictors, predictor is independent) 
 
+
+<pre>
 
 Call:
 lm(formula = F, data = D)
@@ -997,24 +1101,36 @@ Residual standard error: 13080 on 640 degrees of freedom
 Multiple R-squared:  0.1158,	Adjusted R-squared:  0.1089 
 F-statistic: 16.77 on 5 and 640 DF,  p-value: 1.381e-15
 
-OLS Assumption 1: Specification (Relationship between predictor and outcome is linear) 
+
+</pre>
+
+#####  OLS Assumption 1: Specification (Relationship between predictor and outcome is linear) 
+
+<pre>
 
 	Rainbow test
 
 data:  OLS
 Rain = 1.6385, df1 = 323, df2 = 317, p-value = 5.747e-06
 
-Significant = Non-linearity
+[1] "Significant = Non-linearity"
 
-OLS Assumption 2:  Normality (Errors are normal with a mean = 0) 
+</pre>
+#####  OLS Assumption 2:  Normality (Errors are normal with a mean = 0) 
+
+
+<pre>
 
 	Robust Jarque Bera Test
 
 data:  resid(OLS)
 X-squared = 28462243, df = 2, p-value < 2.2e-16
 
-Signficiant = Non-normal
+[1] "Significant = Non-normal"
 
+</pre>
+
+<pre>
 
 	Anderson-Darling test of goodness-of-fit
 	Null hypothesis: uniform distribution
@@ -1022,9 +1138,14 @@ Signficiant = Non-normal
 data:  resid(OLS)
 An = Inf, p-value = 9.288e-07
 
-Signficiant = Non-normal
+[1] "Signficiant = Non-normal"
 
-OLS Assumption 3: No Autocorrelation (Error terms are not correlated with each other) 
+</pre>
+
+#####  OLS Assumption 3: No Autocorrelation (Error terms are not correlated with each other) 
+
+
+<pre>
 
 	Durbin-Watson test
 
@@ -1032,17 +1153,28 @@ data:  OLS
 DW = 2.0337, p-value = 0.6589
 alternative hypothesis: true autocorrelation is greater than 0
 
-Signficiant = Autocorrelation
+[1] "Signficiant = Autocorrelation"
 
-OLS Assumption 4: Homoskedasticity (Error is even across observations) 
+</pre>
+
+#####  OLS Assumption 4: Homoskedasticity (Error is even across observations) 
+
+
+<pre>
 
 	studentized Breusch-Pagan test
 
 data:  OLS
 BP = 19.883, df = 5, p-value = 0.001314
 
-Signficiant = Homoscedastic
+[1] "Signficiant = Homoscedastic"
 
+</pre>
+
+#####  OLS Assumption 5: No Colinearity (Predictors are not correlated with each other) 
+
+
+<pre>
 
 	Goldfeld-Quandt test
 
@@ -1050,14 +1182,17 @@ data:  OLS
 GQ = 1.706, df1 = 317, df2 = 317, p-value = 1.157e-06
 alternative hypothesis: variance increases from segment 1 to 2
 
-Significant = Heteroscedastic
+[1] "Signficiant = Heteroscedastic"
 
+</pre>
 
 ####  Regression Step 3: Create Generalized Linear Models 
 
 ##### Linear 
 
 Generalized model for DV = Y, regression = linear 
+
+<pre>
 
 Call:
 glm(formula = F, family = gaussian(), data = D)
@@ -1086,11 +1221,16 @@ AIC: 44153
 
 Number of Fisher Scoring iterations: 2
 
-F-Test for overdispersion:  0 
+F-Test for overdispersion:  
+0 
+
+</pre>
 
 ##### Log Transform Y 
 
 Generalized model for DV = log(Y), regression = linear 
+
+<pre>
 
 Call:
 glm(formula = F, family = gaussian(), data = D)
@@ -1119,44 +1259,54 @@ AIC: 9095.3
 
 Number of Fisher Scoring iterations: 2
 
-F-Test for overdispersion:  0 
+[1] "F-Test for overdispersion: "
+[1] 0
 
-##### Y Squared 
+</pre>
+
+##### Polynomial 
 
 Generalized model for DV = Y^2, regression = linear 
+
+<pre>
 
 Call:
 glm(formula = F, family = gaussian(), data = D)
 
 Deviance Residuals: 
-       Min          1Q      Median          3Q         Max  
--1.181e+10  -1.863e+09  -6.896e+08   4.002e+08   6.173e+11  
+   Min      1Q  Median      3Q     Max  
+-56095   -4275   -2835   -1350  779178  
 
 Coefficients:
               Estimate Std. Error t value Pr(>|t|)    
-(Intercept)  2.017e+11  1.140e+12   0.177 0.859652    
-NON_WHITE    1.923e+09  9.655e+08   1.991 0.046580 *  
-AGE          3.399e+07  4.139e+07   0.821 0.411606    
-SEX         -9.399e+08  9.661e+08  -0.973 0.330725    
-FPL_PERCENT  1.382e+06  1.571e+06   0.880 0.379155    
-ICD10_TOTAL  5.481e+08  1.606e+08   3.413 0.000656 ***
-YEAR        -1.009e+08  5.649e+08  -0.179 0.858288    
+(Intercept) -3.911e+04  1.730e+06  -0.023    0.982    
+ICD10_sq     1.287e+02  1.751e+01   7.351 2.92e-13 ***
+FPL_PERCENT  7.820e-01  2.381e+00   0.328    0.743    
+NON_WHITE    6.954e+02  1.453e+03   0.479    0.632    
+AGE          8.163e+01  6.186e+01   1.320    0.187    
+SEX         -1.926e+03  1.453e+03  -1.325    0.185    
+YEAR         1.996e+01  8.567e+02   0.023    0.981    
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-(Dispersion parameter for gaussian family taken to be 4.076962e+20)
+(Dispersion parameter for gaussian family taken to be 937156797)
 
-    Null deviance: 7.7033e+23  on 1879  degrees of freedom
-Residual deviance: 7.6362e+23  on 1873  degrees of freedom
-AIC: 94563
+    Null deviance: 1.8125e+12  on 1879  degrees of freedom
+Residual deviance: 1.7553e+12  on 1873  degrees of freedom
+AIC: 44182
 
 Number of Fisher Scoring iterations: 2
 
-F-Test for overdispersion:  0 
+[1] "F-Test for overdispersion: "
+[1] 0
+
+</pre>
 
 ##### Logistic 
 
 Generalized model for DV = Y > 0, regression = binomial 
+
+<pre>
 
 Call:
 glm(formula = F, family = binomial(), data = D)
@@ -1183,11 +1333,16 @@ AIC: 14
 
 Number of Fisher Scoring iterations: 25
 
-F-Test for overdispersion:  1 
+[1] "F-Test for overdispersion: "
+[1] 1
+
+</pre>
 
 ##### Poisson 
 
 Generalized model for DV = Y, regression = poisson 
+
+<pre>
 
 Call:
 glm(formula = F, family = poisson(), data = D)
@@ -1216,11 +1371,16 @@ AIC: Inf
 
 Number of Fisher Scoring iterations: 8
 
-F-Test for overdispersion:  0 
+[1] "F-Test for overdispersion: "
+[1] 0
+
+</pre>
 
 ##### Negative Binomial 
 
 Generalized model for DV = Y, regression = negative binomial 
+
+<pre>
 
 Call:
 glm.nb(formula = F, data = D, init.theta = 0.1306871902, link = log)
@@ -1254,14 +1414,18 @@ Number of Fisher Scoring iterations: 1
           Std. Err.:  0.00413 
 
  2 x log-likelihood:  -24080.60100 
+[1] "F-Test for overdispersion: "
+[1] 0.0005441556
 
-F-Test for overdispersion:  0.000544155568472759 
+</pre>
 
 ####  Regression Step 4: Hierarchical Linear Models 
 
 ##### Fixed Efects 
 
 Hierarchical model for  DV = Y_log regression = linear with varying intercepts by RACE 
+
+<pre>
 Linear mixed model fit by REML. t-tests use Satterthwaite's method [
 lmerModLmerTest]
 Formula: F
@@ -1296,6 +1460,10 @@ SEX         -0.555 -0.024
 FPL_PERCENT -0.208 -0.047  0.052       
 ICD10_TOTAL  0.114 -0.233 -0.179  0.082
 
+</pre>
+
+
+<pre>
       npar          logLik           AIC            LRT              Df   
  Min.   :6.00   Min.   :-4562   Min.   :9134   Min.   :4.266   Min.   :1  
  1st Qu.:6.25   1st Qu.:-4562   1st Qu.:9134   1st Qu.:4.266   1st Qu.:1  
@@ -1313,15 +1481,23 @@ ICD10_TOTAL  0.114 -0.233 -0.179  0.082
  Max.   :0.03889  
  NA's   :1        
 
+</pre>
+
+
+<pre>
 # ICC by Group
 
 Group |   ICC
 -------------
 RACE  | 0.005
 
+</pre>
+
 ##### Random Efects 
 
 Hierarchical model for  DV = Y_log regression = linear with varying coeffeicints of ICD10_TOTAL by RACE 
+
+<pre>
 Linear mixed model fit by REML. t-tests use Satterthwaite's method [
 lmerModLmerTest]
 Formula: F
@@ -1357,6 +1533,10 @@ SEX         -0.490 -0.024
 FPL_PERCENT -0.183 -0.048  0.053       
 ICD10_TOTAL -0.425 -0.035 -0.029  0.020
 
+</pre>
+
+
+<pre>
       npar         logLik           AIC            LRT              Df   
  Min.   :7.0   Min.   :-4560   Min.   :9117   Min.   :21.28   Min.   :2  
  1st Qu.:7.5   1st Qu.:-4557   1st Qu.:9121   1st Qu.:21.28   1st Qu.:2  
@@ -1374,123 +1554,152 @@ ICD10_TOTAL -0.425 -0.035 -0.029  0.020
  Max.   :2.39e-05  
  NA's   :1         
 
-##### Intraclass Correlation Coefficient
+</pre>
+
+####
+<pre>
+# Intraclass Correlation Coefficient
 
     Adjusted ICC: 0.073
   Unadjusted ICC: 0.035
 
+</pre>
+
+
 ### Machine Learning Result Summary
-Various machine learning models were trained on a reference population and then used to predict values from a focus populaiton. The difference in predicted to actual values for the focus group then to reflects the impact of group identification. This is an adaptation of the Kitigawa-Oaxaca-Blinder method.
-Reference group: Non-Hispanic White (RACETH = 2)
-Focus group: Hispanic, Black, Asian, or Other (RACETH <> 2)
+Various machine learning models were trained on a reference population and then used to predict values from a focus populaiton. The difference in predicted to actual values for the focus group then to reflects the impact of group identification. This is an adaptation of the Kitigawa-Oaxaca-Blinder method.<br>
 The following results used the scikit-learn and keras libraries for Python version 3.9.13 (tags/v3.9.13:6de2ca5, May 17 2022, 16:36:42) [MSC v.1929 64 bit (AMD64)]
 
 #### Mahcine Learning Step 1: Data Processing of Predictors and Outcomes
-Source: _data//Race_MEPS//alpha_dev_20221111082941//analytical_Q2.csv
+Source: _data//Race_MEPS//alpha_dev_20221114193351//analytical_Q2.csv
 
-W (ID variables): PERSON_ID
-X (Predictor variables): RACE, AGE, SEX, ICD10_TOTAL, ICD10_YN, VISITS_TOTAL, VISITS_X_TYPE, PAID_X_TYPE
-Y (Outcome variables): PAID_TOTAL
-Z (Subgroup variables): YEAR
+W (ID variables): PERSON_ID<br>
+X (Predictor variables): RACE, AGE, SEX, ICD10_TOTAL, ICD10_YN, VISITS_TOTAL<br>
+Y (Outcome variables): PAID_TOTAL<br>
+Z (Subgroup variables): YEAR<br>
 
+Reference group: Non-Hispanic White (RACETH = 2)<br>
+Focus group: Hispanic, Black, Asian, or Other (RACETH <> 2)<br>
+
+
+<pre>
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 1880 entries, 0 to 1879
 Columns: 388 entries, PERSON_ID to ICD10_Z98
 dtypes: float64(17), int64(371)
 memory usage: 5.6 MB
 
+</pre>
+
 #### Learn Step 2: Manual Feature Selection Assisted with Unsupervised Learning
 Unsupervised learning models are used to review predictors for inclusion in a regression model. The regression model is trained on the reference group and predicts values for the focus group. The difference in predicted to actual values represents what is explained by group identififcation independent of the predictors.
 
 ##### Principal Component Analysis
-See _fig//Race_MEPS//alpha_dev_20221111082941//results.xlsx
+See _fig//Race_MEPS//alpha_dev_20221114193351//results.xlsx
 
 ##### K-Means
-See _fig//Race_MEPS//alpha_dev_20221111082941//results.xlsx
+See _fig//Race_MEPS//alpha_dev_20221114193351//results.xlsx
 
-##### Linear Regression using ACA Predictors and Visits by Setting
-Regression Model using hand selected variables: 
+##### Linear Regression using ACA Predictors and Visits
+Regression Model using hand selected variables: <br>
 
-Rsq: 0.25890049078599486
+
+<pre>
+Rsq: 0.25890049078599486<br>
 
        AGE       SEX  FPL_PERCENT  ICD10_TOTAL
 0 -0.02231 -0.296159    -0.170343     1.556312
 
-Absolute difference between groups: 0.37579456318369964
-Difference attributable to groups: 0.37579456318369964
+</pre>
+
+Absolute difference between groups: 0.37579456318369964<br>
+Difference attributable to groups: 0.37579456318369964<br>
 
 Regression Model using hand selected variables: 
 
-Rsq: 0.3449291962595249
 
-        AGE       SEX  ICD10_TOTAL  VISITS_TOTAL  ER_VISITS  INPATIENT_VISITS  OFFICE_VISITS
-0  0.048599 -0.204612     0.852982      1.591297  -0.000205          0.578796      -0.827822
+<pre>
+Rsq: 0.30206440919053057<br>
 
-Absolute difference between groups: 0.37579456318369964
-Difference attributable to groups: 0.37579456318369964
+        AGE       SEX  FPL_PERCENT  ICD10_TOTAL  VISITS_TOTAL
+0  0.081473 -0.247771    -0.155588     1.148258      0.744963
+
+</pre>
+
+Absolute difference between groups: 0.37579456318369964<br>
+Difference attributable to groups: 0.37579456318369964<br>
 
 #### Learn Step 3: Automated Feature Selection Assisted with Supervised Learning
 Supervised algorithms are used to automatically identify relevant features and predict outcomes. These models allow for the inclusion of more data in closer to raw form than OLS. The models are trained on the reference group and then predict values for the focus group. The difference in predicted to actual values represents what is explained by group identififcation independent of the predictors.
-For feature selection results, see _fig//Race_MEPS//alpha_dev_20221111082941//results.xlsx
+For feature selection results, see _fig//Race_MEPS//alpha_dev_20221114193351//results.xlsx
 
 ##### Random Forests
-Reference Group Rsq: 0.9941515609785894
-Absolute difference between groups: 0.37579456318369964
-Difference attributable to groups: 1.264368418521598
+
+Reference Group Rsq: 0.9940878249061551<br>
+Absolute difference between groups: 0.37579456318369964<br>
+Difference attributable to groups: 1.2547799151155603<br>
 
 ##### Recursive feature Elimination
-Reference Group Rsq: 0.6344018320582205
-Absolute difference between groups: 0.37579456318369964
-Difference attributable to groups: 0.36390643700851655
+
+Reference Group Rsq: 0.6344018320582205<br>
+Absolute difference between groups: 0.37579456318369964<br>
+Difference attributable to groups: 0.36390643700851655<br>
 
 ##### Support Vector Machines
-Reference Group Rsq: 0.5367151858711181
-Absolute difference between groups: 0.37579456318369964
-Difference attributable to groups: 0.6579334517535358
+
+Reference Group Rsq: 0.5360354970252728<br>
+Absolute difference between groups: 0.37579456318369964<br>
+Difference attributable to groups: 0.6621475761750837<br>
 
 #### Learn Step 4: Deep Learning with Expanded predictors
-Deep learning algorithms are used for an expanded set of predictors in raw format. These models allow for virtually all structured data without processing and can handle complex interactions not yet understood. The models are trained on the reference group and then predict values for the focus group. The difference in predicted to actual values represents what is explained by group identififcation independent of the predictors.
-For training results, see _fig//Race_MEPS//alpha_dev_20221111082941//results.xlsx
+Deep learning algorithms are used for an expanded set of predictors in raw format. These models allow for virtually all structured data without processing and can handle complex interactions not yet understood. The models are trained on the reference group and then predict values for the focus group. The difference in predicted to actual values represents what is explained by group identififcation independent of the predictors.<br>
+
+For training results, see _fig//Race_MEPS//alpha_dev_20221114193351//results.xlsx
 
 ##### MLP Using ACA Data
-Absolute difference between groups: 1.0951673001343485
-Difference attributable to groups: 1.9771237706425024
+
+Absolute difference between groups: 1.0951673001343485<br>
+Difference attributable to groups: 1.9656806325199438<br>
 
 ##### MLP Using ACA and Diagnosis Data
-Absolute difference between groups: 1.0951673001343485
-Difference attributable to groups: 0.09000328533671631
+
+Absolute difference between groups: 1.0951673001343485<br>
+Difference attributable to groups: -0.02307793147541748<br>
 
 ##### MLP Using ACA, Diagnosis, and Office Visit Data
-Absolute difference between groups: 1.7487125406269852
-Difference attributable to groups: -1.646271088234733
+
+Absolute difference between groups: 1.7487125406269852<br>
+Difference attributable to groups: -1.710168221108268<br>
 
 ##### MLP Using ACA, Diagnosis, and Hospital Visit Data
-Absolute difference between groups: 2.6319321827268647
-Difference attributable to groups: -1.4058573509679109
+
+Absolute difference between groups: 2.6319321827268647<br>
+Difference attributable to groups: -1.4987375999913484<br>
 
 ##### MLP Using ACA, Diagnosis, and ER Visit Data
-Absolute difference between groups: 1.0013763205564947
-Difference attributable to groups: -2.075921569702291
+
+Absolute difference between groups: 1.0013763205564947<br>
+Difference attributable to groups: -2.241712604400777<br>
 
 ### Tables and Figures
-Files can be found at: _fig//Race_MEPS//alpha_dev_20221111082941//
+Files can be found at: _fig//Race_MEPS//alpha_dev_20221114193351//
 
 #### Descriptive Statistics
-![Average Age](_fig//Race_MEPS//alpha_dev_20221111082941//AGE.jpeg)
-![Percent_Female](_fig//Race_MEPS//alpha_dev_20221111082941//PERCENT_FEMALE.jpeg)
-![Average Income as percent of federal poverty line](_fig//Race_MEPS//alpha_dev_20221111082941//FPL_PERCENT.jpeg)
-![Number of Diagnoses per Person](_fig//Race_MEPS//alpha_dev_20221111082941//ICD10_TOTAL).jpeg)
-![Total Visits for Any Setting per Person](_fig//Race_MEPS//alpha_dev_20221111082941//VISITS_TOTAL.jpeg)
-![Total Paid Amounts from Private Payers per Person](_fig//Race_MEPS//alpha_dev_20221111082941//PAID_TOTAL.jpeg)
+![Average Age](_fig//Race_MEPS//alpha_dev_20221114193351//AGE.jpeg)
+![Percent_Female](_fig//Race_MEPS//alpha_dev_20221114193351//PERCENT_FEMALE.jpeg)
+![Average Income as percent of federal poverty line](_fig//Race_MEPS//alpha_dev_20221114193351//FPL_PERCENT.jpeg)
+![Number of Diagnoses per Person](_fig//Race_MEPS//alpha_dev_20221114193351//ICD10_TOTAL).jpeg)
+![Total Visits for Any Setting per Person](_fig//Race_MEPS//alpha_dev_20221114193351//VISITS_TOTAL.jpeg)
+![Total Paid Amounts from Private Payers per Person](_fig//Race_MEPS//alpha_dev_20221114193351//PAID_TOTAL.jpeg)
 
 #### Regression Results
-![2018 QQ Plot](_fig//Race_MEPS//alpha_dev_20221111082941//2018_QQ_PERSON_ID_plot.png)
-![2019 QQ Plot](_fig//Race_MEPS//alpha_dev_20221111082941//2019_QQ_PERSON_ID_plot.png)
-![2020 QQ Plot](_fig//Race_MEPS//alpha_dev_20221111082941//2020_QQ_PERSON_ID_plot.png)
-![2018 Residuals](_fig//Race_MEPS//alpha_dev_20221111082941//2018_residuals_PERSON_ID_plot.png)
-![2019 Residuals](_fig//Race_MEPS//alpha_dev_20221111082941//2019_residuals_PERSON_ID_plot.png)
-![2020 Residuals](_fig//Race_MEPS//alpha_dev_20221111082941//2020_residuals_PERSON_ID_plot.png)
-![2018 Colinearity](_fig//Race_MEPS//alpha_dev_20221111082941//2018_correlation_PERSON_ID_plot.png)
-![2019 Colinearity](_fig//Race_MEPS//alpha_dev_20221111082941//2019_correlation_PERSON_ID_plot.png)
-![2020 Colinearity](_fig//Race_MEPS//alpha_dev_20221111082941//2020_correlation_PERSON_ID_plot.png)
+![2018 QQ Plot](_fig//Race_MEPS//alpha_dev_20221114193351//2018_QQ_PERSON_ID_plot.png)
+![2019 QQ Plot](_fig//Race_MEPS//alpha_dev_20221114193351//2019_QQ_PERSON_ID_plot.png)
+![2020 QQ Plot](_fig//Race_MEPS//alpha_dev_20221114193351//2020_QQ_PERSON_ID_plot.png)
+![2018 Residuals](_fig//Race_MEPS//alpha_dev_20221114193351//2018_residuals_PERSON_ID_plot.png)
+![2019 Residuals](_fig//Race_MEPS//alpha_dev_20221114193351//2019_residuals_PERSON_ID_plot.png)
+![2020 Residuals](_fig//Race_MEPS//alpha_dev_20221114193351//2020_residuals_PERSON_ID_plot.png)
+![2018 Colinearity](_fig//Race_MEPS//alpha_dev_20221114193351//2018_correlation_PERSON_ID_plot.png)
+![2019 Colinearity](_fig//Race_MEPS//alpha_dev_20221114193351//2019_correlation_PERSON_ID_plot.png)
+![2020 Colinearity](_fig//Race_MEPS//alpha_dev_20221114193351//2020_correlation_PERSON_ID_plot.png)
 
