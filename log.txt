@@ -165,3 +165,6 @@ Next steps are to vizualize results and sent to committee.
 
 2022 Nov 14 19:36
 Running from end to end with updates to summary file to hopefully helkp make it more readable. 
+
+21:58
+Walkthrough successful. Continuous edits will be needed but the process is stable and ready to share. 

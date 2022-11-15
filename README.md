@@ -13,6 +13,7 @@ Evidence from this study can identify 1) Whether there is evidence that the phen
 This analysis serves to fulfill part of the the requirements for the PhD in Public Health-Heath Services Research at the University of Florida.
 
 ### Contents
+`Race_MEPS_Results(.md/.doc/.html)` Results form an analysis of paid claims costs by race among marketpalce enrollees using variables relevant to the ACA risk adjustment program. 
 `_archive` Old Content kept for reference (untracked)<br>
 `_code` Code scripts used in the analysis labeled by function<br>
 `_data` Raw and staged data files used for analysis.<br>
@@ -32,7 +33,7 @@ This analysis serves to fulfill part of the the requirements for the PhD in Publ
 
 ### Contact
 Andrew S. Cistola, MPH<br>
-andrewcistola@ufl.edu
+andrewcistola@pm.me
 
 ### Updated
-2022 Nov 9 9 Nov 2022 14:30 
+2022 Nov 14 22:01
