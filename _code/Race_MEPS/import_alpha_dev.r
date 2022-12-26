@@ -622,7 +622,7 @@ df <- read_fwf(
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
-at(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
+cat(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
 df <- NULL
 print(news)
 
@@ -667,7 +667,7 @@ df <- read_fwf(
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
-at(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
+cat(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
 df <- NULL
 print(news)
 
@@ -729,7 +729,7 @@ df <- read_fwf(
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
-at(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
+cat(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
 df <- NULL
 print(news)
 
@@ -786,7 +786,7 @@ df <- read_fwf(
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
-at(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
+cat(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
 df <- NULL
 print(news)
 
@@ -831,7 +831,7 @@ df <- read_fwf(
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
-at(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
+cat(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
 df <- NULL
 print(news)
 
@@ -884,7 +884,7 @@ df <- read_fwf(
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
-at(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
+cat(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
 df <- NULL
 print(news)
 
@@ -941,7 +941,7 @@ df <- read_fwf(
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
-at(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
+cat(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
 df <- NULL
 print(news)
 
@@ -998,7 +998,7 @@ df <- read_fwf(
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
-at(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
+cat(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
 df <- NULL
 print(news)
 
@@ -1051,7 +1051,7 @@ df <- read_fwf(
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
-at(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
+cat(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
 df <- NULL
 print(news)
 
@@ -1108,7 +1108,7 @@ df <- read_fwf(
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
-at(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
+cat(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
 df <- NULL
 print(news)
 
@@ -1165,7 +1165,7 @@ df <- read_fwf(
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
-at(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
+cat(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
 df <- NULL
 print(news)
 
@@ -1202,7 +1202,7 @@ df <- read_fwf(
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
-at(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
+cat(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
 df <- NULL
 print(news)
 
@@ -1239,7 +1239,7 @@ df <- read_fwf(
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
-at(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
+cat(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
 df <- NULL
 print(news)
 
@@ -1857,7 +1857,7 @@ df <- read_fwf(
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
-at(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
+cat(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
 df <- NULL
 print(news)
 
@@ -1902,7 +1902,7 @@ df <- read_fwf(
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
-at(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
+cat(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
 df <- NULL
 print(news)
 
@@ -1955,7 +1955,7 @@ df <- read_fwf(
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
-at(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
+cat(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
 df <- NULL
 print(news)
 
@@ -2012,7 +2012,7 @@ df <- read_fwf(
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
-at(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
+cat(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
 df <- NULL
 print(news)
 
@@ -2057,7 +2057,7 @@ df <- read_fwf(
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
-at(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
+cat(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
 df <- NULL
 print(news)
 
@@ -2110,7 +2110,7 @@ df <- read_fwf(
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
-at(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
+cat(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
 df <- NULL
 print(news)
 
@@ -2167,7 +2167,7 @@ df <- read_fwf(
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
-at(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
+cat(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
 df <- NULL
 print(news)
 
@@ -2224,7 +2224,7 @@ df <- read_fwf(
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
-at(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
+cat(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
 df <- NULL
 print(news)
 
@@ -2277,7 +2277,7 @@ df <- read_fwf(
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
-at(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
+cat(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
 df <- NULL
 print(news)
 
@@ -2334,7 +2334,7 @@ df <- read_fwf(
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
-at(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
+cat(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
 df <- NULL
 print(news)
 
@@ -2371,7 +2371,7 @@ df <- read_fwf(
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
-at(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
+cat(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
 df <- NULL
 print(news)
 
@@ -2408,7 +2408,7 @@ df <- read_fwf(
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
-at(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
+cat(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
 df <- NULL
 print(news)
 
@@ -3050,7 +3050,7 @@ df <- read_fwf(
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
-at(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
+cat(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
 df <- NULL
 print(news)
 
@@ -3095,7 +3095,7 @@ df <- read_fwf(
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
-at(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
+cat(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
 df <- NULL
 print(news)
 
@@ -3159,7 +3159,7 @@ df <- read_fwf(
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
-at(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
+cat(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
 df <- NULL
 print(news)
 
@@ -3221,7 +3221,7 @@ df <- read_fwf(
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
-at(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
+cat(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
 df <- NULL
 print(news)
 
@@ -3266,7 +3266,7 @@ df <- read_fwf(
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
-at(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
+cat(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
 df <- NULL
 print(news)
 
@@ -3325,7 +3325,7 @@ df <- read_fwf(
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
-at(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
+cat(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
 df <- NULL
 print(news)
 
@@ -3385,7 +3385,7 @@ df <- read_fwf(
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
-at(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
+cat(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
 df <- NULL
 print(news)
 
@@ -3446,7 +3446,7 @@ df <- read_fwf(
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
-at(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
+cat(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
 df <- NULL
 print(news)
 
@@ -3501,7 +3501,7 @@ df <- read_fwf(
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
-at(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
+cat(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
 df <- NULL
 print(news)
 
@@ -3561,7 +3561,7 @@ df <- read_fwf(
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
-at(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
+cat(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
 df <- NULL
 print(news)
 
@@ -3600,7 +3600,7 @@ df <- read_fwf(
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
-at(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
+cat(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
 df <- NULL
 print(news)
 
@@ -3638,7 +3638,7 @@ df <- read_fwf(
 dbWriteTable(db_con, name, df, row.names = FALSE, overwrite = TRUE) # Export R dataframe to SQL database
 news <- paste(name, "ERROR!!!")
 if(dbExistsTable(db_con, name)) news <- paste(description, " File (", name, ")", sep = '')
-at(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
+cat(paste(news, '<br>\n', sep = ''), file = file, append = TRUE)
 df <- NULL
 print(news)
 

@@ -129,8 +129,7 @@ df_Q1['RACE_DESC'] = np.where(df_Q1['RACE'] == 1, 'HISPANIC',
                                 np.where(df_Q1['RACE'] == 2, 'WHITE',
                                     np.where(df_Q1['RACE'] == 3, 'BLACK',
                                         np.where(df_Q1['RACE'] == 4, 'ASIAN',
-                                            np.where(df_Q1['RACE'] == 4, 'OTHER',
-                                                'MISSING'))))) # Create column based on conditions
+                                            'OTHER')))) # Create column based on conditions
 result_01 = df_Q1.filter(['YEAR', 'AGE']).groupby(['YEAR']).describe() 
 result_02 = df_Q1.filter(['YEAR', 'RACE_DESC', 'AGE']).groupby(['YEAR', 'RACE_DESC']).describe() 
 result_03 = df_Q1.filter(['YEAR', 'PERCENT_FEMALE']).groupby(['YEAR']).describe() 

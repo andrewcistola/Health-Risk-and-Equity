@@ -21,7 +21,6 @@ df_WXYZ$HISPANIC[df_WXYZ$RACE == 1] <- 1
 df_WXYZ$WHITE[df_WXYZ$RACE == 2] <- 1
 df_WXYZ$BLACK[df_WXYZ$RACE == 3] <- 1
 df_WXYZ$ASIAN[df_WXYZ$RACE == 4] <- 1
-df_WXYZ$OTHER[df_WXYZ$RACE == 5] <- 1
 df_WXYZ$NON_WHITE[df_WXYZ$RACE != 2] <- 1
 
 ### Export to Summary File
@@ -463,12 +462,20 @@ sink()
 step_3 = 'Regression Step 3: Create Generalized Linear Models'
 
 ### Create Linear Regression Model
-glm_0 = 'DV = Y, regression = linear'
+glm = 'DV = Y, regression = linear'
 D = subset(df_WXYZ, select = c(X, Y, Z))
 F = as.formula(paste(Y, ' ~ ', paste(c(X, Z), collapse = ' + '), sep = ''))
-GLM_0 = glm(F, data = D, family = gaussian())
+GLM = glm(F, data = D, family = gaussian())
 
-### Create Linear Regression Model with log transformation
+### Create Linear Regression Model with relative mean
+df_WXYZ['Y_mean'] = df_WXYZ[Y]/mean(df_WXYZ[Y])
+df_WXYZ$Y_mean[is.infinite(df_WXYZ$Y_log)] <- 1
+glm_0 = 'DV = Y/mean(Y), regression = linear'
+D = subset(df_WXYZ, select = c(X, 'Y_mean', Z))
+F = as.formula(paste('Y_mean', ' ~ ', paste(c(X, Z), collapse = ' + '), sep = ''))
+GLM_0 = glm(F, data = D, family = gaussian()) 
+
+### Create Linear Regression Model with log transformation 
 df_WXYZ['Y_log'] = log(df_WXYZ[Y])
 df_WXYZ$Y_log[is.infinite(df_WXYZ$Y_log)] <- 0
 glm_1 = 'DV = log(Y), regression = linear'
@@ -479,7 +486,7 @@ GLM_1 = glm(F, data = D, family = gaussian())
 ### Create Linear Regression Model with polynomials
 df_WXYZ['ICD10_sq'] = df_WXYZ['ICD10_TOTAL']^2
 X_poly = c('ICD10_sq', 'FPL_PERCENT', 'NON_WHITE', 'AGE', 'SEX')
-glm_2 = 'DV = Y^2, regression = linear'
+glm_2 = 'DV^2 = Y, regression = linear'
 D = subset(df_WXYZ, select = c(X_poly, Y, Z))
 F = as.formula(paste(Y, ' ~ ', paste(c(X_poly, Z), collapse = ' + '), sep = ''))
 GLM_2 = glm(F, data = D, family = gaussian()) 
@@ -505,6 +512,7 @@ F = as.formula(paste(Y, ' ~ ', paste(c(X, Z), collapse = ' + '), sep = ''))
 GLM_5 = glm.nb(F, data = D) 
 
 ### F-test for overdispersion
+test = 1 - pchisq(deviance(GLM), df.residual(GLM)) # Chi-Sq on null deviance to residual deviance
 test_0 = 1 - pchisq(deviance(GLM_0), df.residual(GLM_0)) # Chi-Sq on null deviance to residual deviance
 test_1 = 1 - pchisq(deviance(GLM_1), df.residual(GLM_1)) # Chi-Sq on null deviance to residual deviance
 test_2 = 1 - pchisq(deviance(GLM_2), df.residual(GLM_2)) # Chi-Sq on null deviance to residual deviance
@@ -516,13 +524,25 @@ test_5 = 1 - pchisq(deviance(GLM_5), df.residual(GLM_5)) # Chi-Sq on null devian
 sink(file = file, append = TRUE, type = 'output')
 cat(c('#### ', step_3, '\n\n'), file = file, append = TRUE)
 cat(c('##### Linear', '\n\n'), file = file, append = TRUE)
+cat(c('Generalized model for', glm, '\n'), file = file, append = TRUE)
+cat(c('\n'), file = file, append = TRUE)
+cat(c('<pre>'), file = file, append = TRUE)
+cat(c('\n'), file = file, append = TRUE)
+summary(GLM)
+print('F-Test for overdispersion: ')
+print(test)
+cat(c('\n'), file = file, append = TRUE)
+cat(c('</pre>'), file = file, append = TRUE)
+cat(c('\n'), file = file, append = TRUE)
+cat(c('\n'), file = file, append = TRUE)
+cat(c('##### Relative Mean Y', '\n\n'), file = file, append = TRUE)
 cat(c('Generalized model for', glm_0, '\n'), file = file, append = TRUE)
 cat(c('\n'), file = file, append = TRUE)
 cat(c('<pre>'), file = file, append = TRUE)
 cat(c('\n'), file = file, append = TRUE)
 summary(GLM_0)
 print('F-Test for overdispersion: ')
-print(test_1)
+print(test_0)
 cat(c('\n'), file = file, append = TRUE)
 cat(c('</pre>'), file = file, append = TRUE)
 cat(c('\n'), file = file, append = TRUE)
@@ -593,7 +613,7 @@ sink()
 step_4 = 'Regression Step 4: Hierarchical Linear Models'
 X2 = c('AGE', 'SEX', 'FPL_PERCENT', 'ICD10_TOTAL')
 X_mix = 'RACE'
-X_int = 'ICD10_TOTAL'
+X_int = 'YEAR'
 Y2 = 'Y_log'
 
 #### Varying Intercepts by Racial Group

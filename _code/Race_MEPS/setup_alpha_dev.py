@@ -11,7 +11,6 @@ import datetime # Date and time stamps
 import zipfile # Compressed and archive manager in python
 import urllib # Url requests with file download functions
 import sqlite3 # SQLite database manager
-import Python-Markdown
 
 ### Data Science Basics
 import numpy as np # Widely used matrix library for numerical processes

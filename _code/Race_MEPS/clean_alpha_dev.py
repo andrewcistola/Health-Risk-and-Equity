@@ -13,8 +13,9 @@ QUERY = """
         , W.POVLEV20 AS FPL_PERCENT
     FROM h224 W
     WHERE
-        W.AGELAST > 25
+        W.AGELAST > 18
         AND W.AGELAST < 65
+        AND W.RACETHX IN (1, 2, 3, 4)
         AND W.PRSTX20 = 1
         AND W.INSCOV20 = 1
     UNION
@@ -28,8 +29,9 @@ QUERY = """
         , W.POVLEV19 AS FPL_PERCENT
     FROM h216 W
     WHERE
-        W.AGELAST > 25
+        W.AGELAST > 18
         AND W.AGELAST < 65
+        AND W.RACETHX IN (1, 2, 3, 4)
         AND W.PRSTX19 = 1
         AND W.INSCOV19 = 1
     UNION
@@ -43,8 +45,9 @@ QUERY = """
         , W.POVLEV18 AS FPL_PERCENT
     FROM h209 W
     WHERE
-        W.AGELAST > 25
+        W.AGELAST > 18
         AND W.AGELAST < 65
+        AND W.RACETHX IN (1, 2, 3, 4)
         AND W.PRSTX18 = 1
         AND W.INSCOV18 = 1
     """
@@ -64,8 +67,9 @@ QUERY = """
         SELECT DISTINCT DUPERSID 
         FROM h224
         WHERE
-            AGELAST > 25
+            AGELAST > 18
             AND AGELAST < 65
+            AND RACETHX IN (1, 2, 3, 4)
             AND PRSTX20 = 1
             AND INSCOV20 = 1
         ) SQ
@@ -81,8 +85,9 @@ QUERY = """
         SELECT DISTINCT DUPERSID 
         FROM h216
         WHERE
-            AGELAST > 25
+            AGELAST > 18
             AND AGELAST < 65
+            AND RACETHX IN (1, 2, 3, 4)
             AND PRSTX19 = 1
             AND INSCOV19 = 1
         ) SQ
@@ -98,8 +103,9 @@ QUERY = """
         SELECT DISTINCT DUPERSID 
         FROM h209
         WHERE
-            AGELAST > 25
+            AGELAST > 18
             AND AGELAST < 65
+            AND RACETHX IN (1, 2, 3, 4)
             AND PRSTX18 = 1
             AND INSCOV18 = 1
         ) SQ
@@ -123,8 +129,9 @@ QUERY = """
         SELECT DISTINCT Y.DUPERSID 
         FROM h224 Y
         WHERE
-            Y.AGELAST > 25
+            Y.AGELAST > 18
             AND Y.AGELAST < 65
+            AND Y.RACETHX IN (1, 2, 3, 4)
             AND Y.PRSTX20 = 1
             AND Y.INSCOV20 = 1
         ) SQ
@@ -141,8 +148,9 @@ QUERY = """
         SELECT DISTINCT Y.DUPERSID 
         FROM h224 Y
         WHERE
-            Y.AGELAST > 25
+            Y.AGELAST > 18
             AND Y.AGELAST < 65
+            AND Y.RACETHX IN (1, 2, 3, 4)
             AND Y.PRSTX20 = 1
             AND Y.INSCOV20 = 1
         ) SQ
@@ -159,8 +167,9 @@ QUERY = """
         SELECT DISTINCT Y.DUPERSID 
         FROM h224 Y
         WHERE
-            Y.AGELAST > 25
+            Y.AGELAST > 18
             AND Y.AGELAST < 65
+            AND Y.RACETHX IN (1, 2, 3, 4)
             AND Y.PRSTX20 = 1
             AND Y.INSCOV20 = 1
         ) SQ
@@ -177,8 +186,9 @@ QUERY = """
         SELECT DISTINCT Y.DUPERSID 
         FROM h224 Y
         WHERE
-            Y.AGELAST > 25
+            Y.AGELAST > 18
             AND Y.AGELAST < 65
+            AND Y.RACETHX IN (1, 2, 3, 4)
             AND Y.PRSTX20 = 1
             AND Y.INSCOV20 = 1
         ) SQ
@@ -195,8 +205,9 @@ QUERY = """
         SELECT DISTINCT Y.DUPERSID 
         FROM h224 Y
         WHERE
-            Y.AGELAST > 25
+            Y.AGELAST > 18
             AND Y.AGELAST < 65
+            AND Y.RACETHX IN (1, 2, 3, 4)
             AND Y.PRSTX20 = 1
             AND Y.INSCOV20 = 1
         ) SQ
@@ -213,8 +224,9 @@ QUERY = """
         SELECT DISTINCT Y.DUPERSID 
         FROM h224 Y
         WHERE
-            Y.AGELAST > 25
+            Y.AGELAST > 18
             AND Y.AGELAST < 65
+            AND Y.RACETHX IN (1, 2, 3, 4)
             AND Y.PRSTX20 = 1
             AND Y.INSCOV20 = 1
         ) SQ
@@ -231,8 +243,9 @@ QUERY = """
         SELECT DISTINCT Y.DUPERSID 
         FROM h224 Y
         WHERE
-            Y.AGELAST > 25
+            Y.AGELAST > 18
             AND Y.AGELAST < 65
+            AND Y.RACETHX IN (1, 2, 3, 4)
             AND Y.PRSTX20 = 1
             AND Y.INSCOV20 = 1
         ) SQ
@@ -249,8 +262,9 @@ QUERY = """
         SELECT DISTINCT Y.DUPERSID 
         FROM h224 Y
         WHERE
-            Y.AGELAST > 25
+            Y.AGELAST > 18
             AND Y.AGELAST < 65
+            AND Y.RACETHX IN (1, 2, 3, 4)
             AND Y.PRSTX20 = 1
             AND Y.INSCOV20 = 1
         ) SQ
@@ -268,8 +282,9 @@ QUERY = """
         SELECT DISTINCT Y.DUPERSID 
         FROM h216 Y
         WHERE
-            Y.AGELAST > 25
+            Y.AGELAST > 18
             AND Y.AGELAST < 65
+            AND Y.RACETHX IN (1, 2, 3, 4)
             AND Y.PRSTX19 = 1
             AND Y.INSCOV19 = 1
         ) SQ
@@ -286,8 +301,9 @@ QUERY = """
         SELECT DISTINCT Y.DUPERSID 
         FROM h216 Y
         WHERE
-            Y.AGELAST > 25
+            Y.AGELAST > 18
             AND Y.AGELAST < 65
+            AND Y.RACETHX IN (1, 2, 3, 4)
             AND Y.PRSTX19 = 1
             AND Y.INSCOV19 = 1
         ) SQ
@@ -304,8 +320,9 @@ QUERY = """
         SELECT DISTINCT Y.DUPERSID 
         FROM h216 Y
         WHERE
-            Y.AGELAST > 25
+            Y.AGELAST > 18
             AND Y.AGELAST < 65
+            AND Y.RACETHX IN (1, 2, 3, 4)
             AND Y.PRSTX19 = 1
             AND Y.INSCOV19 = 1
         ) SQ
@@ -322,8 +339,9 @@ QUERY = """
         SELECT DISTINCT Y.DUPERSID 
         FROM h216 Y
         WHERE
-            Y.AGELAST > 25
+            Y.AGELAST > 18
             AND Y.AGELAST < 65
+            AND Y.RACETHX IN (1, 2, 3, 4)
             AND Y.PRSTX19 = 1
             AND Y.INSCOV19 = 1
         ) SQ
@@ -340,8 +358,9 @@ QUERY = """
         SELECT DISTINCT Y.DUPERSID 
         FROM h216 Y
         WHERE
-            Y.AGELAST > 25
+            Y.AGELAST > 18
             AND Y.AGELAST < 65
+            AND Y.RACETHX IN (1, 2, 3, 4)
             AND Y.PRSTX19 = 1
             AND Y.INSCOV19 = 1
         ) SQ
@@ -358,8 +377,9 @@ QUERY = """
         SELECT DISTINCT Y.DUPERSID 
         FROM h216 Y
         WHERE
-            Y.AGELAST > 25
+            Y.AGELAST > 18
             AND Y.AGELAST < 65
+            AND Y.RACETHX IN (1, 2, 3, 4)
             AND Y.PRSTX19 = 1
             AND Y.INSCOV19 = 1
         ) SQ
@@ -376,8 +396,9 @@ QUERY = """
         SELECT DISTINCT Y.DUPERSID 
         FROM h216 Y
         WHERE
-            Y.AGELAST > 25
+            Y.AGELAST > 18
             AND Y.AGELAST < 65
+            AND Y.RACETHX IN (1, 2, 3, 4)
             AND Y.PRSTX19 = 1
             AND Y.INSCOV19 = 1
         ) SQ
@@ -394,8 +415,9 @@ QUERY = """
         SELECT DISTINCT Y.DUPERSID 
         FROM h216 Y
         WHERE
-            Y.AGELAST > 25
+            Y.AGELAST > 18
             AND Y.AGELAST < 65
+            AND Y.RACETHX IN (1, 2, 3, 4)
             AND Y.PRSTX19 = 1
             AND Y.INSCOV19 = 1
         ) SQ
@@ -413,8 +435,9 @@ QUERY = """
         SELECT DISTINCT Y.DUPERSID 
         FROM h209 Y
         WHERE
-            Y.AGELAST > 25
+            Y.AGELAST > 18
             AND Y.AGELAST < 65
+            AND Y.RACETHX IN (1, 2, 3, 4)
             AND Y.PRSTX18 = 1
             AND Y.INSCOV18 = 1
         ) SQ
@@ -431,8 +454,9 @@ QUERY = """
         SELECT DISTINCT Y.DUPERSID 
         FROM h209 Y
         WHERE
-            Y.AGELAST > 25
+            Y.AGELAST > 18
             AND Y.AGELAST < 65
+            AND Y.RACETHX IN (1, 2, 3, 4)
             AND Y.PRSTX18 = 1
             AND Y.INSCOV18 = 1
         ) SQ
@@ -449,8 +473,9 @@ QUERY = """
         SELECT DISTINCT Y.DUPERSID 
         FROM h209 Y
         WHERE
-            Y.AGELAST > 25
+            Y.AGELAST > 18
             AND Y.AGELAST < 65
+            AND Y.RACETHX IN (1, 2, 3, 4)
             AND Y.PRSTX18 = 1
             AND Y.INSCOV18 = 1
         ) SQ
@@ -467,8 +492,9 @@ QUERY = """
         SELECT DISTINCT Y.DUPERSID 
         FROM h209 Y
         WHERE
-            Y.AGELAST > 25
+            Y.AGELAST > 18
             AND Y.AGELAST < 65
+            AND Y.RACETHX IN (1, 2, 3, 4)
             AND Y.PRSTX18 = 1
             AND Y.INSCOV18 = 1
         ) SQ
@@ -485,8 +511,9 @@ QUERY = """
         SELECT DISTINCT Y.DUPERSID 
         FROM h209 Y
         WHERE
-            Y.AGELAST > 25
+            Y.AGELAST > 18
             AND Y.AGELAST < 65
+            AND Y.RACETHX IN (1, 2, 3, 4)
             AND Y.PRSTX18 = 1
             AND Y.INSCOV18 = 1
         ) SQ
@@ -503,8 +530,9 @@ QUERY = """
         SELECT DISTINCT Y.DUPERSID 
         FROM h209 Y
         WHERE
-            Y.AGELAST > 25
+            Y.AGELAST > 18
             AND Y.AGELAST < 65
+            AND Y.RACETHX IN (1, 2, 3, 4)
             AND Y.PRSTX18 = 1
             AND Y.INSCOV18 = 1
         ) SQ
@@ -521,8 +549,9 @@ QUERY = """
         SELECT DISTINCT Y.DUPERSID 
         FROM h209 Y
         WHERE
-            Y.AGELAST > 25
+            Y.AGELAST > 18
             AND Y.AGELAST < 65
+            AND Y.RACETHX IN (1, 2, 3, 4)
             AND Y.PRSTX18 = 1
             AND Y.INSCOV18 = 1
         ) SQ
@@ -539,8 +568,9 @@ QUERY = """
         SELECT DISTINCT Y.DUPERSID 
         FROM h209 Y
         WHERE
-            Y.AGELAST > 25
+            Y.AGELAST > 18
             AND Y.AGELAST < 65
+            AND Y.RACETHX IN (1, 2, 3, 4)
             AND Y.PRSTX18 = 1
             AND Y.INSCOV18 = 1
         ) SQ
@@ -565,8 +595,9 @@ QUERY = """
         SELECT DISTINCT DUPERSID 
         FROM h224
         WHERE
-            AGELAST > 25
+            AGELAST > 18
             AND AGELAST < 65
+            AND RACETHX IN (1, 2, 3, 4)
             AND PRSTX20 = 1
             AND INSCOV20 = 1
         ) SQ
@@ -582,8 +613,9 @@ QUERY = """
         SELECT DISTINCT DUPERSID 
         FROM h216 Z
         WHERE
-            AGELAST > 25
+            AGELAST > 18
             AND AGELAST < 65
+            AND RACETHX IN (1, 2, 3, 4)
             AND PRSTX19 = 1
             AND INSCOV19 = 1
         ) SQ
@@ -599,8 +631,9 @@ QUERY = """
         SELECT DISTINCT DUPERSID 
         FROM h209
         WHERE
-            AGELAST > 25
+            AGELAST > 18
             AND AGELAST < 65
+            AND RACETHX IN (1, 2, 3, 4)
             AND PRSTX18 = 1
             AND INSCOV18 = 1
         ) SQ
@@ -650,7 +683,7 @@ text_md.write("""
         , POVLEV20 AS FPL_PERCENT
     FROM h224 W # Repeated for each household year file
     WHERE
-        AGELAST > 25
+        AGELAST > 18
         AND AGELAST < 65
         AND PRSTX20 = 1 # Variable name charges for each year
         AND INSCOV20 = 1 # Variable name charges for each year
@@ -669,8 +702,9 @@ text_md.write("""
         SELECT DISTINCT Y.DUPERSID 
         FROM h224 Y # Repeated for each household year file
         WHERE
-            Y.AGELAST > 25
+            Y.AGELAST > 18
             AND Y.AGELAST < 65
+            AND Y.RACETHX IN (1, 2, 3, 4)
             AND Y.PRSTX20 = 1 # Variable name charges for each year
             AND Y.INSCOV20 = 1 # Variable name charges for each year
         ) SQ
@@ -694,8 +728,9 @@ text_md.write("""
         SELECT DISTINCT DUPERSID 
         FROM h224 # Repeated for each household year file
         WHERE
-            AGELAST > 25
+            AGELAST > 18
             AND AGELAST < 65
+            AND RACETHX IN (1, 2, 3, 4)
             AND PRSTX20 = 1 # Variable name charges for each year
             AND INSCOV20 = 1 # Variable name charges for each year
         ) SQ
