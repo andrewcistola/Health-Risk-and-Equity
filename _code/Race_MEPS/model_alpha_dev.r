@@ -468,8 +468,7 @@ F = as.formula(paste(Y, ' ~ ', paste(c(X, Z), collapse = ' + '), sep = ''))
 GLM = glm(F, data = D, family = gaussian())
 
 ### Create Linear Regression Model with relative mean
-df_WXYZ['Y_mean'] = df_WXYZ[Y]/mean(df_WXYZ[Y])
-df_WXYZ$Y_mean[is.infinite(df_WXYZ$Y_log)] <- 1
+df_WXYZ['Y_mean'] = df_WXYZ[Y]/mean(df_WXYZ[[Y]])
 glm_0 = 'DV = Y/mean(Y), regression = linear'
 D = subset(df_WXYZ, select = c(X, 'Y_mean', Z))
 F = as.formula(paste('Y_mean', ' ~ ', paste(c(X, Z), collapse = ' + '), sep = ''))
@@ -612,7 +611,7 @@ sink()
 ## Regression Step 4: Hierarchical Linear Models
 step_4 = 'Regression Step 4: Hierarchical Linear Models'
 X2 = c('AGE', 'SEX', 'FPL_PERCENT', 'ICD10_TOTAL')
-X_mix = 'RACE'
+X_coef = 'RACE'
 X_int = 'YEAR'
 Y2 = 'Y_log'
 
@@ -623,9 +622,9 @@ F = as.formula(paste(Y2, ' ~ (1| ', X_mix, ' ) + ', paste(X2, collapse = ' + '),
 FIX = lmer(F, data = D)
 
 #### Varying Intercepts by Racial Group
-mix = paste('DV =', Y2, 'regression = linear', 'with varying coeffeicints of', X_int, 'by', X_mix)
+mix = paste('DV =', Y2, 'regression = linear', 'with varying coeffeicints of', X_int, 'by', X_coef)
 D = subset(df_WXYZ, select = c(X_mix, X2, Y2, Z))
-F = as.formula(paste(Y2, ' ~ (1 + ', X_int, ' | ', X_mix, ' ) + ', paste(X2, collapse = ' + '), sep = ''))
+F = as.formula(paste(Y2, ' ~ (1 + ', X_coef, ' | ', X_int, ' ) + ', paste(X2, collapse = ' + '), sep = ''))
 MIX = lmer(F, data = D)
 
 ### One Way ANOVA for MLE
