@@ -13,18 +13,30 @@ df_W['PERSON_ID'] = df_W['PERSON_ID'].astype('int64') # Change column data type 
 df_W.info()
 
 ### ICD10X in Yes/No format
-df_X1 = df_WXYZ.filter(['PERSON_ID', 'YEAR', 'ICD10']).drop_duplicates()
-df_X1 = pd.get_dummies(df_X1, columns = ['ICD10'])
+df_X = df_WXYZ.filter(['PERSON_ID', 'YEAR', 'ICD10']).drop_duplicates()
+df_X = df_X.dropna()
+df_X['ICD10'] = df_X['ICD10'].astype('str')
+df_X = df_X[~df_X['ICD10'].str.contains('Z|15')] # Drop rows by condition
+df_X = pd.merge(df_W.filter(['PERSON_ID', 'YEAR']), df_X, on = ['PERSON_ID', 'YEAR'], how = 'left')
+df_X['ICD10'] = df_X['ICD10'].fillna('NONE').astype('str') # Change missing vlaues to int64 zeros
+
+### ICD10X in Yes/No format
+df_X1 = pd.get_dummies(df_X, columns = ['ICD10'])
+df_X1 = df_X1.drop(columns = ['ICD10_NONE']) # Drop selected columns
 df_X1['YEAR'] = df_X1['YEAR'].astype('int64') # Change column data type to integer
 df_X1['PERSON_ID'] = df_X1['PERSON_ID'].astype('int64') # Change column data type to integer
 df_X1.info()
 
 ### Condition Count by individual per year
-df_X2 = df_WXYZ.filter(['PERSON_ID', 'YEAR', 'ICD10']).drop_duplicates().groupby(['YEAR', 'PERSON_ID'], as_index = False).count() # Keep selected columns and count unique by key columns (keeping all as columns not index)
+df_X2 = df_X[df_X['ICD10'] != 'NONE']
+df_X2 = df_X2.filter(['PERSON_ID', 'YEAR', 'ICD10']).drop_duplicates().groupby(['YEAR', 'PERSON_ID'], as_index = False).count() # Keep selected columns and count unique by key columns (keeping all as columns not index)
 df_X2 = df_X2.rename(columns = {'ICD10': 'ICD10_TOTAL'})
 df_X2['YEAR'] = df_X2['YEAR'].astype('int64') # Change column data type to integer
 df_X2['PERSON_ID'] = df_X2['PERSON_ID'].astype('int64') # Change column data type to integer
+df_X2 = pd.merge(df_W.filter(['PERSON_ID', 'YEAR']), df_X2, on = ['PERSON_ID', 'YEAR'], how = 'left')
+df_X2['ICD10_TOTAL'] = df_X2['ICD10_TOTAL'].fillna(0).astype('int') # Change missing vlaues to int64 zeros
 df_X2.info()
+df_X2['ICD10_TOTAL'].describe()
 
 ### Payments by setting type
 df_Y1 = df_WXYZ.filter(['YEAR', 'PERSON_ID', 'PAID', 'SETTING']).groupby(['YEAR', 'PERSON_ID', 'SETTING'], as_index = False).sum()
@@ -57,36 +69,6 @@ df_Z2 = df_Z2.rename(columns = {'SETTING': 'VISITS_TOTAL'})
 df_Z2['YEAR'] = df_Z2['YEAR'].astype('int64') # Change column data type to integer
 df_Z2['PERSON_ID'] = df_Z2['PERSON_ID'].astype('int64') # Change column data type to integer
 df_Z2.info()
-
-### Calculate Risk Scores
-
-### Uniquie Age, Sex, ICD10X for risk score calc
-#df_X3 = df_WXYZ.filter(['PERSON_ID', 'YEAR', 'AGE', 'SEX', 'FPL_PERCENT', 'ICD10']).drop_duplicates()
-#df_X3.info()
-
-#Import DIY
-#Modify for ICD10X
-#df_X3 = pd.merge(df_X3, df_DIY, on = 'ICD10X')
-#for row in iterrows:
-#    if 'AGE' > 'AGE_MAX' then 'CC' == NULL
-#    elif 'AGE' < 'AGE_MIN' then 'CC' == NULL
-#    elif 'AGE' > 'DX_MAX' then 'CC' == NULL
-#    elif 'AGE' < 'DX_MIN' then 'CC' == NULL
-#    elif 'SEX' != 'DX_SEX' then 'CC' == NULL
-
-#Add RXCs
-#Transform
-#Apply hierarchy
-#Groupings
-#Demo terms
-#Apply 2020 Silver Weights
-#CSR Adjustment
-
-#df_X3 = df_X3.fillna(0).astype(np.int64) # Change missing vlaues to int64 zeros
-#df_X3 = df_X3.filter(['PERSON_ID', 'YEAR', 'UNADJ_RS', 'ADJ_RS'])
-#df_X3['YEAR'] = df_X3['YEAR'].astype('int64') # Change column data type to integer
-#df_X3['PERSON_ID'] = df_X3['PERSON_ID'].astype('int64') # Change column data type to integer
-#df_X3.info()
 
 ## Assmeble Analytical Files
 

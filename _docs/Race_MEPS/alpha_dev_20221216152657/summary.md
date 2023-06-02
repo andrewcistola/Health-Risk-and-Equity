@@ -163,6 +163,7 @@ memory usage: 13.9+ MB
 
 </pre>
 
+
 ### Data Preparation Summary
 The following Columns were derived for this analysis:
 
@@ -259,27 +260,27 @@ YEAR RACE_DESC
      ICD10_TOTAL                                              
            count      mean       std  min  25%  50%  75%   max
 YEAR                                                          
-2018       695.0  2.739568  3.268014  0.0  0.0  2.0  4.0  22.0
-2019       646.0  2.509288  3.095244  0.0  0.0  2.0  4.0  27.0
-2020       683.0  2.477306  2.787803  0.0  0.0  2.0  4.0  19.0
+2018       695.0  2.427338  2.941328  0.0  0.0  1.0  4.0  21.0
+2019       646.0  2.272446  2.886496  0.0  0.0  1.0  3.0  25.0
+2020       683.0  2.156662  2.564773  0.0  0.0  1.0  3.0  19.0
 </pre>
 
 <pre>
                ICD10_TOTAL                                               
-                     count      mean       std  min  25%  50%   75%   max
+                     count      mean       std  min   25%  50%  75%   max
 YEAR RACE_DESC                                                           
-2018 ASIAN            60.0  1.433333  2.272657  0.0  0.0  1.0  2.00  13.0
-     BLACK            80.0  2.450000  2.903076  0.0  0.0  1.0  3.25  16.0
-     HISPANIC        164.0  1.969512  2.859542  0.0  0.0  1.0  3.00  16.0
-     WHITE           391.0  3.322251  3.497030  0.0  1.0  2.0  5.00  22.0
-2019 ASIAN            63.0  1.492063  2.085843  0.0  0.0  1.0  2.00   8.0
-     BLACK            70.0  2.842857  2.902451  0.0  1.0  2.0  4.00  13.0
-     HISPANIC        154.0  1.811688  3.028772  0.0  0.0  1.0  2.00  24.0
-     WHITE           359.0  2.922006  3.221704  0.0  1.0  2.0  4.00  27.0
-2020 ASIAN            64.0  1.656250  2.154499  0.0  0.0  1.0  3.00   9.0
-     BLACK            82.0  2.963415  3.088989  0.0  0.0  2.0  5.00  15.0
-     HISPANIC        177.0  1.802260  2.409827  0.0  0.0  1.0  3.00  17.0
-     WHITE           360.0  2.844444  2.901008  0.0  1.0  2.0  4.00  19.0
+2018 ASIAN            60.0  1.283333  1.992287  0.0  0.00  1.0  2.0  11.0
+     BLACK            80.0  2.150000  2.551247  0.0  0.00  1.0  3.0  14.0
+     HISPANIC        164.0  1.774390  2.586720  0.0  0.00  1.0  3.0  14.0
+     WHITE           391.0  2.933504  3.166439  0.0  0.00  2.0  4.0  21.0
+2019 ASIAN            63.0  1.396825  1.930566  0.0  0.00  1.0  2.0   7.0
+     BLACK            70.0  2.614286  2.788656  0.0  0.25  2.0  4.0  11.0
+     HISPANIC        154.0  1.707792  2.943754  0.0  0.00  1.0  2.0  23.0
+     WHITE           359.0  2.601671  2.959710  0.0  0.00  2.0  4.0  25.0
+2020 ASIAN            64.0  1.265625  1.692581  0.0  0.00  1.0  2.0   7.0
+     BLACK            82.0  2.756098  2.835232  0.0  0.00  2.0  4.0  13.0
+     HISPANIC        177.0  1.593220  2.304531  0.0  0.00  1.0  2.0  17.0
+     WHITE           360.0  2.455556  2.665831  0.0  1.00  2.0  4.0  19.0
 </pre>
 
 <pre>
@@ -350,11 +351,11 @@ Data columns (total 9 columns):
  3   SEX           2024 non-null   float64
  4   RACE          2024 non-null   float64
  5   FPL_PERCENT   2024 non-null   float64
- 6   ICD10_TOTAL   2024 non-null   int64  
+ 6   ICD10_TOTAL   2024 non-null   int32  
  7   PAID_TOTAL    2024 non-null   float64
  8   VISITS_TOTAL  2024 non-null   int64  
-dtypes: float64(5), int64(4)
-memory usage: 158.1 KB
+dtypes: float64(5), int32(1), int64(3)
+memory usage: 150.2 KB
 
 </pre>
 ##### Research Question 2: Analytical File
@@ -362,7 +363,7 @@ memory usage: 158.1 KB
 <pre>
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 2024 entries, 0 to 2023
-Data columns (total 390 columns):
+Data columns (total 355 columns):
  #    Column             Non-Null Count  Dtype  
 ---   ------             --------------  -----  
  0    PERSON_ID          2024 non-null   int64  
@@ -371,7 +372,7 @@ Data columns (total 390 columns):
  3    SEX                2024 non-null   float64
  4    RACE               2024 non-null   float64
  5    FPL_PERCENT        1995 non-null   float64
- 6    ICD10_TOTAL        1440 non-null   float64
+ 6    ICD10_TOTAL        1374 non-null   float64
  7    ER_PAID            182 non-null    float64
  8    HOME_PAID          11 non-null     float64
  9    INPATIENT_PAID     99 non-null     float64
@@ -386,380 +387,344 @@ Data columns (total 390 columns):
  18   OUTPATIENT_VISITS  273 non-null    float64
  19   RX_VISITS          1229 non-null   float64
  20   VISITS_TOTAL       1440 non-null   float64
- 21   ICD10_-15          207 non-null    float64
- 22   ICD10_A04          2 non-null      float64
- 23   ICD10_A08          3 non-null      float64
- 24   ICD10_A09          5 non-null      float64
- 25   ICD10_A41          1 non-null      float64
- 26   ICD10_A49          11 non-null     float64
- 27   ICD10_A69          1 non-null      float64
- 28   ICD10_B00          18 non-null     float64
- 29   ICD10_B02          5 non-null      float64
- 30   ICD10_B07          6 non-null      float64
- 31   ICD10_B19          4 non-null      float64
- 32   ICD10_B34          7 non-null      float64
- 33   ICD10_B35          9 non-null      float64
- 34   ICD10_B37          27 non-null     float64
- 35   ICD10_B49          1 non-null      float64
- 36   ICD10_B99          4 non-null      float64
- 37   ICD10_C18          2 non-null      float64
- 38   ICD10_C34          2 non-null      float64
- 39   ICD10_C43          6 non-null      float64
- 40   ICD10_C44          20 non-null     float64
- 41   ICD10_C50          18 non-null     float64
- 42   ICD10_C55          1 non-null      float64
- 43   ICD10_C61          1 non-null      float64
- 44   ICD10_C64          3 non-null      float64
- 45   ICD10_C67          1 non-null      float64
- 46   ICD10_C73          5 non-null      float64
- 47   ICD10_C85          4 non-null      float64
- 48   ICD10_C95          6 non-null      float64
- 49   ICD10_D04          1 non-null      float64
- 50   ICD10_D17          3 non-null      float64
- 51   ICD10_D21          4 non-null      float64
- 52   ICD10_D22          10 non-null     float64
- 53   ICD10_D48          2 non-null      float64
- 54   ICD10_D49          7 non-null      float64
- 55   ICD10_D50          3 non-null      float64
- 56   ICD10_D64          20 non-null     float64
- 57   ICD10_D68          1 non-null      float64
- 58   ICD10_E03          86 non-null     float64
- 59   ICD10_E04          8 non-null      float64
- 60   ICD10_E05          10 non-null     float64
- 61   ICD10_E06          6 non-null      float64
- 62   ICD10_E07          80 non-null     float64
- 63   ICD10_E11          148 non-null    float64
- 64   ICD10_E28          5 non-null      float64
- 65   ICD10_E29          1 non-null      float64
- 66   ICD10_E34          16 non-null     float64
- 67   ICD10_E53          4 non-null      float64
- 68   ICD10_E55          28 non-null     float64
- 69   ICD10_E56          2 non-null      float64
- 70   ICD10_E58          1 non-null      float64
- 71   ICD10_E61          6 non-null      float64
- 72   ICD10_E66          9 non-null      float64
- 73   ICD10_E78          273 non-null    float64
- 74   ICD10_E83          1 non-null      float64
- 75   ICD10_E86          5 non-null      float64
- 76   ICD10_E87          14 non-null     float64
- 77   ICD10_F10          7 non-null      float64
- 78   ICD10_F11          2 non-null      float64
- 79   ICD10_F17          1 non-null      float64
- 80   ICD10_F19          3 non-null      float64
- 81   ICD10_F20          6 non-null      float64
- 82   ICD10_F31          15 non-null     float64
- 83   ICD10_F32          155 non-null    float64
- 84   ICD10_F34          2 non-null      float64
- 85   ICD10_F39          4 non-null      float64
- 86   ICD10_F41          176 non-null    float64
- 87   ICD10_F42          10 non-null     float64
- 88   ICD10_F43          42 non-null     float64
- 89   ICD10_F51          1 non-null      float64
- 90   ICD10_F80          1 non-null      float64
- 91   ICD10_F84          2 non-null      float64
- 92   ICD10_F90          43 non-null     float64
- 93   ICD10_F99          17 non-null     float64
- 94   ICD10_G25          23 non-null     float64
- 95   ICD10_G35          1 non-null      float64
- 96   ICD10_G40          9 non-null      float64
- 97   ICD10_G43          43 non-null     float64
- 98   ICD10_G44          1 non-null      float64
- 99   ICD10_G45          8 non-null      float64
- 100  ICD10_G47          101 non-null    float64
- 101  ICD10_G54          2 non-null      float64
- 102  ICD10_G56          5 non-null      float64
- 103  ICD10_G57          6 non-null      float64
- 104  ICD10_G58          3 non-null      float64
- 105  ICD10_G62          6 non-null      float64
- 106  ICD10_G89          15 non-null     float64
- 107  ICD10_H00          1 non-null      float64
- 108  ICD10_H02          3 non-null      float64
- 109  ICD10_H04          8 non-null      float64
- 110  ICD10_H10          4 non-null      float64
- 111  ICD10_H18          1 non-null      float64
- 112  ICD10_H26          15 non-null     float64
- 113  ICD10_H33          6 non-null      float64
- 114  ICD10_H35          9 non-null      float64
- 115  ICD10_H40          16 non-null     float64
- 116  ICD10_H43          5 non-null      float64
- 117  ICD10_H44          4 non-null      float64
- 118  ICD10_H52          34 non-null     float64
- 119  ICD10_H53          11 non-null     float64
- 120  ICD10_H54          5 non-null      float64
- 121  ICD10_H57          17 non-null     float64
- 122  ICD10_H61          3 non-null      float64
- 123  ICD10_H65          1 non-null      float64
- 124  ICD10_H66          18 non-null     float64
- 125  ICD10_H72          1 non-null      float64
- 126  ICD10_H81          1 non-null      float64
- 127  ICD10_H91          3 non-null      float64
- 128  ICD10_H92          13 non-null     float64
- 129  ICD10_H93          2 non-null      float64
- 130  ICD10_I10          404 non-null    float64
- 131  ICD10_I20          3 non-null      float64
- 132  ICD10_I21          25 non-null     float64
- 133  ICD10_I25          24 non-null     float64
- 134  ICD10_I34          5 non-null      float64
- 135  ICD10_I38          2 non-null      float64
- 136  ICD10_I48          7 non-null      float64
- 137  ICD10_I49          9 non-null      float64
- 138  ICD10_I50          4 non-null      float64
- 139  ICD10_I51          9 non-null      float64
- 140  ICD10_I63          2 non-null      float64
- 141  ICD10_I72          2 non-null      float64
- 142  ICD10_I73          6 non-null      float64
- 143  ICD10_I74          8 non-null      float64
- 144  ICD10_I82          1 non-null      float64
- 145  ICD10_I83          3 non-null      float64
- 146  ICD10_I87          1 non-null      float64
- 147  ICD10_I89          4 non-null      float64
- 148  ICD10_I95          1 non-null      float64
- 149  ICD10_J00          30 non-null     float64
- 150  ICD10_J02          26 non-null     float64
- 151  ICD10_J03          3 non-null      float64
- 152  ICD10_J06          9 non-null      float64
- 153  ICD10_J09          3 non-null      float64
- 154  ICD10_J11          53 non-null     float64
- 155  ICD10_J18          8 non-null      float64
- 156  ICD10_J20          4 non-null      float64
- 157  ICD10_J30          30 non-null     float64
- 158  ICD10_J32          40 non-null     float64
- 159  ICD10_J34          14 non-null     float64
- 160  ICD10_J35          1 non-null      float64
- 161  ICD10_J39          7 non-null      float64
- 162  ICD10_J40          20 non-null     float64
- 163  ICD10_J42          9 non-null      float64
- 164  ICD10_J43          7 non-null      float64
- 165  ICD10_J44          11 non-null     float64
- 166  ICD10_J45          100 non-null    float64
- 167  ICD10_J98          7 non-null      float64
- 168  ICD10_K01          3 non-null      float64
- 169  ICD10_K02          1 non-null      float64
- 170  ICD10_K04          11 non-null     float64
- 171  ICD10_K05          1 non-null      float64
- 172  ICD10_K08          20 non-null     float64
- 173  ICD10_K21          79 non-null     float64
- 174  ICD10_K22          3 non-null      float64
- 175  ICD10_K25          2 non-null      float64
- 176  ICD10_K29          12 non-null     float64
- 177  ICD10_K30          15 non-null     float64
- 178  ICD10_K31          9 non-null      float64
- 179  ICD10_K37          5 non-null      float64
- 180  ICD10_K44          3 non-null      float64
- 181  ICD10_K46          6 non-null      float64
- 182  ICD10_K51          2 non-null      float64
- 183  ICD10_K52          2 non-null      float64
- 184  ICD10_K56          1 non-null      float64
- 185  ICD10_K57          9 non-null      float64
- 186  ICD10_K58          11 non-null     float64
- 187  ICD10_K59          5 non-null      float64
- 188  ICD10_K63          6 non-null      float64
- 189  ICD10_K64          8 non-null      float64
- 190  ICD10_K74          2 non-null      float64
- 191  ICD10_K76          9 non-null      float64
- 192  ICD10_K80          3 non-null      float64
- 193  ICD10_K82          7 non-null      float64
- 194  ICD10_K85          5 non-null      float64
- 195  ICD10_K92          8 non-null      float64
- 196  ICD10_L02          7 non-null      float64
- 197  ICD10_L03          3 non-null      float64
- 198  ICD10_L08          7 non-null      float64
- 199  ICD10_L21          1 non-null      float64
- 200  ICD10_L23          8 non-null      float64
- 201  ICD10_L29          1 non-null      float64
- 202  ICD10_L30          22 non-null     float64
- 203  ICD10_L40          7 non-null      float64
- 204  ICD10_L50          6 non-null      float64
- 205  ICD10_L57          2 non-null      float64
- 206  ICD10_L60          7 non-null      float64
- 207  ICD10_L65          7 non-null      float64
- 208  ICD10_L70          17 non-null     float64
- 209  ICD10_L71          7 non-null      float64
- 210  ICD10_L72          4 non-null      float64
- 211  ICD10_L73          1 non-null      float64
- 212  ICD10_L81          3 non-null      float64
- 213  ICD10_L84          3 non-null      float64
- 214  ICD10_L90          1 non-null      float64
- 215  ICD10_L91          3 non-null      float64
- 216  ICD10_L98          29 non-null     float64
- 217  ICD10_M06          29 non-null     float64
- 218  ICD10_M10          12 non-null     float64
- 219  ICD10_M16          2 non-null      float64
- 220  ICD10_M17          7 non-null      float64
- 221  ICD10_M19          99 non-null     float64
- 222  ICD10_M21          4 non-null      float64
- 223  ICD10_M23          1 non-null      float64
- 224  ICD10_M25          131 non-null    float64
- 225  ICD10_M26          1 non-null      float64
- 226  ICD10_M32          9 non-null      float64
- 227  ICD10_M35          6 non-null      float64
- 228  ICD10_M41          4 non-null      float64
- 229  ICD10_M43          6 non-null      float64
- 230  ICD10_M46          1 non-null      float64
- 231  ICD10_M48          3 non-null      float64
- 232  ICD10_M50          1 non-null      float64
- 233  ICD10_M51          22 non-null     float64
- 234  ICD10_M53          20 non-null     float64
- 235  ICD10_M54          117 non-null    float64
- 236  ICD10_M62          16 non-null     float64
- 237  ICD10_M65          3 non-null      float64
- 238  ICD10_M67          4 non-null      float64
- 239  ICD10_M71          2 non-null      float64
- 240  ICD10_M72          7 non-null      float64
- 241  ICD10_M75          6 non-null      float64
- 242  ICD10_M76          2 non-null      float64
- 243  ICD10_M77          13 non-null     float64
- 244  ICD10_M79          76 non-null     float64
- 245  ICD10_M81          6 non-null      float64
- 246  ICD10_M85          6 non-null      float64
- 247  ICD10_M89          1 non-null      float64
- 248  ICD10_M99          3 non-null      float64
- 249  ICD10_N15          5 non-null      float64
- 250  ICD10_N18          1 non-null      float64
- 251  ICD10_N19          1 non-null      float64
- 252  ICD10_N20          11 non-null     float64
- 253  ICD10_N28          14 non-null     float64
- 254  ICD10_N30          12 non-null     float64
- 255  ICD10_N32          5 non-null      float64
- 256  ICD10_N39          44 non-null     float64
- 257  ICD10_N40          2 non-null      float64
- 258  ICD10_N41          1 non-null      float64
- 259  ICD10_N42          8 non-null      float64
- 260  ICD10_N50          2 non-null      float64
- 261  ICD10_N52          4 non-null      float64
- 262  ICD10_N60          5 non-null      float64
- 263  ICD10_N63          10 non-null     float64
- 264  ICD10_N64          6 non-null      float64
- 265  ICD10_N76          4 non-null      float64
- 266  ICD10_N80          3 non-null      float64
- 267  ICD10_N81          3 non-null      float64
- 268  ICD10_N83          10 non-null     float64
- 269  ICD10_N85          2 non-null      float64
- 270  ICD10_N89          7 non-null      float64
- 271  ICD10_N92          10 non-null     float64
- 272  ICD10_N93          2 non-null      float64
- 273  ICD10_N94          6 non-null      float64
- 274  ICD10_N95          26 non-null     float64
- 275  ICD10_O03          2 non-null      float64
- 276  ICD10_O80          4 non-null      float64
- 277  ICD10_R00          16 non-null     float64
- 278  ICD10_R01          6 non-null      float64
- 279  ICD10_R03          1 non-null      float64
- 280  ICD10_R04          6 non-null      float64
- 281  ICD10_R05          18 non-null     float64
- 282  ICD10_R06          9 non-null      float64
- 283  ICD10_R07          18 non-null     float64
- 284  ICD10_R09          3 non-null      float64
- 285  ICD10_R10          20 non-null     float64
- 286  ICD10_R11          16 non-null     float64
- 287  ICD10_R12          8 non-null      float64
- 288  ICD10_R13          3 non-null      float64
- 289  ICD10_R14          1 non-null      float64
- 290  ICD10_R19          13 non-null     float64
- 291  ICD10_R20          4 non-null      float64
- 292  ICD10_R21          23 non-null     float64
- 293  ICD10_R22          13 non-null     float64
- 294  ICD10_R25          6 non-null      float64
- 295  ICD10_R31          6 non-null      float64
- 296  ICD10_R32          4 non-null      float64
- 297  ICD10_R33          3 non-null      float64
- 298  ICD10_R35          4 non-null      float64
- 299  ICD10_R39          3 non-null      float64
- 300  ICD10_R41          2 non-null      float64
- 301  ICD10_R42          30 non-null     float64
- 302  ICD10_R47          2 non-null      float64
- 303  ICD10_R50          6 non-null      float64
- 304  ICD10_R51          26 non-null     float64
- 305  ICD10_R52          34 non-null     float64
- 306  ICD10_R53          11 non-null     float64
- 307  ICD10_R55          2 non-null      float64
- 308  ICD10_R56          11 non-null     float64
- 309  ICD10_R58          1 non-null      float64
- 310  ICD10_R59          1 non-null      float64
- 311  ICD10_R60          30 non-null     float64
- 312  ICD10_R63          9 non-null      float64
- 313  ICD10_R68          3 non-null      float64
- 314  ICD10_R73          14 non-null     float64
- 315  ICD10_R79          4 non-null      float64
- 316  ICD10_R87          7 non-null      float64
- 317  ICD10_R91          4 non-null      float64
- 318  ICD10_R94          2 non-null      float64
- 319  ICD10_S01          7 non-null      float64
- 320  ICD10_S02          3 non-null      float64
- 321  ICD10_S05          6 non-null      float64
- 322  ICD10_S06          5 non-null      float64
- 323  ICD10_S09          5 non-null      float64
- 324  ICD10_S13          5 non-null      float64
- 325  ICD10_S19          3 non-null      float64
- 326  ICD10_S20          1 non-null      float64
- 327  ICD10_S22          5 non-null      float64
- 328  ICD10_S29          1 non-null      float64
- 329  ICD10_S32          5 non-null      float64
- 330  ICD10_S39          13 non-null     float64
- 331  ICD10_S42          6 non-null      float64
- 332  ICD10_S46          2 non-null      float64
- 333  ICD10_S49          7 non-null      float64
- 334  ICD10_S61          9 non-null      float64
- 335  ICD10_S62          11 non-null     float64
- 336  ICD10_S63          3 non-null      float64
- 337  ICD10_S69          4 non-null      float64
- 338  ICD10_S72          2 non-null      float64
- 339  ICD10_S73          1 non-null      float64
- 340  ICD10_S79          3 non-null      float64
- 341  ICD10_S80          2 non-null      float64
- 342  ICD10_S81          4 non-null      float64
- 343  ICD10_S82          5 non-null      float64
- 344  ICD10_S83          5 non-null      float64
- 345  ICD10_S86          1 non-null      float64
- 346  ICD10_S89          7 non-null      float64
- 347  ICD10_S91          2 non-null      float64
- 348  ICD10_S92          8 non-null      float64
- 349  ICD10_S93          11 non-null     float64
- 350  ICD10_S99          7 non-null      float64
- 351  ICD10_T07          1 non-null      float64
- 352  ICD10_T14          23 non-null     float64
- 353  ICD10_T15          1 non-null      float64
- 354  ICD10_T63          6 non-null      float64
- 355  ICD10_T78          75 non-null     float64
- 356  ICD10_T88          2 non-null      float64
- 357  ICD10_U07          20 non-null     float64
- 358  ICD10_Z00          18 non-null     float64
- 359  ICD10_Z01          14 non-null     float64
- 360  ICD10_Z04          6 non-null      float64
- 361  ICD10_Z09          2 non-null      float64
- 362  ICD10_Z11          2 non-null      float64
- 363  ICD10_Z12          26 non-null     float64
- 364  ICD10_Z13          37 non-null     float64
- 365  ICD10_Z20          75 non-null     float64
- 366  ICD10_Z21          9 non-null      float64
- 367  ICD10_Z23          3 non-null      float64
- 368  ICD10_Z29          2 non-null      float64
- 369  ICD10_Z30          43 non-null     float64
- 370  ICD10_Z31          1 non-null      float64
- 371  ICD10_Z34          23 non-null     float64
- 372  ICD10_Z38          2 non-null      float64
- 373  ICD10_Z39          1 non-null      float64
- 374  ICD10_Z46          2 non-null      float64
- 375  ICD10_Z48          5 non-null      float64
- 376  ICD10_Z51          4 non-null      float64
- 377  ICD10_Z63          5 non-null      float64
- 378  ICD10_Z71          14 non-null     float64
- 379  ICD10_Z72          1 non-null      float64
- 380  ICD10_Z73          5 non-null      float64
- 381  ICD10_Z76          36 non-null     float64
- 382  ICD10_Z79          20 non-null     float64
- 383  ICD10_Z87          1 non-null      float64
- 384  ICD10_Z89          2 non-null      float64
- 385  ICD10_Z90          4 non-null      float64
- 386  ICD10_Z91          3 non-null      float64
- 387  ICD10_Z96          8 non-null      float64
- 388  ICD10_Z97          1 non-null      float64
- 389  ICD10_Z98          1 non-null      float64
-dtypes: float64(388), int64(2)
-memory usage: 6.0 MB
+ 21   ICD10_A04          2 non-null      float64
+ 22   ICD10_A08          3 non-null      float64
+ 23   ICD10_A09          5 non-null      float64
+ 24   ICD10_A41          1 non-null      float64
+ 25   ICD10_A49          11 non-null     float64
+ 26   ICD10_A69          1 non-null      float64
+ 27   ICD10_B00          18 non-null     float64
+ 28   ICD10_B02          5 non-null      float64
+ 29   ICD10_B07          6 non-null      float64
+ 30   ICD10_B19          4 non-null      float64
+ 31   ICD10_B34          7 non-null      float64
+ 32   ICD10_B35          9 non-null      float64
+ 33   ICD10_B37          27 non-null     float64
+ 34   ICD10_B49          1 non-null      float64
+ 35   ICD10_B99          4 non-null      float64
+ 36   ICD10_C18          2 non-null      float64
+ 37   ICD10_C34          2 non-null      float64
+ 38   ICD10_C43          6 non-null      float64
+ 39   ICD10_C44          20 non-null     float64
+ 40   ICD10_C50          18 non-null     float64
+ 41   ICD10_C55          1 non-null      float64
+ 42   ICD10_C61          1 non-null      float64
+ 43   ICD10_C64          3 non-null      float64
+ 44   ICD10_C67          1 non-null      float64
+ 45   ICD10_C73          5 non-null      float64
+ 46   ICD10_C85          4 non-null      float64
+ 47   ICD10_C95          6 non-null      float64
+ 48   ICD10_D04          1 non-null      float64
+ 49   ICD10_D17          3 non-null      float64
+ 50   ICD10_D21          4 non-null      float64
+ 51   ICD10_D22          10 non-null     float64
+ 52   ICD10_D48          2 non-null      float64
+ 53   ICD10_D49          7 non-null      float64
+ 54   ICD10_D50          3 non-null      float64
+ 55   ICD10_D64          20 non-null     float64
+ 56   ICD10_D68          1 non-null      float64
+ 57   ICD10_E03          86 non-null     float64
+ 58   ICD10_E04          8 non-null      float64
+ 59   ICD10_E05          10 non-null     float64
+ 60   ICD10_E06          6 non-null      float64
+ 61   ICD10_E07          80 non-null     float64
+ 62   ICD10_E11          148 non-null    float64
+ 63   ICD10_E28          5 non-null      float64
+ 64   ICD10_E29          1 non-null      float64
+ 65   ICD10_E34          16 non-null     float64
+ 66   ICD10_E53          4 non-null      float64
+ 67   ICD10_E55          28 non-null     float64
+ 68   ICD10_E56          2 non-null      float64
+ 69   ICD10_E58          1 non-null      float64
+ 70   ICD10_E61          6 non-null      float64
+ 71   ICD10_E66          9 non-null      float64
+ 72   ICD10_E78          273 non-null    float64
+ 73   ICD10_E83          1 non-null      float64
+ 74   ICD10_E86          5 non-null      float64
+ 75   ICD10_E87          14 non-null     float64
+ 76   ICD10_F10          7 non-null      float64
+ 77   ICD10_F11          2 non-null      float64
+ 78   ICD10_F17          1 non-null      float64
+ 79   ICD10_F19          3 non-null      float64
+ 80   ICD10_F20          6 non-null      float64
+ 81   ICD10_F31          15 non-null     float64
+ 82   ICD10_F32          155 non-null    float64
+ 83   ICD10_F34          2 non-null      float64
+ 84   ICD10_F39          4 non-null      float64
+ 85   ICD10_F41          176 non-null    float64
+ 86   ICD10_F42          10 non-null     float64
+ 87   ICD10_F43          42 non-null     float64
+ 88   ICD10_F51          1 non-null      float64
+ 89   ICD10_F80          1 non-null      float64
+ 90   ICD10_F84          2 non-null      float64
+ 91   ICD10_F90          43 non-null     float64
+ 92   ICD10_F99          17 non-null     float64
+ 93   ICD10_G25          23 non-null     float64
+ 94   ICD10_G35          1 non-null      float64
+ 95   ICD10_G40          9 non-null      float64
+ 96   ICD10_G43          43 non-null     float64
+ 97   ICD10_G44          1 non-null      float64
+ 98   ICD10_G45          8 non-null      float64
+ 99   ICD10_G47          101 non-null    float64
+ 100  ICD10_G54          2 non-null      float64
+ 101  ICD10_G56          5 non-null      float64
+ 102  ICD10_G57          6 non-null      float64
+ 103  ICD10_G58          3 non-null      float64
+ 104  ICD10_G62          6 non-null      float64
+ 105  ICD10_G89          15 non-null     float64
+ 106  ICD10_H00          1 non-null      float64
+ 107  ICD10_H02          3 non-null      float64
+ 108  ICD10_H04          8 non-null      float64
+ 109  ICD10_H10          4 non-null      float64
+ 110  ICD10_H18          1 non-null      float64
+ 111  ICD10_H26          15 non-null     float64
+ 112  ICD10_H33          6 non-null      float64
+ 113  ICD10_H35          9 non-null      float64
+ 114  ICD10_H40          16 non-null     float64
+ 115  ICD10_H43          5 non-null      float64
+ 116  ICD10_H44          4 non-null      float64
+ 117  ICD10_H52          34 non-null     float64
+ 118  ICD10_H53          11 non-null     float64
+ 119  ICD10_H54          5 non-null      float64
+ 120  ICD10_H57          17 non-null     float64
+ 121  ICD10_H61          3 non-null      float64
+ 122  ICD10_H65          1 non-null      float64
+ 123  ICD10_H66          18 non-null     float64
+ 124  ICD10_H72          1 non-null      float64
+ 125  ICD10_H81          1 non-null      float64
+ 126  ICD10_H91          3 non-null      float64
+ 127  ICD10_H92          13 non-null     float64
+ 128  ICD10_H93          2 non-null      float64
+ 129  ICD10_I10          404 non-null    float64
+ 130  ICD10_I20          3 non-null      float64
+ 131  ICD10_I21          25 non-null     float64
+ 132  ICD10_I25          24 non-null     float64
+ 133  ICD10_I34          5 non-null      float64
+ 134  ICD10_I38          2 non-null      float64
+ 135  ICD10_I48          7 non-null      float64
+ 136  ICD10_I49          9 non-null      float64
+ 137  ICD10_I50          4 non-null      float64
+ 138  ICD10_I51          9 non-null      float64
+ 139  ICD10_I63          2 non-null      float64
+ 140  ICD10_I72          2 non-null      float64
+ 141  ICD10_I73          6 non-null      float64
+ 142  ICD10_I74          8 non-null      float64
+ 143  ICD10_I82          1 non-null      float64
+ 144  ICD10_I83          3 non-null      float64
+ 145  ICD10_I87          1 non-null      float64
+ 146  ICD10_I89          4 non-null      float64
+ 147  ICD10_I95          1 non-null      float64
+ 148  ICD10_J00          30 non-null     float64
+ 149  ICD10_J02          26 non-null     float64
+ 150  ICD10_J03          3 non-null      float64
+ 151  ICD10_J06          9 non-null      float64
+ 152  ICD10_J09          3 non-null      float64
+ 153  ICD10_J11          53 non-null     float64
+ 154  ICD10_J18          8 non-null      float64
+ 155  ICD10_J20          4 non-null      float64
+ 156  ICD10_J30          30 non-null     float64
+ 157  ICD10_J32          40 non-null     float64
+ 158  ICD10_J34          14 non-null     float64
+ 159  ICD10_J35          1 non-null      float64
+ 160  ICD10_J39          7 non-null      float64
+ 161  ICD10_J40          20 non-null     float64
+ 162  ICD10_J42          9 non-null      float64
+ 163  ICD10_J43          7 non-null      float64
+ 164  ICD10_J44          11 non-null     float64
+ 165  ICD10_J45          100 non-null    float64
+ 166  ICD10_J98          7 non-null      float64
+ 167  ICD10_K01          3 non-null      float64
+ 168  ICD10_K02          1 non-null      float64
+ 169  ICD10_K04          11 non-null     float64
+ 170  ICD10_K05          1 non-null      float64
+ 171  ICD10_K08          20 non-null     float64
+ 172  ICD10_K21          79 non-null     float64
+ 173  ICD10_K22          3 non-null      float64
+ 174  ICD10_K25          2 non-null      float64
+ 175  ICD10_K29          12 non-null     float64
+ 176  ICD10_K30          15 non-null     float64
+ 177  ICD10_K31          9 non-null      float64
+ 178  ICD10_K37          5 non-null      float64
+ 179  ICD10_K44          3 non-null      float64
+ 180  ICD10_K46          6 non-null      float64
+ 181  ICD10_K51          2 non-null      float64
+ 182  ICD10_K52          2 non-null      float64
+ 183  ICD10_K56          1 non-null      float64
+ 184  ICD10_K57          9 non-null      float64
+ 185  ICD10_K58          11 non-null     float64
+ 186  ICD10_K59          5 non-null      float64
+ 187  ICD10_K63          6 non-null      float64
+ 188  ICD10_K64          8 non-null      float64
+ 189  ICD10_K74          2 non-null      float64
+ 190  ICD10_K76          9 non-null      float64
+ 191  ICD10_K80          3 non-null      float64
+ 192  ICD10_K82          7 non-null      float64
+ 193  ICD10_K85          5 non-null      float64
+ 194  ICD10_K92          8 non-null      float64
+ 195  ICD10_L02          7 non-null      float64
+ 196  ICD10_L03          3 non-null      float64
+ 197  ICD10_L08          7 non-null      float64
+ 198  ICD10_L21          1 non-null      float64
+ 199  ICD10_L23          8 non-null      float64
+ 200  ICD10_L29          1 non-null      float64
+ 201  ICD10_L30          22 non-null     float64
+ 202  ICD10_L40          7 non-null      float64
+ 203  ICD10_L50          6 non-null      float64
+ 204  ICD10_L57          2 non-null      float64
+ 205  ICD10_L60          7 non-null      float64
+ 206  ICD10_L65          7 non-null      float64
+ 207  ICD10_L70          17 non-null     float64
+ 208  ICD10_L71          7 non-null      float64
+ 209  ICD10_L72          4 non-null      float64
+ 210  ICD10_L73          1 non-null      float64
+ 211  ICD10_L81          3 non-null      float64
+ 212  ICD10_L84          3 non-null      float64
+ 213  ICD10_L90          1 non-null      float64
+ 214  ICD10_L91          3 non-null      float64
+ 215  ICD10_L98          29 non-null     float64
+ 216  ICD10_M06          29 non-null     float64
+ 217  ICD10_M10          12 non-null     float64
+ 218  ICD10_M16          2 non-null      float64
+ 219  ICD10_M17          7 non-null      float64
+ 220  ICD10_M19          99 non-null     float64
+ 221  ICD10_M21          4 non-null      float64
+ 222  ICD10_M23          1 non-null      float64
+ 223  ICD10_M25          131 non-null    float64
+ 224  ICD10_M26          1 non-null      float64
+ 225  ICD10_M32          9 non-null      float64
+ 226  ICD10_M35          6 non-null      float64
+ 227  ICD10_M41          4 non-null      float64
+ 228  ICD10_M43          6 non-null      float64
+ 229  ICD10_M46          1 non-null      float64
+ 230  ICD10_M48          3 non-null      float64
+ 231  ICD10_M50          1 non-null      float64
+ 232  ICD10_M51          22 non-null     float64
+ 233  ICD10_M53          20 non-null     float64
+ 234  ICD10_M54          117 non-null    float64
+ 235  ICD10_M62          16 non-null     float64
+ 236  ICD10_M65          3 non-null      float64
+ 237  ICD10_M67          4 non-null      float64
+ 238  ICD10_M71          2 non-null      float64
+ 239  ICD10_M72          7 non-null      float64
+ 240  ICD10_M75          6 non-null      float64
+ 241  ICD10_M76          2 non-null      float64
+ 242  ICD10_M77          13 non-null     float64
+ 243  ICD10_M79          76 non-null     float64
+ 244  ICD10_M81          6 non-null      float64
+ 245  ICD10_M85          6 non-null      float64
+ 246  ICD10_M89          1 non-null      float64
+ 247  ICD10_M99          3 non-null      float64
+ 248  ICD10_N18          1 non-null      float64
+ 249  ICD10_N19          1 non-null      float64
+ 250  ICD10_N20          11 non-null     float64
+ 251  ICD10_N28          14 non-null     float64
+ 252  ICD10_N30          12 non-null     float64
+ 253  ICD10_N32          5 non-null      float64
+ 254  ICD10_N39          44 non-null     float64
+ 255  ICD10_N40          2 non-null      float64
+ 256  ICD10_N41          1 non-null      float64
+ 257  ICD10_N42          8 non-null      float64
+ 258  ICD10_N50          2 non-null      float64
+ 259  ICD10_N52          4 non-null      float64
+ 260  ICD10_N60          5 non-null      float64
+ 261  ICD10_N63          10 non-null     float64
+ 262  ICD10_N64          6 non-null      float64
+ 263  ICD10_N76          4 non-null      float64
+ 264  ICD10_N80          3 non-null      float64
+ 265  ICD10_N81          3 non-null      float64
+ 266  ICD10_N83          10 non-null     float64
+ 267  ICD10_N85          2 non-null      float64
+ 268  ICD10_N89          7 non-null      float64
+ 269  ICD10_N92          10 non-null     float64
+ 270  ICD10_N93          2 non-null      float64
+ 271  ICD10_N94          6 non-null      float64
+ 272  ICD10_N95          26 non-null     float64
+ 273  ICD10_O03          2 non-null      float64
+ 274  ICD10_O80          4 non-null      float64
+ 275  ICD10_R00          16 non-null     float64
+ 276  ICD10_R01          6 non-null      float64
+ 277  ICD10_R03          1 non-null      float64
+ 278  ICD10_R04          6 non-null      float64
+ 279  ICD10_R05          18 non-null     float64
+ 280  ICD10_R06          9 non-null      float64
+ 281  ICD10_R07          18 non-null     float64
+ 282  ICD10_R09          3 non-null      float64
+ 283  ICD10_R10          20 non-null     float64
+ 284  ICD10_R11          16 non-null     float64
+ 285  ICD10_R12          8 non-null      float64
+ 286  ICD10_R13          3 non-null      float64
+ 287  ICD10_R14          1 non-null      float64
+ 288  ICD10_R19          13 non-null     float64
+ 289  ICD10_R20          4 non-null      float64
+ 290  ICD10_R21          23 non-null     float64
+ 291  ICD10_R22          13 non-null     float64
+ 292  ICD10_R25          6 non-null      float64
+ 293  ICD10_R31          6 non-null      float64
+ 294  ICD10_R32          4 non-null      float64
+ 295  ICD10_R33          3 non-null      float64
+ 296  ICD10_R35          4 non-null      float64
+ 297  ICD10_R39          3 non-null      float64
+ 298  ICD10_R41          2 non-null      float64
+ 299  ICD10_R42          30 non-null     float64
+ 300  ICD10_R47          2 non-null      float64
+ 301  ICD10_R50          6 non-null      float64
+ 302  ICD10_R51          26 non-null     float64
+ 303  ICD10_R52          34 non-null     float64
+ 304  ICD10_R53          11 non-null     float64
+ 305  ICD10_R55          2 non-null      float64
+ 306  ICD10_R56          11 non-null     float64
+ 307  ICD10_R58          1 non-null      float64
+ 308  ICD10_R59          1 non-null      float64
+ 309  ICD10_R60          30 non-null     float64
+ 310  ICD10_R63          9 non-null      float64
+ 311  ICD10_R68          3 non-null      float64
+ 312  ICD10_R73          14 non-null     float64
+ 313  ICD10_R79          4 non-null      float64
+ 314  ICD10_R87          7 non-null      float64
+ 315  ICD10_R91          4 non-null      float64
+ 316  ICD10_R94          2 non-null      float64
+ 317  ICD10_S01          7 non-null      float64
+ 318  ICD10_S02          3 non-null      float64
+ 319  ICD10_S05          6 non-null      float64
+ 320  ICD10_S06          5 non-null      float64
+ 321  ICD10_S09          5 non-null      float64
+ 322  ICD10_S13          5 non-null      float64
+ 323  ICD10_S19          3 non-null      float64
+ 324  ICD10_S20          1 non-null      float64
+ 325  ICD10_S22          5 non-null      float64
+ 326  ICD10_S29          1 non-null      float64
+ 327  ICD10_S32          5 non-null      float64
+ 328  ICD10_S39          13 non-null     float64
+ 329  ICD10_S42          6 non-null      float64
+ 330  ICD10_S46          2 non-null      float64
+ 331  ICD10_S49          7 non-null      float64
+ 332  ICD10_S61          9 non-null      float64
+ 333  ICD10_S62          11 non-null     float64
+ 334  ICD10_S63          3 non-null      float64
+ 335  ICD10_S69          4 non-null      float64
+ 336  ICD10_S72          2 non-null      float64
+ 337  ICD10_S73          1 non-null      float64
+ 338  ICD10_S79          3 non-null      float64
+ 339  ICD10_S80          2 non-null      float64
+ 340  ICD10_S81          4 non-null      float64
+ 341  ICD10_S82          5 non-null      float64
+ 342  ICD10_S83          5 non-null      float64
+ 343  ICD10_S86          1 non-null      float64
+ 344  ICD10_S89          7 non-null      float64
+ 345  ICD10_S91          2 non-null      float64
+ 346  ICD10_S92          8 non-null      float64
+ 347  ICD10_S93          11 non-null     float64
+ 348  ICD10_S99          7 non-null      float64
+ 349  ICD10_T07          1 non-null      float64
+ 350  ICD10_T14          23 non-null     float64
+ 351  ICD10_T63          6 non-null      float64
+ 352  ICD10_T78          75 non-null     float64
+ 353  ICD10_T88          2 non-null      float64
+ 354  ICD10_U07          20 non-null     float64
+dtypes: float64(353), int64(2)
+memory usage: 5.5 MB
 
 </pre>
-
 ###  Regression Modeling Result Summary 
 The following results were collected using  R version 4.2.2 (2022-10-31 ucrt) 
 
@@ -793,7 +758,7 @@ Group variables            None
  4 SEX                   0             1 1.59e+0        0.492  1   e+0  1   e+0
  5 RACE                  0             1 2.05e+0        0.852  1   e+0  2   e+0
  6 FPL_PERCENT           0             1 3.48e+2      304.    -5.83e+1  1.58e+2
- 7 ICD10_TOTAL           0             1 2.58e+0        3.06   0        0      
+ 7 ICD10_TOTAL           0             1 2.29e+0        2.80   0        0      
  8 PAID_TOTAL            0             1 4.34e+3    25899.     0        0      
  9 VISITS_TOTAL          0             1 1.32e+1       38.5    0        0      
 10 HISPANIC              0             1 2.45e-1        0.430  0        0      
@@ -814,7 +779,7 @@ Group variables            None
  4 2   e+0 2   e+0          2   ▆▁▁▁▇
  5 2   e+0 2   e+0          4   ▃▇▁▂▂
  6 2.65e+2 4.32e+2       2728.  ▇▂▁▁▁
- 7 2   e+0 4   e+0         27   ▇▁▁▁▁
+ 7 1   e+0 3   e+0         25   ▇▁▁▁▁
  8 1.44e+2 1.39e+3     788296.  ▇▁▁▁▁
  9 4   e+0 1.4 e+1       1322   ▇▁▁▁▁
 10 0       0                1   ▇▁▁▁▂
@@ -843,22 +808,22 @@ lm(formula = F, data = D)
 
 Residuals:
    Min     1Q Median     3Q    Max 
--29344  -4213  -1197    150 776060 
+-31464  -4457  -1240    258 775074 
 
 Coefficients:
               Estimate Std. Error t value Pr(>|t|)    
-(Intercept)  3520.2188  2854.5936   1.233   0.2177    
-NON_WHITE     150.4628  1165.9553   0.129   0.8973    
-AGE           -21.8736    43.4888  -0.503   0.6150    
-SEX         -2055.0894  1166.3998  -1.762   0.0782 .  
-FPL_PERCENT    -0.3701     1.8830  -0.197   0.8442    
-ICD10_TOTAL  1999.5283   197.2115  10.139   <2e-16 ***
+(Intercept)  4007.4195  2864.4113   1.399    0.162    
+NON_WHITE    -108.1579  1164.8132  -0.093    0.926    
+AGE           -27.7648    43.8230  -0.634    0.526    
+SEX         -1919.0515  1167.1328  -1.644    0.100    
+FPL_PERCENT    -0.3671     1.8866  -0.195    0.846    
+ICD10_TOTAL  2115.8783   216.1325   9.790   <2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 25240 on 2018 degrees of freedom
-Multiple R-squared:  0.05227,	Adjusted R-squared:  0.04992 
-F-statistic: 22.26 on 5 and 2018 DF,  p-value: < 2.2e-16
+Residual standard error: 25290 on 2018 degrees of freedom
+Multiple R-squared:  0.04915,	Adjusted R-squared:  0.04679 
+F-statistic: 20.86 on 5 and 2018 DF,  p-value: < 2.2e-16
 
 
 </pre>
@@ -870,7 +835,7 @@ F-statistic: 22.26 on 5 and 2018 DF,  p-value: < 2.2e-16
 	Rainbow test
 
 data:  OLS
-Rain = 0.23329, df1 = 1012, df2 = 1006, p-value = 1
+Rain = 0.23298, df1 = 1012, df2 = 1006, p-value = 1
 
 [1] "Significant = Non-linearity"
 
@@ -883,7 +848,7 @@ Rain = 0.23329, df1 = 1012, df2 = 1006, p-value = 1
 	Robust Jarque Bera Test
 
 data:  resid(OLS)
-X-squared = 1.8015e+11, df = 2, p-value < 2.2e-16
+X-squared = 1.8887e+11, df = 2, p-value < 2.2e-16
 
 [1] "Significant = Non-normal"
 
@@ -909,7 +874,7 @@ An = Inf, p-value = 2.964e-07
 	Durbin-Watson test
 
 data:  OLS
-DW = 2.0071, p-value = 0.5585
+DW = 2.0064, p-value = 0.5527
 alternative hypothesis: true autocorrelation is greater than 0
 
 [1] "Signficiant = Autocorrelation"
@@ -924,7 +889,7 @@ alternative hypothesis: true autocorrelation is greater than 0
 	studentized Breusch-Pagan test
 
 data:  OLS
-BP = 9.9902, df = 5, p-value = 0.07551
+BP = 10.616, df = 5, p-value = 0.05955
 
 [1] "Signficiant = Homoscedastic"
 
@@ -938,7 +903,7 @@ BP = 9.9902, df = 5, p-value = 0.07551
 	Goldfeld-Quandt test
 
 data:  OLS
-GQ = 1.3911, df1 = 1006, df2 = 1006, p-value = 8.843e-08
+GQ = 1.3805, df1 = 1006, df2 = 1006, p-value = 1.689e-07
 alternative hypothesis: variance increases from segment 1 to 2
 
 [1] "Signficiant = Heteroscedastic"
@@ -957,24 +922,24 @@ glm(formula = F1, family = binomial(link = "logit"), data = D1)
 
 Deviance Residuals: 
     Min       1Q   Median       3Q      Max  
--5.7989  -0.4938   0.0083   0.4442   1.5945  
+-5.3547  -0.5765   0.0222   0.4258   2.1284  
 
 Coefficients:
               Estimate Std. Error z value Pr(>|z|)    
-(Intercept) -1.6367582  0.3536081  -4.629 3.68e-06 ***
-NON_WHITE    0.0531504  0.1507284   0.353   0.7244    
-AGE         -0.0012220  0.0055892  -0.219   0.8269    
-SEX         -0.1251638  0.1482712  -0.844   0.3986    
-FPL_PERCENT -0.0006386  0.0002637  -2.421   0.0155 *  
-ICD10_TOTAL  2.0884497  0.1028576  20.304  < 2e-16 ***
+(Intercept) -1.2286588  0.3329280  -3.690 0.000224 ***
+NON_WHITE   -0.2056304  0.1411403  -1.457 0.145138    
+AGE         -0.0058846  0.0052915  -1.112 0.266105    
+SEX          0.0622418  0.1391154   0.447 0.654578    
+FPL_PERCENT -0.0005318  0.0002375  -2.239 0.025166 *  
+ICD10_TOTAL  1.9882384  0.0983395  20.218  < 2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 (Dispersion parameter for binomial family taken to be 1)
 
     Null deviance: 2665.4  on 2023  degrees of freedom
-Residual deviance: 1191.4  on 2018  degrees of freedom
-AIC: 1203.4
+Residual deviance: 1320.5  on 2018  degrees of freedom
+AIC: 1332.5
 
 Number of Fisher Scoring iterations: 7
 
@@ -990,23 +955,23 @@ glm(formula = F2, family = poisson(link = "log"), data = D2)
 
 Deviance Residuals: 
     Min       1Q   Median       3Q      Max  
--432.05   -92.81   -74.90   -45.54  2396.48  
+-402.69   -94.48   -76.28   -44.64  2368.18  
 
 Coefficients:
               Estimate Std. Error z value Pr(>|z|)    
-(Intercept)  8.902e+00  1.861e-03 4783.50   <2e-16 ***
-NON_WHITE   -5.016e-02  7.234e-04  -69.33   <2e-16 ***
-AGE         -2.050e-03  2.803e-05  -73.15   <2e-16 ***
-SEX         -4.529e-01  7.299e-04 -620.50   <2e-16 ***
-FPL_PERCENT -4.419e-05  1.209e-06  -36.56   <2e-16 ***
-ICD10_TOTAL  1.607e-01  6.402e-05 2510.22   <2e-16 ***
+(Intercept)  8.996e+00  1.858e-03 4841.73   <2e-16 ***
+NON_WHITE   -8.465e-02  7.213e-04 -117.34   <2e-16 ***
+AGE         -3.036e-03  2.840e-05 -106.90   <2e-16 ***
+SEX         -4.353e-01  7.286e-04 -597.42   <2e-16 ***
+FPL_PERCENT -5.337e-05  1.212e-06  -44.02   <2e-16 ***
+ICD10_TOTAL  1.677e-01  6.957e-05 2410.62   <2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 (Dispersion parameter for poisson family taken to be 1)
 
     Null deviance: 34770303  on 1276  degrees of freedom
-Residual deviance: 29914409  on 1271  degrees of freedom
+Residual deviance: 30270956  on 1271  degrees of freedom
 AIC: Inf
 
 Number of Fisher Scoring iterations: 7
@@ -1031,66 +996,66 @@ Focus group: Not Non-Hispanic White (RACETH != 2)<br>
 <pre>
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 2024 entries, 0 to 2023
-Columns: 395 entries, PERSON_ID to CONDITIONS
-dtypes: float64(18), int64(377)
-memory usage: 6.1 MB
+Columns: 360 entries, PERSON_ID to CONDITIONS
+dtypes: float64(18), int64(342)
+memory usage: 5.6 MB
 
 ##### Linear Regression Model for All Groups
 
       WHITE       AGE      SEX  SDOH_FPL  CONDITIONS
-0  0.042318 -0.016119 -0.43219 -0.000666      0.6589
+0  0.133997 -0.019806 -0.38675  -0.00066    0.685599
 
 </pre>
 
 ##### Random Forests
 
         AGE       SEX  CONDITIONS  SDOH_FPL
-0 -0.009398 -0.958192    0.680481  -0.00102
+0 -0.012433 -0.880068    0.706917 -0.000985
 
 </pre>
-['White Average = 5.2456', 'Non-White Average = 4.8691', 'Non-White Predicted = 4.8969', 'Difference in Bs = 0.3765', 'Difference in Xs = 0.0278', 'R-squared + 0.196']<br>
+['White Average = 5.2456', 'Non-White Average = 4.8691', 'Non-White Predicted = 4.9894', 'Difference in Bs = 0.3765', 'Difference in Xs = 0.1203', 'R-squared + 0.1797']<br>
 
         Variables  Importances
-0        SDOH_FPL     0.587376
-4             AGE     0.266137
-1  SDOH_EDUCATION     0.053840
-5             SEX     0.042070
-2    SDOH_MARITAL     0.041809
-3       SDOH_FOOD     0.008769
+0        SDOH_FPL     0.588699
+4             AGE     0.262844
+1  SDOH_EDUCATION     0.054171
+5             SEX     0.042976
+2    SDOH_MARITAL     0.042340
+3       SDOH_FOOD     0.008970
 
 </pre>
-['White Average = 5.2456', 'Non-White Average = 4.8691', 'Non-White Predicted = 5.1795', 'Difference in Bs = 0.3765', 'Difference in Xs = 0.3104', 'R-squared + 0.5831']<br>
+['White Average = 5.2456', 'Non-White Average = 4.8691', 'Non-White Predicted = 5.1833', 'Difference in Bs = 0.3765', 'Difference in Xs = 0.3141', 'R-squared + 0.5804']<br>
 
      Variables  Importances
-0          AGE     0.107979
-53   ICD10_E78     0.085185
-63   ICD10_F32     0.062797
-201  ICD10_M19     0.050376
-66   ICD10_F41     0.029986
+0          AGE     0.109147
+53   ICD10_E78     0.087434
+63   ICD10_F32     0.064927
+201  ICD10_M19     0.051256
+204  ICD10_M25     0.028794
 ..         ...          ...
-283  ICD10_R50     0.000000
-287  ICD10_R55     0.000000
-290  ICD10_R59     0.000000
+289  ICD10_R59     0.000000
+87   ICD10_H00     0.000000
 3    ICD10_A08     0.000000
-22   ICD10_C55     0.000000
+305  ICD10_S20     0.000000
+64   ICD10_F34     0.000000
 
-[338 rows x 2 columns]
+[336 rows x 2 columns]
 
 </pre>
-['White Average = 5.2456', 'Non-White Average = 4.8691', 'Non-White Predicted = 5.0223', 'Difference in Bs = 0.3765', 'Difference in Xs = 0.1532', 'R-squared + 0.312']<br>
+['White Average = 5.2456', 'Non-White Average = 4.8691', 'Non-White Predicted = 5.0022', 'Difference in Bs = 0.3765', 'Difference in Xs = 0.1331', 'R-squared + 0.3123']<br>
 
            Variables  Importances
-5      OFFICE_VISITS     0.292638
-7          RX_VISITS     0.283453
-0                AGE     0.254565
-6  OUTPATIENT_VISITS     0.064746
-2          ER_VISITS     0.044880
-1                SEX     0.034286
-4   INPATIENT_VISITS     0.024618
-3        HOME_VISITS     0.000815
+5      OFFICE_VISITS     0.290227
+7          RX_VISITS     0.285222
+0                AGE     0.254853
+6  OUTPATIENT_VISITS     0.065398
+2          ER_VISITS     0.044516
+1                SEX     0.034032
+4   INPATIENT_VISITS     0.025019
+3        HOME_VISITS     0.000735
 
 </pre>
-['White Average = 5.2456', 'Non-White Average = 4.8691', 'Non-White Predicted = 4.448', 'Difference in Bs = 0.3765', 'Difference in Xs = -0.4211', 'R-squared + 0.7953']<br>
+['White Average = 5.2456', 'Non-White Average = 4.8691', 'Non-White Predicted = 4.4452', 'Difference in Bs = 0.3765', 'Difference in Xs = -0.424', 'R-squared + 0.7942']<br>
 
 ##### Gradient Boosting
 
@@ -1107,21 +1072,21 @@ memory usage: 6.1 MB
 
      Variables  Importances
 53   ICD10_E78     0.079916
-63   ICD10_F32     0.063896
-201  ICD10_M19     0.054125
-0          AGE     0.045307
-204  ICD10_M25     0.038132
+63   ICD10_F32     0.064130
+201  ICD10_M19     0.054123
+0          AGE     0.046032
+204  ICD10_M25     0.038160
 ..         ...          ...
-182  ICD10_L30     0.000000
 183  ICD10_L40     0.000000
-40   ICD10_E05     0.000000
-37   ICD10_D68     0.000000
-209  ICD10_M43     0.000000
+22   ICD10_C55     0.000000
+185  ICD10_L57     0.000000
+20   ICD10_C44     0.000000
+193  ICD10_L84     0.000000
 
-[338 rows x 2 columns]
+[336 rows x 2 columns]
 
 </pre>
-['White Average = 5.2456', 'Non-White Average = 4.8691', 'Non-White Predicted = 5.0454', 'Difference in Bs = 0.3765', 'Difference in Xs = 0.1763', 'R-squared + 0.2919']<br>
+['White Average = 5.2456', 'Non-White Average = 4.8691', 'Non-White Predicted = 5.0407', 'Difference in Bs = 0.3765', 'Difference in Xs = 0.1715', 'R-squared + 0.2919']<br>
 
            Variables  Importances
 7          RX_VISITS     0.352573
@@ -1150,22 +1115,22 @@ memory usage: 6.1 MB
 ['White Average = 5.2456', 'Non-White Average = 4.8691', 'Non-White Predicted = 5.3842', 'Difference in Bs = 0.3765', 'Difference in Xs = 0.5151', 'R-squared + 0.0193']<br>
 
      Variables  Coefficients
-21   ICD10_C50      2.258813
-46   ICD10_E34      1.608116
-248  ICD10_N83      1.332755
-72   ICD10_F90      1.318881
-224  ICD10_M79      1.302765
+21   ICD10_C50      2.259465
+46   ICD10_E34      1.605923
+247  ICD10_N83      1.348392
+72   ICD10_F90      1.313167
+224  ICD10_M79      1.305102
 ..         ...           ...
-29   ICD10_D04     -0.887417
-184  ICD10_L50     -0.922563
-274  ICD10_R25     -1.066813
-155  ICD10_K25     -1.189677
-198  ICD10_M10     -1.305145
+29   ICD10_D04     -0.887163
+184  ICD10_L50     -0.925361
+273  ICD10_R25     -1.065043
+155  ICD10_K25     -1.189970
+198  ICD10_M10     -1.305746
 
-[338 rows x 2 columns]
+[336 rows x 2 columns]
 
 </pre>
-['White Average = 5.2456', 'Non-White Average = 4.8691', 'Non-White Predicted = 4.9248', 'Difference in Bs = 0.3765', 'Difference in Xs = 0.0557', 'R-squared + 0.256']<br>
+['White Average = 5.2456', 'Non-White Average = 4.8691', 'Non-White Predicted = 4.9276', 'Difference in Bs = 0.3765', 'Difference in Xs = 0.0585', 'R-squared + 0.2558']<br>
 
            Variables  Coefficients
 4   INPATIENT_VISITS      1.537182
@@ -1194,22 +1159,22 @@ memory usage: 6.1 MB
 ['White Average = 5.2456', 'Non-White Average = 4.8691', 'Non-White Predicted = 5.3527', 'Difference in Bs = 0.3765', 'Difference in Xs = 0.4836', 'R-squared + 0.0163']<br>
 
      Variables  Coefficients
-21   ICD10_C50      2.258813
-46   ICD10_E34      1.608116
-248  ICD10_N83      1.332755
-72   ICD10_F90      1.318881
-224  ICD10_M79      1.302765
+21   ICD10_C50      2.259465
+46   ICD10_E34      1.605923
+247  ICD10_N83      1.348392
+72   ICD10_F90      1.313167
+224  ICD10_M79      1.305102
 ..         ...           ...
-29   ICD10_D04     -0.887417
-184  ICD10_L50     -0.922563
-274  ICD10_R25     -1.066813
-155  ICD10_K25     -1.189677
-198  ICD10_M10     -1.305145
+29   ICD10_D04     -0.887163
+184  ICD10_L50     -0.925361
+273  ICD10_R25     -1.065043
+155  ICD10_K25     -1.189970
+198  ICD10_M10     -1.305746
 
-[338 rows x 2 columns]
+[336 rows x 2 columns]
 
 </pre>
-['White Average = 5.2456', 'Non-White Average = 4.8691', 'Non-White Predicted = 4.9248', 'Difference in Bs = 0.3765', 'Difference in Xs = 0.0557', 'R-squared + 0.256']<br>
+['White Average = 5.2456', 'Non-White Average = 4.8691', 'Non-White Predicted = 4.9276', 'Difference in Bs = 0.3765', 'Difference in Xs = 0.0585', 'R-squared + 0.2558']<br>
 
            Variables  Coefficients
 4   INPATIENT_VISITS      1.537182
@@ -1227,42 +1192,20 @@ memory usage: 6.1 MB
 ##### Multi-Layer Perceptron
 
          Loss
-0    3.529949
-1    3.340738
-2    3.218884
-3    3.123808
-4    2.975870
+0    3.733195
+1    3.486001
+2    3.373617
+3    3.288321
+4    3.007737
 ..        ...
-495  0.812600
-496  0.801311
-497  0.721212
-498  0.749604
-499  0.750555
+495  0.855514
+496  0.843388
+497  0.839365
+498  0.866079
+499  0.867566
 
 [500 rows x 1 columns]
 
 </pre>
-['White Average = 5.2456', 'Non-White Average = 4.8691', 'Non-White Predicted = 4.6541', 'Difference in Bs = 0.3765', 'Difference in Xs = -0.215', 'R-squared + 0.8409']<br>
-
-### Tables and Figures
-Files can be found at: _fig//Race_MEPS//alpha_dev_20221216152657//
-
-#### Descriptive Statistics
-![Average Age](_fig//Race_MEPS//alpha_dev_20221216152657//AGE.jpeg)
-![Percent_Female](_fig//Race_MEPS//alpha_dev_20221216152657//PERCENT_FEMALE.jpeg)
-![Average Income as percent of federal poverty line](_fig//Race_MEPS//alpha_dev_20221216152657//FPL_PERCENT.jpeg)
-![Number of Diagnoses per Person](_fig//Race_MEPS//alpha_dev_20221216152657//ICD10_TOTAL).jpeg)
-![Total Visits for Any Setting per Person](_fig//Race_MEPS//alpha_dev_20221216152657//VISITS_TOTAL.jpeg)
-![Total Paid Amounts from Private Payers per Person](_fig//Race_MEPS//alpha_dev_20221216152657//PAID_TOTAL.jpeg)
-
-#### Regression Results
-![2018 QQ Plot](_fig//Race_MEPS//alpha_dev_20221216152657//2018_QQ_PERSON_ID_plot.png)
-![2019 QQ Plot](_fig//Race_MEPS//alpha_dev_20221216152657//2019_QQ_PERSON_ID_plot.png)
-![2020 QQ Plot](_fig//Race_MEPS//alpha_dev_20221216152657//2020_QQ_PERSON_ID_plot.png)
-![2018 Residuals](_fig//Race_MEPS//alpha_dev_20221216152657//2018_residuals_PERSON_ID_plot.png)
-![2019 Residuals](_fig//Race_MEPS//alpha_dev_20221216152657//2019_residuals_PERSON_ID_plot.png)
-![2020 Residuals](_fig//Race_MEPS//alpha_dev_20221216152657//2020_residuals_PERSON_ID_plot.png)
-![2018 Colinearity](_fig//Race_MEPS//alpha_dev_20221216152657//2018_correlation_PERSON_ID_plot.png)
-![2019 Colinearity](_fig//Race_MEPS//alpha_dev_20221216152657//2019_correlation_PERSON_ID_plot.png)
-![2020 Colinearity](_fig//Race_MEPS//alpha_dev_20221216152657//2020_correlation_PERSON_ID_plot.png)
+['White Average = 5.2456', 'Non-White Average = 4.8691', 'Non-White Predicted = 4.5124', 'Difference in Bs = 0.3765', 'Difference in Xs = -0.3567', 'R-squared + 0.8424']<br>
 
