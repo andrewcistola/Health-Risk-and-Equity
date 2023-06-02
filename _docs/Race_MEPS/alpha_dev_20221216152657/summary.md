@@ -759,6 +759,7 @@ dtypes: float64(388), int64(2)
 memory usage: 6.0 MB
 
 </pre>
+
 ###  Regression Modeling Result Summary 
 The following results were collected using  R version 4.2.2 (2022-10-31 ucrt) 
 
@@ -777,53 +778,60 @@ Z (Subgroup variables):  YEAR <br>
                            Values 
 Name                       df_WXYZ
 Number of rows             2024   
-Number of columns          15     
+Number of columns          20     
 _______________________           
 Column type frequency:            
-  numeric                  15     
+  numeric                  20     
 ________________________          
 Group variables            None   
 
 ── Variable type: numeric ──────────────────────────────────────────────────────
-   skim_variable n_missing complete_rate    mean           sd           p0
- 1 PERSON_ID             0             1 2.38e+9 90986093.    2290112102  
- 2 YEAR                  0             1 2.02e+3        0.825       2018  
- 3 AGE                   0             1 4.61e+1       13.5           19  
- 4 SEX                   0             1 1.59e+0        0.492          1  
- 5 RACE                  0             1 2.05e+0        0.852          1  
- 6 FPL_PERCENT           0             1 3.48e+2      304.           -58.3
- 7 ICD10_TOTAL           0             1 2.58e+0        3.06           0  
- 8 PAID_TOTAL            0             1 4.34e+3    25899.             0  
- 9 VISITS_TOTAL          0             1 1.32e+1       38.5            0  
-10 HISPANIC              0             1 2.45e-1        0.430          0  
-11 WHITE                 0             1 5.48e-1        0.498          0  
-12 BLACK                 0             1 1.15e-1        0.319          0  
-13 ASIAN                 0             1 9.24e-2        0.290          0  
-14 OTHER                 0             1 0              0              0  
-15 NON_WHITE             0             1 4.52e-1        0.498          0  
-           p25         p50         p75        p100 hist 
- 1 2321416851  2326994101  2464487102. 2579815101  ▇▁▂▂▁
- 2       2018        2019        2020        2020  ▇▁▇▁▇
- 3         35          49          58          64  ▃▃▅▅▇
- 4          1           2           2           2  ▆▁▁▁▇
- 5          2           2           2           4  ▃▇▁▂▂
- 6        158.        265.        432.       2728. ▇▂▁▁▁
- 7          0           2           4          27  ▇▁▁▁▁
- 8          0         144.       1387.     788296. ▇▁▁▁▁
- 9          0           4          14        1322  ▇▁▁▁▁
-10          0           0           0           1  ▇▁▁▁▂
-11          0           1           1           1  ▆▁▁▁▇
-12          0           0           0           1  ▇▁▁▁▁
-13          0           0           0           1  ▇▁▁▁▁
-14          0           0           0           0  ▁▁▇▁▁
-15          0           0           1           1  ▇▁▁▁▆
+   skim_variable n_missing complete_rate    mean           sd       p0      p25
+ 1 PERSON_ID             0             1 2.38e+9 90986093.     2.29e+9  2.32e+9
+ 2 YEAR                  0             1 2.02e+3        0.825  2.02e+3  2.02e+3
+ 3 AGE                   0             1 4.61e+1       13.5    1.9 e+1  3.5 e+1
+ 4 SEX                   0             1 1.59e+0        0.492  1   e+0  1   e+0
+ 5 RACE                  0             1 2.05e+0        0.852  1   e+0  2   e+0
+ 6 FPL_PERCENT           0             1 3.48e+2      304.    -5.83e+1  1.58e+2
+ 7 ICD10_TOTAL           0             1 2.58e+0        3.06   0        0      
+ 8 PAID_TOTAL            0             1 4.34e+3    25899.     0        0      
+ 9 VISITS_TOTAL          0             1 1.32e+1       38.5    0        0      
+10 HISPANIC              0             1 2.45e-1        0.430  0        0      
+11 WHITE                 0             1 5.48e-1        0.498  0        0      
+12 BLACK                 0             1 1.15e-1        0.319  0        0      
+13 ASIAN                 0             1 9.24e-2        0.290  0        0      
+14 OTHER                 0             1 0              0      0        0      
+15 NON_WHITE             0             1 4.52e-1        0.498  0        0      
+16 Y_raw                 0             1 4.34e+3    25899.     0        0      
+17 Y_binary              0             1 6.31e-1        0.483  0        0      
+18 PAID_ZERO             0             1 4.34e+3    25899.     1   e-3  1   e-3
+19 Y_log                 0             1 1.63e+0        6.77  -6.91e+0 -6.91e+0
+20 Y_scale               0             1 1   e+0        5.96   2.30e-7  2.30e-7
+       p50     p75         p100 hist 
+ 1 2.33e+9 2.46e+9 2579815101   ▇▁▂▂▁
+ 2 2.02e+3 2.02e+3       2020   ▇▁▇▁▇
+ 3 4.9 e+1 5.8 e+1         64   ▃▃▅▅▇
+ 4 2   e+0 2   e+0          2   ▆▁▁▁▇
+ 5 2   e+0 2   e+0          4   ▃▇▁▂▂
+ 6 2.65e+2 4.32e+2       2728.  ▇▂▁▁▁
+ 7 2   e+0 4   e+0         27   ▇▁▁▁▁
+ 8 1.44e+2 1.39e+3     788296.  ▇▁▁▁▁
+ 9 4   e+0 1.4 e+1       1322   ▇▁▁▁▁
+10 0       0                1   ▇▁▁▁▂
+11 1   e+0 1   e+0          1   ▆▁▁▁▇
+12 0       0                1   ▇▁▁▁▁
+13 0       0                1   ▇▁▁▁▁
+14 0       0                0   ▁▁▇▁▁
+15 0       1   e+0          1   ▇▁▁▁▆
+16 1.44e+2 1.39e+3     788296.  ▇▁▁▁▁
+17 1   e+0 1   e+0          1   ▅▁▁▁▇
+18 1.44e+2 1.39e+3     788296.  ▇▁▁▁▁
+19 4.97e+0 7.24e+0         13.6 ▇▁▃▇▁
+20 3.32e-2 3.19e-1        182.  ▇▁▁▁▁
 
 </pre>
 
-####  Regression Step 2: Test for OLS Assumptions 
-
-##### Results for Subgroup:  2018 
-
+####  Final Model: OLS on Log costs, RACE = Missing excluded, 2018-2020 
 
 #####  OLS Assumption 0: Sampling (Random sample, observations > predictors, predictor is independent) 
 
@@ -835,756 +843,174 @@ lm(formula = F, data = D)
 
 Residuals:
    Min     1Q Median     3Q    Max 
--26078  -5132  -1800   1097 342158 
-
-Coefficients:
-             Estimate Std. Error t value Pr(>|t|)    
-(Intercept)  8881.787   4235.177   2.097   0.0363 *  
-NON_WHITE   -2826.096   1788.687  -1.580   0.1146    
-AGE           -37.540     65.895  -0.570   0.5691    
-SEX         -4575.936   1791.798  -2.554   0.0109 *  
-FPL_PERCENT     2.262      2.811   0.805   0.4213    
-ICD10_TOTAL  1768.549    286.063   6.182 1.08e-09 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 22640 on 689 degrees of freedom
-Multiple R-squared:  0.06793,	Adjusted R-squared:  0.06117 
-F-statistic: 10.04 on 5 and 689 DF,  p-value: 2.71e-09
-
-
-</pre>
-
-#####  OLS Assumption 1: Specification (Relationship between predictor and outcome is linear) 
-
-<pre>
-
-	Rainbow test
-
-data:  OLS
-Rain = 0.90334, df1 = 348, df2 = 341, p-value = 0.8272
-
-[1] "Significant = Non-linearity"
-
-</pre>
-#####  OLS Assumption 2:  Normality (Errors are normal with a mean = 0) 
-
-
-<pre>
-
-	Robust Jarque Bera Test
-
-data:  resid(OLS)
-X-squared = 1195429753, df = 2, p-value < 2.2e-16
-
-[1] "Significant = Non-normal"
-
-</pre>
-
-<pre>
-
-	Anderson-Darling test of goodness-of-fit
-	Null hypothesis: uniform distribution
-
-data:  resid(OLS)
-An = Inf, p-value = 8.633e-07
-
-[1] "Signficiant = Non-normal"
-
-</pre>
-
-#####  OLS Assumption 3: No Autocorrelation (Error terms are not correlated with each other) 
-
-
-<pre>
-
-	Durbin-Watson test
-
-data:  OLS
-DW = 2.0036, p-value = 0.5095
-alternative hypothesis: true autocorrelation is greater than 0
-
-[1] "Signficiant = Autocorrelation"
-
-</pre>
-
-#####  OLS Assumption 4: Homoskedasticity (Error is even across observations) 
-
-
-<pre>
-
-	studentized Breusch-Pagan test
-
-data:  OLS
-BP = 16.15, df = 5, p-value = 0.006429
-
-[1] "Signficiant = Homoscedastic"
-
-</pre>
-
-#####  OLS Assumption 5: No Colinearity (Predictors are not correlated with each other) 
-
-
-<pre>
-
-	Goldfeld-Quandt test
-
-data:  OLS
-GQ = 1.628, df1 = 342, df2 = 341, p-value = 3.777e-06
-alternative hypothesis: variance increases from segment 1 to 2
-
-[1] "Signficiant = Heteroscedastic"
-
-</pre>
-
-####  Regression Step 2: Test for OLS Assumptions 
-
-##### Results for Subgroup:  2019 
-
-
-#####  OLS Assumption 0: Sampling (Random sample, observations > predictors, predictor is independent) 
-
-
-<pre>
-
-Call:
-lm(formula = F, data = D)
-
-Residuals:
-   Min     1Q Median     3Q    Max 
--37378  -5283  -1833    747 768793 
-
-Coefficients:
-             Estimate Std. Error t value Pr(>|t|)    
-(Intercept) -2393.510   7158.577  -0.334    0.738    
-NON_WHITE    4306.305   2914.587   1.478    0.140    
-AGE           -29.740    108.520  -0.274    0.784    
-SEX           777.677   2929.731   0.265    0.791    
-FPL_PERCENT    -1.647      4.655  -0.354    0.724    
-ICD10_TOTAL  2589.949    485.340   5.336 1.32e-07 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 35600 on 640 degrees of freedom
-Multiple R-squared:  0.04915,	Adjusted R-squared:  0.04172 
-F-statistic: 6.616 on 5 and 640 DF,  p-value: 5.11e-06
-
-
-</pre>
-
-#####  OLS Assumption 1: Specification (Relationship between predictor and outcome is linear) 
-
-<pre>
-
-	Rainbow test
-
-data:  OLS
-Rain = 6.6194, df1 = 323, df2 = 317, p-value < 2.2e-16
-
-[1] "Significant = Non-linearity"
-
-</pre>
-#####  OLS Assumption 2:  Normality (Errors are normal with a mean = 0) 
-
-
-<pre>
-
-	Robust Jarque Bera Test
-
-data:  resid(OLS)
-X-squared = 4.734e+10, df = 2, p-value < 2.2e-16
-
-[1] "Significant = Non-normal"
-
-</pre>
-
-<pre>
-
-	Anderson-Darling test of goodness-of-fit
-	Null hypothesis: uniform distribution
-
-data:  resid(OLS)
-An = Inf, p-value = 9.288e-07
-
-[1] "Signficiant = Non-normal"
-
-</pre>
-
-#####  OLS Assumption 3: No Autocorrelation (Error terms are not correlated with each other) 
-
-
-<pre>
-
-	Durbin-Watson test
-
-data:  OLS
-DW = 1.9982, p-value = 0.4824
-alternative hypothesis: true autocorrelation is greater than 0
-
-[1] "Signficiant = Autocorrelation"
-
-</pre>
-
-#####  OLS Assumption 4: Homoskedasticity (Error is even across observations) 
-
-
-<pre>
-
-	studentized Breusch-Pagan test
-
-data:  OLS
-BP = 6.3232, df = 5, p-value = 0.276
-
-[1] "Signficiant = Homoscedastic"
-
-</pre>
-
-#####  OLS Assumption 5: No Colinearity (Predictors are not correlated with each other) 
-
-
-<pre>
-
-	Goldfeld-Quandt test
-
-data:  OLS
-GQ = 3.4486, df1 = 317, df2 = 317, p-value < 2.2e-16
-alternative hypothesis: variance increases from segment 1 to 2
-
-[1] "Signficiant = Heteroscedastic"
-
-</pre>
-
-####  Regression Step 2: Test for OLS Assumptions 
-
-##### Results for Subgroup:  2020 
-
-
-#####  OLS Assumption 0: Sampling (Random sample, observations > predictors, predictor is independent) 
-
-
-<pre>
-
-Call:
-lm(formula = F, data = D)
-
-Residuals:
-   Min     1Q Median     3Q    Max 
--22937  -3183  -1157    684 140779 
-
-Coefficients:
-             Estimate Std. Error t value Pr(>|t|)    
-(Intercept)  3568.102   2556.759   1.396   0.1633    
-NON_WHITE    -827.346   1011.970  -0.818   0.4139    
-AGE             6.784     38.401   0.177   0.8598    
-SEX         -2246.792   1005.772  -2.234   0.0258 *  
-FPL_PERCENT    -1.386      1.698  -0.816   0.4147    
-ICD10_TOTAL  1618.250    185.966   8.702   <2e-16 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 12710 on 677 degrees of freedom
-Multiple R-squared:  0.1168,	Adjusted R-squared:  0.1103 
-F-statistic: 17.91 on 5 and 677 DF,  p-value: < 2.2e-16
-
-
-</pre>
-
-#####  OLS Assumption 1: Specification (Relationship between predictor and outcome is linear) 
-
-<pre>
-
-	Rainbow test
-
-data:  OLS
-Rain = 1.3311, df1 = 342, df2 = 335, p-value = 0.004361
-
-[1] "Significant = Non-linearity"
-
-</pre>
-#####  OLS Assumption 2:  Normality (Errors are normal with a mean = 0) 
-
-
-<pre>
-
-	Robust Jarque Bera Test
-
-data:  resid(OLS)
-X-squared = 39589774, df = 2, p-value < 2.2e-16
-
-[1] "Significant = Non-normal"
-
-</pre>
-
-<pre>
-
-	Anderson-Darling test of goodness-of-fit
-	Null hypothesis: uniform distribution
-
-data:  resid(OLS)
-An = Inf, p-value = 8.785e-07
-
-[1] "Signficiant = Non-normal"
-
-</pre>
-
-#####  OLS Assumption 3: No Autocorrelation (Error terms are not correlated with each other) 
-
-
-<pre>
-
-	Durbin-Watson test
-
-data:  OLS
-DW = 2.0388, p-value = 0.6874
-alternative hypothesis: true autocorrelation is greater than 0
-
-[1] "Signficiant = Autocorrelation"
-
-</pre>
-
-#####  OLS Assumption 4: Homoskedasticity (Error is even across observations) 
-
-
-<pre>
-
-	studentized Breusch-Pagan test
-
-data:  OLS
-BP = 21.457, df = 5, p-value = 0.0006639
-
-[1] "Signficiant = Homoscedastic"
-
-</pre>
-
-#####  OLS Assumption 5: No Colinearity (Predictors are not correlated with each other) 
-
-
-<pre>
-
-	Goldfeld-Quandt test
-
-data:  OLS
-GQ = 1.7034, df1 = 336, df2 = 335, p-value = 6.329e-07
-alternative hypothesis: variance increases from segment 1 to 2
-
-[1] "Signficiant = Heteroscedastic"
-
-</pre>
-
-####  Regression Step 3: Create Generalized Linear Models 
-
-##### Linear 
-
-Generalized model for DV = Y, regression = linear 
-
-<pre>
-
-Call:
-glm(formula = F, family = gaussian(), data = D)
-
-Deviance Residuals: 
-   Min      1Q  Median      3Q     Max  
--29184   -4206   -1191     173  776060  
+-29344  -4213  -1197    150 776060 
 
 Coefficients:
               Estimate Std. Error t value Pr(>|t|)    
-(Intercept)  2.948e+05  1.377e+06   0.214   0.8305    
-NON_WHITE    1.574e+02  1.167e+03   0.135   0.8927    
-AGE         -2.130e+01  4.358e+01  -0.489   0.6250    
-SEX         -2.057e+03  1.167e+03  -1.763   0.0781 .  
-FPL_PERCENT -3.716e-01  1.883e+00  -0.197   0.8436    
-ICD10_TOTAL  1.998e+03  1.974e+02  10.118   <2e-16 ***
-YEAR        -1.443e+02  6.822e+02  -0.212   0.8325    
+(Intercept)  3520.2188  2854.5936   1.233   0.2177    
+NON_WHITE     150.4628  1165.9553   0.129   0.8973    
+AGE           -21.8736    43.4888  -0.503   0.6150    
+SEX         -2055.0894  1166.3998  -1.762   0.0782 .  
+FPL_PERCENT    -0.3701     1.8830  -0.197   0.8442    
+ICD10_TOTAL  1999.5283   197.2115  10.139   <2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-(Dispersion parameter for gaussian family taken to be 637592713)
+Residual standard error: 25240 on 2018 degrees of freedom
+Multiple R-squared:  0.05227,	Adjusted R-squared:  0.04992 
+F-statistic: 22.26 on 5 and 2018 DF,  p-value: < 2.2e-16
 
-    Null deviance: 1.357e+12  on 2023  degrees of freedom
-Residual deviance: 1.286e+12  on 2017  degrees of freedom
-AIC: 46786
-
-Number of Fisher Scoring iterations: 2
-
-[1] "F-Test for overdispersion: "
-[1] 0
 
 </pre>
 
-##### Relative Mean Y 
+#####  OLS Assumption 1: Specification (Relationship between predictor and outcome is linear) 
 
-Generalized model for DV = Y/mean(Y), regression = linear 
+<pre>
+
+	Rainbow test
+
+data:  OLS
+Rain = 0.23329, df1 = 1012, df2 = 1006, p-value = 1
+
+[1] "Significant = Non-linearity"
+
+</pre>
+#####  OLS Assumption 2:  Normality (Errors are normal with a mean = 0) 
+
+
+<pre>
+
+	Robust Jarque Bera Test
+
+data:  resid(OLS)
+X-squared = 1.8015e+11, df = 2, p-value < 2.2e-16
+
+[1] "Significant = Non-normal"
+
+</pre>
+
+<pre>
+
+	Anderson-Darling test of goodness-of-fit
+	Null hypothesis: uniform distribution
+
+data:  resid(OLS)
+An = Inf, p-value = 2.964e-07
+
+[1] "Signficiant = Non-normal"
+
+</pre>
+
+#####  OLS Assumption 3: No Autocorrelation (Error terms are not correlated with each other) 
+
+
+<pre>
+
+	Durbin-Watson test
+
+data:  OLS
+DW = 2.0071, p-value = 0.5585
+alternative hypothesis: true autocorrelation is greater than 0
+
+[1] "Signficiant = Autocorrelation"
+
+</pre>
+
+#####  OLS Assumption 4: Homoskedasticity (Error is even across observations) 
+
+
+<pre>
+
+	studentized Breusch-Pagan test
+
+data:  OLS
+BP = 9.9902, df = 5, p-value = 0.07551
+
+[1] "Signficiant = Homoscedastic"
+
+</pre>
+
+#####  OLS Assumption 5: No Colinearity (Predictors are not correlated with each other) 
+
+
+<pre>
+
+	Goldfeld-Quandt test
+
+data:  OLS
+GQ = 1.3911, df1 = 1006, df2 = 1006, p-value = 8.843e-08
+alternative hypothesis: variance increases from segment 1 to 2
+
+[1] "Signficiant = Heteroscedastic"
+
+</pre>
+
+####  Final Model 3: Two Step Model on Costs, RACE = Missing excluded, 2018-2020 
+
+#####  Logistic Regression on Presence Non-Zero Costs 
+
 
 <pre>
 
 Call:
-glm(formula = F, family = gaussian(), data = D)
+glm(formula = F1, family = binomial(link = "logit"), data = D1)
 
 Deviance Residuals: 
     Min       1Q   Median       3Q      Max  
- -6.720   -0.969   -0.274    0.040  178.710  
-
-Coefficients:
-              Estimate Std. Error t value Pr(>|t|)    
-(Intercept)  6.790e+01  3.171e+02   0.214   0.8305    
-NON_WHITE    3.624e-02  2.687e-01   0.135   0.8927    
-AGE         -4.906e-03  1.004e-02  -0.489   0.6250    
-SEX         -4.736e-01  2.687e-01  -1.763   0.0781 .  
-FPL_PERCENT -8.556e-05  4.337e-04  -0.197   0.8436    
-ICD10_TOTAL  4.600e-01  4.547e-02  10.118   <2e-16 ***
-YEAR        -3.323e-02  1.571e-01  -0.212   0.8325    
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-(Dispersion parameter for gaussian family taken to be 33.81029)
-
-    Null deviance: 71958  on 2023  degrees of freedom
-Residual deviance: 68195  on 2017  degrees of freedom
-AIC: 12879
-
-Number of Fisher Scoring iterations: 2
-
-[1] "F-Test for overdispersion: "
-[1] 0
-
-</pre>
-
-##### Log Transform Y 
-
-Generalized model for DV = log(Y), regression = linear 
-
-<pre>
-
-Call:
-glm(formula = F, family = gaussian(), data = D)
-
-Deviance Residuals: 
-     Min        1Q    Median        3Q       Max  
--13.1159   -2.0928   -0.1996    2.1165    8.8040  
-
-Coefficients:
-              Estimate Std. Error t value Pr(>|t|)    
-(Intercept) -2.114e+02  1.464e+02  -1.444 0.148809    
-NON_WHITE   -4.604e-01  1.240e-01  -3.713 0.000211 ***
-AGE          5.084e-03  4.633e-03   1.098 0.272552    
-SEX          5.393e-02  1.240e-01   0.435 0.663707    
-FPL_PERCENT -1.590e-04  2.002e-04  -0.794 0.427313    
-ICD10_TOTAL  7.859e-01  2.099e-02  37.442  < 2e-16 ***
-YEAR         1.058e-01  7.251e-02   1.459 0.144846    
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-(Dispersion parameter for gaussian family taken to be 7.204658)
-
-    Null deviance: 26948  on 2023  degrees of freedom
-Residual deviance: 14532  on 2017  degrees of freedom
-AIC: 9749.7
-
-Number of Fisher Scoring iterations: 2
-
-[1] "F-Test for overdispersion: "
-[1] 0
-
-</pre>
-
-##### Polynomial 
-
-Generalized model for DV^2 = Y, regression = linear 
-
-<pre>
-
-Call:
-glm(formula = F, family = gaussian(), data = D)
-
-Deviance Residuals: 
-   Min      1Q  Median      3Q     Max  
--48586   -3417   -2514   -1563  780602  
-
-Coefficients:
-              Estimate Std. Error t value Pr(>|t|)    
-(Intercept)  3.489e+05  1.389e+06   0.251    0.802    
-ICD10_sq     1.180e+02  1.440e+01   8.194 4.44e-16 ***
-FPL_PERCENT -7.484e-01  1.899e+00  -0.394    0.693    
-NON_WHITE   -8.246e+02  1.167e+03  -0.707    0.480    
-AGE          3.052e+01  4.313e+01   0.708    0.479    
-SEX         -1.105e+03  1.166e+03  -0.948    0.343    
-YEAR        -1.711e+02  6.881e+02  -0.249    0.804    
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-(Dispersion parameter for gaussian family taken to be 648369354)
-
-    Null deviance: 1.3570e+12  on 2023  degrees of freedom
-Residual deviance: 1.3078e+12  on 2017  degrees of freedom
-AIC: 46820
-
-Number of Fisher Scoring iterations: 2
-
-[1] "F-Test for overdispersion: "
-[1] 0
-
-</pre>
-
-##### Logistic 
-
-Generalized model for DV = Y > 0, regression = binomial 
-
-<pre>
-
-Call:
-glm(formula = F, family = binomial(), data = D)
-
-Deviance Residuals: 
-       Min          1Q      Median          3Q         Max  
--2.409e-06  -2.409e-06  -2.409e-06  -2.409e-06  -2.409e-06  
-
-Coefficients:
-              Estimate Std. Error z value Pr(>|z|)
-(Intercept) -2.657e+01  1.942e+07       0        1
-NON_WHITE   -8.607e-14  1.645e+04       0        1
-AGE         -4.768e-16  6.147e+02       0        1
-SEX          7.916e-14  1.645e+04       0        1
-FPL_PERCENT -9.345e-17  2.656e+01       0        1
-ICD10_TOTAL -3.130e-15  2.785e+03       0        1
-YEAR        -5.313e-14  9.621e+03       0        1
-
-(Dispersion parameter for binomial family taken to be 1)
-
-    Null deviance: 0.0000e+00  on 2023  degrees of freedom
-Residual deviance: 1.1742e-08  on 2017  degrees of freedom
-AIC: 14
-
-Number of Fisher Scoring iterations: 25
-
-[1] "F-Test for overdispersion: "
-[1] 1
-
-</pre>
-
-##### Poisson 
-
-Generalized model for DV = Y, regression = poisson 
-
-<pre>
-
-Call:
-glm(formula = F, family = poisson(), data = D)
-
-Deviance Residuals: 
-    Min       1Q   Median       3Q      Max  
--625.38   -72.26   -62.20   -50.05  2474.57  
+-5.7989  -0.4938   0.0083   0.4442   1.5945  
 
 Coefficients:
               Estimate Std. Error z value Pr(>|z|)    
-(Intercept)  6.525e+01  8.465e-01   77.08   <2e-16 ***
-NON_WHITE   -1.551e-01  7.296e-04 -212.59   <2e-16 ***
-AGE          3.096e-03  2.850e-05  108.62   <2e-16 ***
-SEX         -3.990e-01  7.425e-04 -537.33   <2e-16 ***
-FPL_PERCENT -7.191e-05  1.227e-06  -58.58   <2e-16 ***
-ICD10_TOTAL  1.894e-01  5.747e-05 3295.46   <2e-16 ***
-YEAR        -2.827e-02  4.193e-04  -67.42   <2e-16 ***
+(Intercept) -1.6367582  0.3536081  -4.629 3.68e-06 ***
+NON_WHITE    0.0531504  0.1507284   0.353   0.7244    
+AGE         -0.0012220  0.0055892  -0.219   0.8269    
+SEX         -0.1251638  0.1482712  -0.844   0.3986    
+FPL_PERCENT -0.0006386  0.0002637  -2.421   0.0155 *  
+ICD10_TOTAL  2.0884497  0.1028576  20.304  < 2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 2665.4  on 2023  degrees of freedom
+Residual deviance: 1191.4  on 2018  degrees of freedom
+AIC: 1203.4
+
+Number of Fisher Scoring iterations: 7
+
+
+</pre>
+#####  Poisson Regression on Costs 
+
+
+<pre>
+
+Call:
+glm(formula = F2, family = poisson(link = "log"), data = D2)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-432.05   -92.81   -74.90   -45.54  2396.48  
+
+Coefficients:
+              Estimate Std. Error z value Pr(>|z|)    
+(Intercept)  8.902e+00  1.861e-03 4783.50   <2e-16 ***
+NON_WHITE   -5.016e-02  7.234e-04  -69.33   <2e-16 ***
+AGE         -2.050e-03  2.803e-05  -73.15   <2e-16 ***
+SEX         -4.529e-01  7.299e-04 -620.50   <2e-16 ***
+FPL_PERCENT -4.419e-05  1.209e-06  -36.56   <2e-16 ***
+ICD10_TOTAL  1.607e-01  6.402e-05 2510.22   <2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 (Dispersion parameter for poisson family taken to be 1)
 
-    Null deviance: 42866406  on 2023  degrees of freedom
-Residual deviance: 34041945  on 2017  degrees of freedom
+    Null deviance: 34770303  on 1276  degrees of freedom
+Residual deviance: 29914409  on 1271  degrees of freedom
 AIC: Inf
 
-Number of Fisher Scoring iterations: 8
+Number of Fisher Scoring iterations: 7
 
-[1] "F-Test for overdispersion: "
-[1] 0
-
-</pre>
-
-##### Negative Binomial 
-
-Generalized model for DV = Y, regression = negative binomial 
-
-<pre>
-
-Call:
-glm.nb(formula = F, data = D, init.theta = 0.1259740682, link = log)
-
-Deviance Residuals: 
-    Min       1Q   Median       3Q      Max  
--1.8159  -1.3871  -0.7275  -0.3084   5.8331  
-
-Coefficients:
-              Estimate Std. Error z value Pr(>|z|)    
-(Intercept) -1.914e+02  1.537e+02  -1.246  0.21291    
-NON_WHITE   -3.404e-01  1.302e-01  -2.614  0.00894 ** 
-AGE          1.507e-03  4.863e-03   0.310  0.75661    
-SEX         -7.486e-01  1.302e-01  -5.750 8.92e-09 ***
-FPL_PERCENT -3.895e-04  2.102e-04  -1.853  0.06389 .  
-ICD10_TOTAL  6.560e-01  2.203e-02  29.774  < 2e-16 ***
-YEAR         9.832e-02  7.612e-02   1.292  0.19652    
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-(Dispersion parameter for Negative Binomial(0.126) family taken to be 1)
-
-    Null deviance: 2717.8  on 2023  degrees of freedom
-Residual deviance: 2198.5  on 2017  degrees of freedom
-AIC: 25274
-
-Number of Fisher Scoring iterations: 1
-
-
-              Theta:  0.12597 
-          Std. Err.:  0.00389 
-
- 2 x log-likelihood:  -25257.66600 
-[1] "F-Test for overdispersion: "
-[1] 0.002662669
-
-</pre>
-
-####  Regression Step 4: Hierarchical Linear Models 
-
-##### Fixed Efects 
-
-Hierarchical model for  DV = Y_log regression = linear with varying intercepts by RACE 
-
-<pre>
-Linear mixed model fit by REML. t-tests use Satterthwaite's method [
-lmerModLmerTest]
-Formula: F
-   Data: D
-
-REML criterion at convergence: 9778.1
-
-Scaled residuals: 
-    Min      1Q  Median      3Q     Max 
--4.8806 -0.7748 -0.0779  0.7825  3.2562 
-
-Random effects:
- Groups   Name        Variance Std.Dev.
- RACE     (Intercept) 0.04873  0.2208  
- Residual             7.21290  2.6857  
-Number of obs: 2024, groups:  RACE, 4
-
-Fixed effects:
-              Estimate Std. Error         df t value Pr(>|t|)    
-(Intercept)  1.763e+00  3.148e-01  1.143e+02   5.600  1.5e-07 ***
-AGE          5.856e-03  4.637e-03  2.011e+03   1.263    0.207    
-SEX          4.779e-02  1.241e-01  2.018e+03   0.385    0.700    
-FPL_PERCENT -1.478e-04  2.006e-04  1.953e+03  -0.737    0.461    
-ICD10_TOTAL  7.868e-01  2.096e-02  1.988e+03  37.531  < 2e-16 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Correlation of Fixed Effects:
-            (Intr) AGE    SEX    FPL_PE
-AGE         -0.618                     
-SEX         -0.616  0.008              
-FPL_PERCENT -0.213 -0.067  0.054       
-ICD10_TOTAL  0.118 -0.256 -0.192  0.079
-
-</pre>
-
-
-<pre>
-      npar          logLik           AIC            LRT              Df   
- Min.   :6.00   Min.   :-4893   Min.   :9792   Min.   :7.549   Min.   :1  
- 1st Qu.:6.25   1st Qu.:-4892   1st Qu.:9793   1st Qu.:7.549   1st Qu.:1  
- Median :6.50   Median :-4891   Median :9795   Median :7.549   Median :1  
- Mean   :6.50   Mean   :-4891   Mean   :9795   Mean   :7.549   Mean   :1  
- 3rd Qu.:6.75   3rd Qu.:-4890   3rd Qu.:9796   3rd Qu.:7.549   3rd Qu.:1  
- Max.   :7.00   Max.   :-4889   Max.   :9798   Max.   :7.549   Max.   :1  
-                                               NA's   :1       NA's   :1  
-   Pr(>Chisq)      
- Min.   :0.006004  
- 1st Qu.:0.006004  
- Median :0.006004  
- Mean   :0.006004  
- 3rd Qu.:0.006004  
- Max.   :0.006004  
- NA's   :1         
-
-</pre>
-
-
-<pre>
-# ICC by Group
-
-Group |   ICC
--------------
-RACE  | 0.007
-
-</pre>
-
-##### Random Efects 
-
-Hierarchical model for  DV = Y_log regression = linear with varying coeffeicints of YEAR by RACE 
-
-<pre>
-Linear mixed model fit by REML. t-tests use Satterthwaite's method [
-lmerModLmerTest]
-Formula: F
-   Data: D
-
-REML criterion at convergence: 9785.4
-
-Scaled residuals: 
-    Min      1Q  Median      3Q     Max 
--4.9107 -0.7838 -0.0741  0.7695  3.3341 
-
-Random effects:
- Groups   Name        Variance  Std.Dev. Corr
- YEAR     (Intercept) 0.0010829 0.03291      
-          RACE        0.0003711 0.01926  1.00
- Residual             7.2494495 2.69248      
-Number of obs: 2024, groups:  YEAR, 3
-
-Fixed effects:
-              Estimate Std. Error         df t value Pr(>|t|)    
-(Intercept)  1.795e+00  2.967e-01  4.645e+02   6.052 2.96e-09 ***
-AGE          6.496e-03  4.631e-03  2.014e+03   1.403    0.161    
-SEX          2.780e-02  1.242e-01  2.017e+03   0.224    0.823    
-FPL_PERCENT -3.522e-05  1.980e-04  2.015e+03  -0.178    0.859    
-ICD10_TOTAL  7.975e-01  2.077e-02  2.014e+03  38.402  < 2e-16 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Correlation of Fixed Effects:
-            (Intr) AGE    SEX    FPL_PE
-AGE         -0.661                     
-SEX         -0.652  0.010              
-FPL_PERCENT -0.231 -0.072  0.062       
-ICD10_TOTAL  0.127 -0.272 -0.188  0.059
-optimizer (nloptwrap) convergence code: 0 (OK)
-boundary (singular) fit: see help('isSingular')
-
-
-</pre>
-
-
-<pre>
-      npar         logLik           AIC            LRT              Df   
- Min.   :7.0   Min.   :-4893   Min.   :9799   Min.   :0.036   Min.   :2  
- 1st Qu.:7.5   1st Qu.:-4893   1st Qu.:9800   1st Qu.:0.036   1st Qu.:2  
- Median :8.0   Median :-4893   Median :9801   Median :0.036   Median :2  
- Mean   :8.0   Mean   :-4893   Mean   :9801   Mean   :0.036   Mean   :2  
- 3rd Qu.:8.5   3rd Qu.:-4893   3rd Qu.:9802   3rd Qu.:0.036   3rd Qu.:2  
- Max.   :9.0   Max.   :-4893   Max.   :9803   Max.   :0.036   Max.   :2  
-                                              NA's   :1       NA's   :1  
-   Pr(>Chisq)    
- Min.   :0.9822  
- 1st Qu.:0.9822  
- Median :0.9822  
- Mean   :0.9822  
- 3rd Qu.:0.9822  
- Max.   :0.9822  
- NA's   :1       
-
-</pre>
-
-####
-<pre>
-[1] NA
 
 </pre>
 
@@ -1592,62 +1018,251 @@ boundary (singular) fit: see help('isSingular')
 Various machine learning models were trained on a reference population and then used to predict values from a focus populaiton. The difference in predicted to actual values for the focus group then to reflects the impact of group identification. This is an adaptation of the Kitigawa-Oaxaca-Blinder method.<br>
 The following results used the scikit-learn and keras libraries for Python version 3.9.13 (tags/v3.9.13:6de2ca5, May 17 2022, 16:36:42) [MSC v.1929 64 bit (AMD64)]
 
-#### Mahcine Learning Step 1: Data Processing of Predictors and Outcomes
+#### Machine Learning Step 1: Data Processing of Predictors and Outcomes
 Source: _data//Race_MEPS//alpha_dev_20221216152657//analytical_Q2.csv
 
 W (ID variables): PERSON_ID<br>
-X (Predictor variables): RACE, AGE, SEX, ICD10_TOTAL, ICD10_YN, VISITS_TOTAL<br>
-Y (Outcome variables): PAID_TOTAL<br>
 Z (Subgroup variables): YEAR<br>
 
-Reference group: Non-Hispanic White (RACETH = 2)<br>
-Focus group: Hispanic, Black, Asian, or Other (RACETH <> 2)<br>
+Reference group: Non-Hispanic White (RACETH == 2)<br>
+Focus group: Not Non-Hispanic White (RACETH != 2)<br>
 
 
 <pre>
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 2024 entries, 0 to 2023
-Columns: 390 entries, PERSON_ID to ICD10_Z98
-dtypes: float64(17), int64(373)
-memory usage: 6.0 MB
+Columns: 395 entries, PERSON_ID to CONDITIONS
+dtypes: float64(18), int64(377)
+memory usage: 6.1 MB
+
+##### Linear Regression Model for All Groups
+
+      WHITE       AGE      SEX  SDOH_FPL  CONDITIONS
+0  0.042318 -0.016119 -0.43219 -0.000666      0.6589
 
 </pre>
 
-#### Learn Step 2: Manual Feature Selection Assisted with Unsupervised Learning
-Unsupervised learning models are used to review predictors for inclusion in a regression model. The regression model is trained on the reference group and predicts values for the focus group. The difference in predicted to actual values represents what is explained by group identififcation independent of the predictors.
+##### Random Forests
 
-##### Principal Component Analysis
-See _fig//Race_MEPS//alpha_dev_20221216152657//results.xlsx
-
-##### K-Means
-See _fig//Race_MEPS//alpha_dev_20221216152657//results.xlsx
-
-##### Linear Regression using ACA Predictors and Visits
-Regression Model using hand selected variables: <br>
-
-
-<pre>
-Rsq: 0.26207013674603974<br>
-
-        AGE       SEX  FPL_PERCENT  ICD10_TOTAL
-0 -0.074966 -0.297179    -0.177634     1.557214
+        AGE       SEX  CONDITIONS  SDOH_FPL
+0 -0.009398 -0.958192    0.680481  -0.00102
 
 </pre>
+['White Average = 5.2456', 'Non-White Average = 4.8691', 'Non-White Predicted = 4.8969', 'Difference in Bs = 0.3765', 'Difference in Xs = 0.0278', 'R-squared + 0.196']<br>
 
-Absolute difference between groups: 0.42257363506788614<br>
-Difference attributable to groups: 0.42257363506788614<br>
-
-Regression Model using hand selected variables: 
-
-
-<pre>
-Rsq: 0.28608909653318837<br>
-
-        AGE       SEX  FPL_PERCENT  ICD10_TOTAL  VISITS_TOTAL
-0 -0.011744 -0.254869    -0.168843     1.372353      0.499688
+        Variables  Importances
+0        SDOH_FPL     0.587376
+4             AGE     0.266137
+1  SDOH_EDUCATION     0.053840
+5             SEX     0.042070
+2    SDOH_MARITAL     0.041809
+3       SDOH_FOOD     0.008769
 
 </pre>
+['White Average = 5.2456', 'Non-White Average = 4.8691', 'Non-White Predicted = 5.1795', 'Difference in Bs = 0.3765', 'Difference in Xs = 0.3104', 'R-squared + 0.5831']<br>
 
-Absolute difference between groups: 0.42257363506788614<br>
-Difference attributable to groups: 0.42257363506788614<br>
+     Variables  Importances
+0          AGE     0.107979
+53   ICD10_E78     0.085185
+63   ICD10_F32     0.062797
+201  ICD10_M19     0.050376
+66   ICD10_F41     0.029986
+..         ...          ...
+283  ICD10_R50     0.000000
+287  ICD10_R55     0.000000
+290  ICD10_R59     0.000000
+3    ICD10_A08     0.000000
+22   ICD10_C55     0.000000
+
+[338 rows x 2 columns]
+
+</pre>
+['White Average = 5.2456', 'Non-White Average = 4.8691', 'Non-White Predicted = 5.0223', 'Difference in Bs = 0.3765', 'Difference in Xs = 0.1532', 'R-squared + 0.312']<br>
+
+           Variables  Importances
+5      OFFICE_VISITS     0.292638
+7          RX_VISITS     0.283453
+0                AGE     0.254565
+6  OUTPATIENT_VISITS     0.064746
+2          ER_VISITS     0.044880
+1                SEX     0.034286
+4   INPATIENT_VISITS     0.024618
+3        HOME_VISITS     0.000815
+
+</pre>
+['White Average = 5.2456', 'Non-White Average = 4.8691', 'Non-White Predicted = 4.448', 'Difference in Bs = 0.3765', 'Difference in Xs = -0.4211', 'R-squared + 0.7953']<br>
+
+##### Gradient Boosting
+
+        Variables  Importances
+0        SDOH_FPL     0.678027
+4             AGE     0.259393
+1  SDOH_EDUCATION     0.025059
+2    SDOH_MARITAL     0.013311
+5             SEX     0.013112
+3       SDOH_FOOD     0.011098
+
+</pre>
+['White Average = 5.2456', 'Non-White Average = 4.8691', 'Non-White Predicted = 5.3885', 'Difference in Bs = 0.3765', 'Difference in Xs = 0.5194', 'R-squared + 0.288']<br>
+
+     Variables  Importances
+53   ICD10_E78     0.079916
+63   ICD10_F32     0.063896
+201  ICD10_M19     0.054125
+0          AGE     0.045307
+204  ICD10_M25     0.038132
+..         ...          ...
+182  ICD10_L30     0.000000
+183  ICD10_L40     0.000000
+40   ICD10_E05     0.000000
+37   ICD10_D68     0.000000
+209  ICD10_M43     0.000000
+
+[338 rows x 2 columns]
+
+</pre>
+['White Average = 5.2456', 'Non-White Average = 4.8691', 'Non-White Predicted = 5.0454', 'Difference in Bs = 0.3765', 'Difference in Xs = 0.1763', 'R-squared + 0.2919']<br>
+
+           Variables  Importances
+7          RX_VISITS     0.352573
+5      OFFICE_VISITS     0.349782
+6  OUTPATIENT_VISITS     0.097721
+0                AGE     0.092738
+2          ER_VISITS     0.054606
+4   INPATIENT_VISITS     0.047750
+1                SEX     0.004492
+3        HOME_VISITS     0.000338
+
+</pre>
+['White Average = 5.2456', 'Non-White Average = 4.8691', 'Non-White Predicted = 4.405', 'Difference in Bs = 0.3765', 'Difference in Xs = -0.4642', 'R-squared + 0.5605']<br>
+
+##### Ridge Regression (with Cross Validation)
+
+        Variables  Coefficients
+3       SDOH_FOOD      0.949891
+4             AGE      0.029710
+2    SDOH_MARITAL      0.014189
+0        SDOH_FPL     -0.001513
+1  SDOH_EDUCATION     -0.027184
+5             SEX     -0.263785
+
+</pre>
+['White Average = 5.2456', 'Non-White Average = 4.8691', 'Non-White Predicted = 5.3842', 'Difference in Bs = 0.3765', 'Difference in Xs = 0.5151', 'R-squared + 0.0193']<br>
+
+     Variables  Coefficients
+21   ICD10_C50      2.258813
+46   ICD10_E34      1.608116
+248  ICD10_N83      1.332755
+72   ICD10_F90      1.318881
+224  ICD10_M79      1.302765
+..         ...           ...
+29   ICD10_D04     -0.887417
+184  ICD10_L50     -0.922563
+274  ICD10_R25     -1.066813
+155  ICD10_K25     -1.189677
+198  ICD10_M10     -1.305145
+
+[338 rows x 2 columns]
+
+</pre>
+['White Average = 5.2456', 'Non-White Average = 4.8691', 'Non-White Predicted = 4.9248', 'Difference in Bs = 0.3765', 'Difference in Xs = 0.0557', 'R-squared + 0.256']<br>
+
+           Variables  Coefficients
+4   INPATIENT_VISITS      1.537182
+2          ER_VISITS      0.254903
+7          RX_VISITS      0.154254
+6  OUTPATIENT_VISITS      0.055136
+3        HOME_VISITS      0.030546
+5      OFFICE_VISITS      0.008236
+0                AGE     -0.001154
+1                SEX     -0.383812
+
+</pre>
+['White Average = 5.2456', 'Non-White Average = 4.8691', 'Non-White Predicted = 4.8877', 'Difference in Bs = 0.3765', 'Difference in Xs = 0.0186', 'R-squared + 0.1989']<br>
+
+##### Least absolute shrinkage and selection operator
+
+        Variables  Coefficients
+4             AGE      0.028165
+1  SDOH_EDUCATION     -0.000000
+2    SDOH_MARITAL      0.000000
+3       SDOH_FOOD      0.000000
+5             SEX     -0.000000
+0        SDOH_FPL     -0.001536
+
+</pre>
+['White Average = 5.2456', 'Non-White Average = 4.8691', 'Non-White Predicted = 5.3527', 'Difference in Bs = 0.3765', 'Difference in Xs = 0.4836', 'R-squared + 0.0163']<br>
+
+     Variables  Coefficients
+21   ICD10_C50      2.258813
+46   ICD10_E34      1.608116
+248  ICD10_N83      1.332755
+72   ICD10_F90      1.318881
+224  ICD10_M79      1.302765
+..         ...           ...
+29   ICD10_D04     -0.887417
+184  ICD10_L50     -0.922563
+274  ICD10_R25     -1.066813
+155  ICD10_K25     -1.189677
+198  ICD10_M10     -1.305145
+
+[338 rows x 2 columns]
+
+</pre>
+['White Average = 5.2456', 'Non-White Average = 4.8691', 'Non-White Predicted = 4.9248', 'Difference in Bs = 0.3765', 'Difference in Xs = 0.0557', 'R-squared + 0.256']<br>
+
+           Variables  Coefficients
+4   INPATIENT_VISITS      1.537182
+2          ER_VISITS      0.254903
+7          RX_VISITS      0.154254
+6  OUTPATIENT_VISITS      0.055136
+3        HOME_VISITS      0.030546
+5      OFFICE_VISITS      0.008236
+0                AGE     -0.001154
+1                SEX     -0.383812
+
+</pre>
+['White Average = 5.2456', 'Non-White Average = 4.8691', 'Non-White Predicted = 4.8877', 'Difference in Bs = 0.3765', 'Difference in Xs = 0.0186', 'R-squared + 0.1989']<br>
+
+##### Multi-Layer Perceptron
+
+         Loss
+0    3.529949
+1    3.340738
+2    3.218884
+3    3.123808
+4    2.975870
+..        ...
+495  0.812600
+496  0.801311
+497  0.721212
+498  0.749604
+499  0.750555
+
+[500 rows x 1 columns]
+
+</pre>
+['White Average = 5.2456', 'Non-White Average = 4.8691', 'Non-White Predicted = 4.6541', 'Difference in Bs = 0.3765', 'Difference in Xs = -0.215', 'R-squared + 0.8409']<br>
+
+### Tables and Figures
+Files can be found at: _fig//Race_MEPS//alpha_dev_20221216152657//
+
+#### Descriptive Statistics
+![Average Age](_fig//Race_MEPS//alpha_dev_20221216152657//AGE.jpeg)
+![Percent_Female](_fig//Race_MEPS//alpha_dev_20221216152657//PERCENT_FEMALE.jpeg)
+![Average Income as percent of federal poverty line](_fig//Race_MEPS//alpha_dev_20221216152657//FPL_PERCENT.jpeg)
+![Number of Diagnoses per Person](_fig//Race_MEPS//alpha_dev_20221216152657//ICD10_TOTAL).jpeg)
+![Total Visits for Any Setting per Person](_fig//Race_MEPS//alpha_dev_20221216152657//VISITS_TOTAL.jpeg)
+![Total Paid Amounts from Private Payers per Person](_fig//Race_MEPS//alpha_dev_20221216152657//PAID_TOTAL.jpeg)
+
+#### Regression Results
+![2018 QQ Plot](_fig//Race_MEPS//alpha_dev_20221216152657//2018_QQ_PERSON_ID_plot.png)
+![2019 QQ Plot](_fig//Race_MEPS//alpha_dev_20221216152657//2019_QQ_PERSON_ID_plot.png)
+![2020 QQ Plot](_fig//Race_MEPS//alpha_dev_20221216152657//2020_QQ_PERSON_ID_plot.png)
+![2018 Residuals](_fig//Race_MEPS//alpha_dev_20221216152657//2018_residuals_PERSON_ID_plot.png)
+![2019 Residuals](_fig//Race_MEPS//alpha_dev_20221216152657//2019_residuals_PERSON_ID_plot.png)
+![2020 Residuals](_fig//Race_MEPS//alpha_dev_20221216152657//2020_residuals_PERSON_ID_plot.png)
+![2018 Colinearity](_fig//Race_MEPS//alpha_dev_20221216152657//2018_correlation_PERSON_ID_plot.png)
+![2019 Colinearity](_fig//Race_MEPS//alpha_dev_20221216152657//2019_correlation_PERSON_ID_plot.png)
+![2020 Colinearity](_fig//Race_MEPS//alpha_dev_20221216152657//2020_correlation_PERSON_ID_plot.png)
 

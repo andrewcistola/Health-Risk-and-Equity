@@ -27,14 +27,18 @@ from sklearn.decomposition import PCA # Principal compnents analysis from sklear
 from sklearn.ensemble import RandomForestRegressor # Random Forest regression component
 from sklearn.ensemble import RandomForestClassifier # Random Forest classification component
 from sklearn.feature_selection import RFECV # Recursive Feature elimination with cross validation
+from sklearn.ensemble import GradientBoostingRegressor # XGBoost for regression in sklearn
 from sklearn.svm import LinearSVC # Linear Support Vector Classification from sklearn
 from sklearn.svm import LinearSVR # Linear Support Vector Regression from sklearn
 from sklearn.linear_model import LinearRegression # Used for machine learning with quantitative outcome
 from sklearn.linear_model import LogisticRegression # Used for machine learning with quantitative outcome
+from sklearn.linear_model import RidgeCV # Ridge regression with built-in cross-validation.
+from sklearn.linear_model import LassoCV # Lasso linear model with iterative fitting along a regularization path.
 from sklearn.cluster import KMeans # unsupervised clustering using k-means
 from sklearn.model_selection import train_test_split # train test split function for validation
 from sklearn.metrics import roc_curve # Reciever operator curve
 from sklearn.metrics import auc # Area under the curve 
+from sklearn.metrics import r2_score # Rsquared
 
 ### keras API for TensorFlow
 from tensorflow import keras # keras PAI for using TensorFlow to build deep learening models in python

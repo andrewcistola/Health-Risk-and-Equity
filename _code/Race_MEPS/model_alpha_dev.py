@@ -1,24 +1,28 @@
-# Mahcine Learning Script
+# Machine Learning Script
 
 ## Mahcine Learning Step 1: Data Processing of Predictors and Outcomes
-step_1 = 'Mahcine Learning Step 1: Data Processing of Predictors and Outcomes'
+step_1 = 'Machine Learning Step 1: Data Processing of Predictors and Outcomes'
 method_1 = 'Various machine learning models were trained on a reference population and then used to predict values from a focus populaiton. The difference in predicted to actual values for the focus group then to reflects the impact of group identification. This is an adaptation of the Kitigawa-Oaxaca-Blinder method.'
-group_1 = 'Non-Hispanic White (RACETH = 2)'
-group_2 = 'Hispanic, Black, Asian, or Other (RACETH <> 2)'
+group_1 = 'Non-Hispanic White (RACETH == 2)'
+group_2 = 'Not Non-Hispanic White (RACETH != 2)' 
 W = 'PERSON_ID'
-X_label = 'RACE, AGE, SEX, ICD10_TOTAL, ICD10_YN, VISITS_TOTAL'
-Y = 'PAID_TOTAL'
 Z = 'YEAR'
 
 ### Import Labels/Demographics (W) with Predictors (X) Outcomes (Y) and Shapes/Subgroups (Z)
 df_WXYZ = pd.read_csv('_data//' + label_name + '//' + label_run + '//analytical_Q2.csv')
 
 ### Define Predictors from imported data (X)
-X = df_WXYZ.drop(columns = [W, Y, Z]).columns.to_list()
 
 ### Create Outcome-Predictor pandas dataframe (XY)
 df_XY = df_WXYZ.set_index([W, Z]) # Reset Index
-df_XY['Y_log'] = np.log(df_XY[Y]).replace([np.inf, -np.inf], np.nan).fillna(0).astype(np.float64)
+df_XY['Y_Zero'] = df_XY['PAID_TOTAL'].replace([np.inf, -np.inf, np.nan, 0], 0.001).astype(np.float64)
+df_XY['Y_scale'] = (df_XY['Y_Zero']/np.mean(df_XY['Y_Zero'])).astype(np.float64)
+df_XY['Y_log'] = np.log(df_XY['Y_Zero']).astype(np.float64)
+df_XY = df_XY.loc[:, df_XY.loc[:, df_XY.columns.str.contains('AGE|RACE|SEX|SDOH|PAID|ICD10|CONDITIONS|VISIT|Y_log')].columns.to_list()]
+df_XY['WHITE'] = np.where(df_XY['RACE'] == 2, 1, 0) # Create column based on conditions
+df_XY = df_XY.drop(columns = ['VISITS_TOTAL', 'PAID_TOTAL', 'ICD10_TOTAL'])
+df_XY = df_XY.loc[:, df_XY.loc[:, ~df_XY.columns.str.contains('ICD10_Z|ICD10_-15')].columns.to_list()]
+df_XY = df_XY.dropna()
 df_XY.info() # Get class, memory, and column info: names, data types, obs.
 
 ### Save dataframe info for output
@@ -27,16 +31,23 @@ df_WXYZ.info(buf = buffer, show_counts = True)
 info_WXYZ = buffer.getvalue()
 
 ### Create Outcome and predictor standard scaled numpy arrays for reference group (n_1, x_1, y_1)
-df_XY_1 = df_XY[df_XY['RACE'] == 2].dropna()
-y_1 = df_XY_1.filter(['Y_log']).to_numpy()
-x_1 = StandardScaler().fit_transform(df_XY_1.filter(X).to_numpy())
+df_XY_1 = df_XY[df_XY['RACE'] == 2]
 n_1 = df_XY_1.index.to_numpy()
 
 ### Create Outcome and predictor standard scaled numpy arrays for focus group (n_2, x_2, y_2)
-df_XY_2 = df_XY[df_XY['RACE'] != 2].dropna()
-y_2 = df_XY_2.filter(['Y_log']).to_numpy()
-x_2 = StandardScaler().fit_transform(df_XY_2.filter(X).to_numpy())
+df_XY_2 = df_XY[df_XY['RACE'] != 2]
 n_2 = df_XY_2.index.to_numpy()
+
+### Linear Regression Baseline
+model_0 = 'Linear Regression Model for All Groups'
+X = ['WHITE', 'AGE', 'SEX', 'SDOH_FPL', 'CONDITIONS']
+Y = ['Y_log']
+x = df_XY.filter(X).to_numpy()
+y = df_XY.filter(Y).to_numpy()
+OLS = LinearRegression() # Linear Regression in scikit learn
+OLS.fit(x, y) # Fit model
+result_0 = pd.DataFrame(OLS.coef_, columns = X)
+result_0
 
 ### Export to Summary File
 text_md = open('_docs//' + label_name + '//' + label_run + '//summary.md', 'a')
@@ -48,8 +59,6 @@ text_md.write('#### ' + step_1 + '\n')
 text_md.write('Source: ' + '_data//' + label_name + '//' +  label_run + '//analytical_Q2.csv' + '\n')
 text_md.write('\n')
 text_md.write('W (ID variables): ' + W + '<br>\n')
-text_md.write('X (Predictor variables): ' + X_label + '<br>\n')
-text_md.write('Y (Outcome variables): ' + Y + '<br>\n')
 text_md.write('Z (Subgroup variables): ' + Z + '<br>\n')
 text_md.write('\n')
 text_md.write('Reference group: ' + group_1 + '<br>\n')
@@ -60,501 +69,544 @@ text_md.write('<pre>')
 text_md.write('\n')
 text_md.write(info_WXYZ)
 text_md.write('\n')
+text_md.write('##### ' + model_0 + '\n')
+text_md.write('\n')
+text_md.write(str(result_0) + '\n')
+text_md.write('\n')
 text_md.write('</pre>')
 text_md.write('\n')
 text_md.write('\n')
 text_md.close() # Close file
 
-## Learn Step 2: Manual Feature Selection
-step_2 = 'Learn Step 2: Manual Feature Selection Assisted with Unsupervised Learning' 
-method_2 = 'Unsupervised learning models are used to review predictors for inclusion in a regression model. The regression model is trained on the reference group and predicts values for the focus group. The difference in predicted to actual values represents what is explained by group identififcation independent of the predictors.'
+## Learn Step 2: Linear regression model with basic variables
+step_2 = 'Learn Step 2: Decomposition Using Machine Learning Models' 
+method_1 = 'Model is trained on the reference group and predicts values for the focus group. The difference in predicted to actual values represents what is explained by group identififcation independent of the predictors.'
 
-### Principal Component Analysis
-model_1a = 'Principal Component Analysis'
-label = 'PCA'
-pca = PCA(n_components = 'mle') # Pass the number of components to make PCA model based on degrees of freedom
-pca.fit_transform(x_1) # finally call fit_transform on the aggregate data to create PCA results object
-result = pd.DataFrame(pca.components_, columns = X) # Export eigenvectors to data frame with column names from original data
-result["Variance_Ratio"] = pca.explained_variance_ratio_ # Save eigenvalues as their own column
-result = result.set_index(["Variance_Ratio"])
-result = result.transpose()
-with pd.ExcelWriter('_fig//' + label_name + '//' + label_run + '//results.xlsx', mode = 'a', engine = 'openpyxl', if_sheet_exists = 'replace') as writer:  
-        result.to_excel(writer, sheet_name = label, index = False)
-
-### K-means
-model_1b = 'K-Means'
-label = 'KMeans'
-kmeans = KMeans()
-kmeans.fit(x_1)
-result = df_XY_1
-result['Clusters'] = kmeans.labels_
-with pd.ExcelWriter('_fig//' + label_name + '//' + label_run + '//results.xlsx', mode = 'a', engine = 'openpyxl', if_sheet_exists = 'replace') as writer: 
-    result.to_excel(writer, sheet_name = label, index = False)
-
-### Linear regression model with standard variables
-model_2 = 'Linear Regression using ACA Predictors'
+### Linear Regression
+model_1 = 'Linear Regression using Demographics, Income, and Diagnosis (Total)'
 label = 'OLS'
-X_ACA = ['AGE', 'SEX', 'FPL_PERCENT', 'ICD10_TOTAL']
-x_1_ACA = StandardScaler().fit_transform(df_XY_1.filter(X_ACA).to_numpy())
-x_2_ACA = StandardScaler().fit_transform(df_XY_2.filter(X_ACA).to_numpy())
-OLS = LinearRegression() # Linear Regression in scikit learn
-OLS.fit(x_1_ACA, y_1) # Fit model
-result_1 = pd.DataFrame(OLS.coef_, columns = X_ACA)
-RSQ_1 = OLS.score(x_1_ACA, y_1) # rsq value
-y_2_pred = OLS.predict(x_2_ACA)
-y_1_pred = OLS.predict(x_1_ACA)
-OBS_1 = np.mean(y_1) - np.mean(y_2)
-KOB_1 = np.mean(y_2_pred) - np.mean(y_2)
 
-### Linear regression model with hand selected variables
-model_2 = 'Linear Regression using ACA Predictors and Visits'
-label = 'OLS'
-X_hand = ['AGE', 'SEX', 'FPL_PERCENT', 'ICD10_TOTAL', 'VISITS_TOTAL']
-x_1_hand = StandardScaler().fit_transform(df_XY_1.filter(X_hand).to_numpy())
-x_2_hand = StandardScaler().fit_transform(df_XY_2.filter(X_hand).to_numpy())
+### Simplified Variables
+X = ['AGE', 'SEX', 'CONDITIONS', 'SDOH_FPL']
+Y = ['Y_log']
+x_1 = df_XY_1.filter(X).to_numpy()
+x_2 = df_XY_2.filter(X).to_numpy()
+y_1 = df_XY_1.filter(Y).to_numpy()
+y_2 = df_XY_2.filter(Y).to_numpy()
 OLS = LinearRegression() # Linear Regression in scikit learn
-OLS.fit(x_1_hand, y_1) # Fit model
-result_2 = pd.DataFrame(OLS.coef_, columns = X_hand)
-RSQ_2 = OLS.score(x_1_hand, y_1) # rsq value
-y_2_pred = OLS.predict(x_2_hand)
-OBS_2 = np.mean(y_1) - np.mean(y_2)
-KOB_2 = np.mean(y_2_pred) - np.mean(y_2)
+OLS.fit(x_1, y_1) # Fit model
+result_1 = pd.DataFrame(OLS.coef_, columns = X)
+y_1_hat = OLS.predict(x_1)
+y_2_KOB = OLS.predict(x_2)
+KOB_1 = [
+    "White Average = " + str(round(np.mean(y_1), 4))
+    , "Non-White Average = " + str(round(np.mean(y_2), 4)) 
+    , "Non-White Predicted = " + str(round(np.mean(y_2_KOB), 4))
+    , "Difference in Bs = " + str(round((np.mean(y_1) - np.mean(y_2)), 4))
+    , "Difference in Xs = " + str(round((np.mean(y_2_KOB) - np.mean(y_2)), 4))
+    , "R-squared + " + str(round(r2_score(y_1, y_1_hat), 4))
+    ]
+KOB_1
+
+### Random Forests
+model_2 = 'Random Forests'
+label = 'RandomForest'
+
+### Social Determinants
+X = df_XY.loc[:, df_XY.columns.str.contains('AGE|SEX|SDOH')].columns.to_list()
+Y = ['Y_log']
+x_1 = df_XY_1.filter(X).to_numpy()
+x_2 = df_XY_2.filter(X).to_numpy()
+y_1 = df_XY_1.filter(Y).to_numpy()
+y_2 = df_XY_2.filter(Y).to_numpy()
+forest = RandomForestRegressor(n_estimators = 1000, max_depth = 10) #Use default values except for number of trees. For a further explanation see readme included in repository. 
+forest.fit(x_1, y_1) # Fit Forest model, This will take time
+result_2a = pd.DataFrame({'Variables': X, 'Importances': forest.feature_importances_})
+result_2a = result_2a.sort_values(by = ['Importances'], ascending = False) # Sort dataframe by selected column in descending order
+y_2_KOB = forest.predict(x_2)
+y_1_hat = forest.predict(x_1)
+KOB_2a = [
+    "White Average = " + str(round(np.mean(y_1), 4))
+    , "Non-White Average = " + str(round(np.mean(y_2), 4)) 
+    , "Non-White Predicted = " + str(round(np.mean(y_2_KOB), 4))
+    , "Difference in Bs = " + str(round((np.mean(y_1) - np.mean(y_2)), 4))
+    , "Difference in Xs = " + str(round((np.mean(y_2_KOB) - np.mean(y_2)), 4))
+    , "R-squared + " + str(round(r2_score(y_1, y_1_hat), 4))
+    ]
+KOB_2a
+
+### Diagnoses
+X = df_XY.loc[:, df_XY.columns.str.contains('AGE|SEX|ICD10')].columns.to_list()
+Y = ['Y_log']
+x_1 = df_XY_1.filter(X).to_numpy()
+x_2 = df_XY_2.filter(X).to_numpy()
+y_1 = df_XY_1.filter(Y).to_numpy()
+y_2 = df_XY_2.filter(Y).to_numpy()
+forest = RandomForestRegressor(n_estimators = 1000, max_depth = 10) #Use default values except for number of trees. For a further explanation see readme included in repository. 
+forest.fit(x_1, y_1) # Fit Forest model, This will take time
+result_2b = pd.DataFrame({'Variables': X, 'Importances': forest.feature_importances_})
+result_2b = result_2b.sort_values(by = ['Importances'], ascending = False) # Sort dataframe by selected column in descending order
+y_2_KOB = forest.predict(x_2)
+y_1_hat = forest.predict(x_1)
+KOB_2b = [
+    "White Average = " + str(round(np.mean(y_1), 4))
+    , "Non-White Average = " + str(round(np.mean(y_2), 4)) 
+    , "Non-White Predicted = " + str(round(np.mean(y_2_KOB), 4))
+    , "Difference in Bs = " + str(round((np.mean(y_1) - np.mean(y_2)), 4))
+    , "Difference in Xs = " + str(round((np.mean(y_2_KOB) - np.mean(y_2)), 4))
+    , "R-squared + " + str(round(r2_score(y_1, y_1_hat), 4))
+    ]
+KOB_2b
+
+### Utilization
+X = df_XY.loc[:, df_XY.columns.str.contains('AGE|SEX|VISIT')].columns.to_list()
+Y = ['Y_log']
+x_1 = df_XY_1.filter(X).to_numpy()
+x_2 = df_XY_2.filter(X).to_numpy()
+y_1 = df_XY_1.filter(Y).to_numpy()
+y_2 = df_XY_2.filter(Y).to_numpy()
+forest = RandomForestRegressor(n_estimators = 1000, max_depth = 10) #Use default values except for number of trees. For a further explanation see readme included in repository. 
+forest.fit(x_1, y_1) # Fit Forest model, This will take time
+result_2c = pd.DataFrame({'Variables': X, 'Importances': forest.feature_importances_})
+result_2c = result_2c.sort_values(by = ['Importances'], ascending = False) # Sort dataframe by selected column in descending order
+y_2_KOB = forest.predict(x_2)
+y_1_hat = forest.predict(x_1)
+KOB_2c = [
+    "White Average = " + str(round(np.mean(y_1), 4))
+    , "Non-White Average = " + str(round(np.mean(y_2), 4)) 
+    , "Non-White Predicted = " + str(round(np.mean(y_2_KOB), 4))
+    , "Difference in Bs = " + str(round((np.mean(y_1) - np.mean(y_2)), 4))
+    , "Difference in Xs = " + str(round((np.mean(y_2_KOB) - np.mean(y_2)), 4))
+    , "R-squared + " + str(round(r2_score(y_1, y_1_hat), 4))
+    ]
+KOB_2c
+
+### Gradient Boosting
+model_3 = 'Gradient Boosting'
+label = "XGBoost"
+
+### Social Determinants
+X = df_XY.loc[:, df_XY.columns.str.contains('AGE|SEX|SDOH')].columns.to_list()
+Y = ['Y_log']
+x_1 = df_XY_1.filter(X).to_numpy()
+x_2 = df_XY_2.filter(X).to_numpy()
+y_1 = df_XY_1.filter(Y).to_numpy()
+y_2 = df_XY_2.filter(Y).to_numpy()
+boost = GradientBoostingRegressor(random_state = 0) # define selection parameters, in this case all features are selected. See Readme for more ifo
+boost.fit(x_1, y_1) # This will take time
+result_3a = pd.DataFrame({'Variables': X, 'Importances': boost.feature_importances_})
+result_3a = result_3a.sort_values(by = ['Importances'], ascending = False) # Sort dataframe by selected column in descending order
+y_2_KOB = boost.predict(x_2)
+y_1_hat = boost.predict(x_1)
+KOB_3a = [
+    "White Average = " + str(round(np.mean(y_1), 4))
+    , "Non-White Average = " + str(round(np.mean(y_2), 4)) 
+    , "Non-White Predicted = " + str(round(np.mean(y_2_KOB), 4))
+    , "Difference in Bs = " + str(round((np.mean(y_1) - np.mean(y_2)), 4))
+    , "Difference in Xs = " + str(round((np.mean(y_2_KOB) - np.mean(y_2)), 4))
+    , "R-squared + " + str(round(r2_score(y_1, y_1_hat), 4))
+    ]
+KOB_3a
+
+### Diagnoses
+X = df_XY.loc[:, df_XY.columns.str.contains('AGE|SEX|ICD10')].columns.to_list()
+Y = ['Y_log']
+x_1 = df_XY_1.filter(X).to_numpy()
+x_2 = df_XY_2.filter(X).to_numpy()
+y_1 = df_XY_1.filter(Y).to_numpy()
+y_2 = df_XY_2.filter(Y).to_numpy()
+boost = GradientBoostingRegressor(random_state = 0) # define selection parameters, in this case all features are selected. See Readme for more ifo
+boost.fit(x_1, y_1) # This will take time
+result_3b = pd.DataFrame({'Variables': X, 'Importances': boost.feature_importances_})
+result_3b = result_3b.sort_values(by = ['Importances'], ascending = False) # Sort dataframe by selected column in descending order
+y_2_KOB = boost.predict(x_2)
+y_1_hat = boost.predict(x_1)
+KOB_3b = [
+    "White Average = " + str(round(np.mean(y_1), 4))
+    , "Non-White Average = " + str(round(np.mean(y_2), 4)) 
+    , "Non-White Predicted = " + str(round(np.mean(y_2_KOB), 4))
+    , "Difference in Bs = " + str(round((np.mean(y_1) - np.mean(y_2)), 4))
+    , "Difference in Xs = " + str(round((np.mean(y_2_KOB) - np.mean(y_2)), 4))
+    , "R-squared + " + str(round(r2_score(y_1, y_1_hat), 4))
+    ]
+KOB_3b
+
+### Utilization
+X = df_XY.loc[:, df_XY.columns.str.contains('AGE|SEX|VISIT')].columns.to_list()
+Y = ['Y_log']
+x_1 = df_XY_1.filter(X).to_numpy()
+x_2 = df_XY_2.filter(X).to_numpy()
+y_1 = df_XY_1.filter(Y).to_numpy()
+y_2 = df_XY_2.filter(Y).to_numpy()
+boost = GradientBoostingRegressor(random_state = 0) # define selection parameters, in this case all features are selected. See Readme for more ifo
+boost.fit(x_1, y_1) # This will take time
+result_3c = pd.DataFrame({'Variables': X, 'Importances': boost.feature_importances_})
+result_3c = result_3c.sort_values(by = ['Importances'], ascending = False) # Sort dataframe by selected column in descending order
+y_2_KOB = boost.predict(x_2)
+y_1_hat = boost.predict(x_1)
+KOB_3c = [
+    "White Average = " + str(round(np.mean(y_1), 4))
+    , "Non-White Average = " + str(round(np.mean(y_2), 4)) 
+    , "Non-White Predicted = " + str(round(np.mean(y_2_KOB), 4))
+    , "Difference in Bs = " + str(round((np.mean(y_1) - np.mean(y_2)), 4))
+    , "Difference in Xs = " + str(round((np.mean(y_2_KOB) - np.mean(y_2)), 4))
+    , "R-squared + " + str(round(r2_score(y_1, y_1_hat), 4))
+    ]
+KOB_3c
+
+### Ridge Regression
+model_4 = 'Ridge Regression (with Cross Validation)'
+label = "Ridge"
+
+### Social Determinants
+X = df_XY.loc[:, df_XY.columns.str.contains('AGE|SEX|SDOH')].columns.to_list()
+Y = ['Y_log']
+x_1 = df_XY_1.filter(X).to_numpy()
+x_2 = df_XY_2.filter(X).to_numpy()
+y_1 = df_XY_1.filter(Y).to_numpy()
+y_2 = df_XY_2.filter(Y).to_numpy()
+ridge = RidgeCV(cv = 5) # define selection parameters, in this case all features are selected. See Readme for more ifo
+ridge.fit(x_1, y_1) # This will take time
+result_4a = pd.DataFrame({'Variables': X, 'Coefficients': np.ravel(ridge.coef_)})
+result_4a = result_4a.sort_values(by = ['Coefficients'], ascending = False) # Sort dataframe by selected column in descending order
+y_2_KOB = ridge.predict(x_2)
+y_1_hat = ridge.predict(x_1)
+KOB_4a = [
+    "White Average = " + str(round(np.mean(y_1), 4))
+    , "Non-White Average = " + str(round(np.mean(y_2), 4)) 
+    , "Non-White Predicted = " + str(round(np.mean(y_2_KOB), 4))
+    , "Difference in Bs = " + str(round((np.mean(y_1) - np.mean(y_2)), 4))
+    , "Difference in Xs = " + str(round((np.mean(y_2_KOB) - np.mean(y_2)), 4))
+    , "R-squared + " + str(round(r2_score(y_1, y_1_hat), 4))
+    ]
+KOB_4a
+
+### Diagnoses
+X = df_XY.loc[:, df_XY.columns.str.contains('AGE|SEX|ICD10')].columns.to_list()
+Y = ['Y_log']
+x_1 = df_XY_1.filter(X).to_numpy()
+x_2 = df_XY_2.filter(X).to_numpy()
+y_1 = df_XY_1.filter(Y).to_numpy()
+y_2 = df_XY_2.filter(Y).to_numpy()
+ridge = RidgeCV(cv = 5) # define selection parameters, in this case all features are selected. See Readme for more ifo
+ridge.fit(x_1, y_1) # This will take time
+result_4b = pd.DataFrame({'Variables': X, 'Coefficients': np.ravel(ridge.coef_)})
+result_4b = result_4b.sort_values(by = ['Coefficients'], ascending = False) # Sort dataframe by selected column in descending order
+y_2_KOB = ridge.predict(x_2)
+y_1_hat = ridge.predict(x_1)
+KOB_4b = [
+    "White Average = " + str(round(np.mean(y_1), 4))
+    , "Non-White Average = " + str(round(np.mean(y_2), 4)) 
+    , "Non-White Predicted = " + str(round(np.mean(y_2_KOB), 4))
+    , "Difference in Bs = " + str(round((np.mean(y_1) - np.mean(y_2)), 4))
+    , "Difference in Xs = " + str(round((np.mean(y_2_KOB) - np.mean(y_2)), 4))
+    , "R-squared + " + str(round(r2_score(y_1, y_1_hat), 4))
+    ]
+KOB_4b
+
+### Utilization
+X = df_XY.loc[:, df_XY.columns.str.contains('AGE|SEX|VISIT')].columns.to_list()
+Y = ['Y_log']
+x_1 = df_XY_1.filter(X).to_numpy()
+x_2 = df_XY_2.filter(X).to_numpy()
+y_1 = df_XY_1.filter(Y).to_numpy()
+y_2 = df_XY_2.filter(Y).to_numpy()
+ridge = RidgeCV(cv = 5) # define selection parameters, in this case all features are selected. See Readme for more ifo
+ridge.fit(x_1, y_1) # This will take time
+result_4c = pd.DataFrame({'Variables': X, 'Coefficients': np.ravel(ridge.coef_)})
+result_4c = result_4c.sort_values(by = ['Coefficients'], ascending = False) # Sort dataframe by selected column in descending order
+y_2_KOB = ridge.predict(x_2)
+y_1_hat = ridge.predict(x_1)
+KOB_4c = [
+    "White Average = " + str(round(np.mean(y_1), 4))
+    , "Non-White Average = " + str(round(np.mean(y_2), 4)) 
+    , "Non-White Predicted = " + str(round(np.mean(y_2_KOB), 4))
+    , "Difference in Bs = " + str(round((np.mean(y_1) - np.mean(y_2)), 4))
+    , "Difference in Xs = " + str(round((np.mean(y_2_KOB) - np.mean(y_2)), 4))
+    , "R-squared + " + str(round(r2_score(y_1, y_1_hat), 4))
+    ]
+KOB_4c
+
+### Least absolute shrinkage and selection operator
+model_5 = 'Least absolute shrinkage and selection operator'
+label = "Lasso"
+
+### Social Determinants
+X = df_XY.loc[:, df_XY.columns.str.contains('AGE|SEX|SDOH')].columns.to_list()
+Y = ['Y_log']
+x_1 = df_XY_1.filter(X).to_numpy()
+x_2 = df_XY_2.filter(X).to_numpy()
+y_1 = df_XY_1.filter(Y).to_numpy()
+y_2 = df_XY_2.filter(Y).to_numpy()
+lasso = LassoCV(cv = 5, random_state = 0) # define selection parameters, in this case all features are selected. See Readme for more ifo
+lasso.fit(x_1, y_1) # This will take time
+result_5a = pd.DataFrame({'Variables': X, 'Coefficients': np.ravel(lasso.coef_)})
+result_5a = result_5a.sort_values(by = ['Coefficients'], ascending = False) # Sort dataframe by selected column in descending order
+y_2_KOB = lasso.predict(x_2)
+y_1_hat = lasso.predict(x_1)
+KOB_5a = [
+    "White Average = " + str(round(np.mean(y_1), 4))
+    , "Non-White Average = " + str(round(np.mean(y_2), 4)) 
+    , "Non-White Predicted = " + str(round(np.mean(y_2_KOB), 4))
+    , "Difference in Bs = " + str(round((np.mean(y_1) - np.mean(y_2)), 4))
+    , "Difference in Xs = " + str(round((np.mean(y_2_KOB) - np.mean(y_2)), 4))
+    , "R-squared + " + str(round(r2_score(y_1, y_1_hat), 4))
+    ]
+KOB_5a
+
+### Diagnoses
+X = df_XY.loc[:, df_XY.columns.str.contains('AGE|SEX|ICD10')].columns.to_list()
+Y = ['Y_log']
+x_1 = df_XY_1.filter(X).to_numpy()
+x_2 = df_XY_2.filter(X).to_numpy()
+y_1 = df_XY_1.filter(Y).to_numpy()
+y_2 = df_XY_2.filter(Y).to_numpy()
+lasso = RidgeCV(cv = 5) # define selection parameters, in this case all features are selected. See Readme for more ifo
+lasso.fit(x_1, y_1) # This will take time
+result_5b = pd.DataFrame({'Variables': X, 'Coefficients': np.ravel(lasso.coef_)})
+result_5b = result_5b.sort_values(by = ['Coefficients'], ascending = False) # Sort dataframe by selected column in descending order
+y_2_KOB = lasso.predict(x_2)
+y_1_hat = lasso.predict(x_1)
+KOB_5b = [
+    "White Average = " + str(round(np.mean(y_1), 4))
+    , "Non-White Average = " + str(round(np.mean(y_2), 4)) 
+    , "Non-White Predicted = " + str(round(np.mean(y_2_KOB), 4))
+    , "Difference in Bs = " + str(round((np.mean(y_1) - np.mean(y_2)), 4))
+    , "Difference in Xs = " + str(round((np.mean(y_2_KOB) - np.mean(y_2)), 4))
+    , "R-squared + " + str(round(r2_score(y_1, y_1_hat), 4))
+    ]
+KOB_5b
+
+### Utilizaiton
+X = df_XY.loc[:, df_XY.columns.str.contains('AGE|SEX|VISIT')].columns.to_list()
+Y = ['Y_log']
+x_1 = df_XY_1.filter(X).to_numpy()
+x_2 = df_XY_2.filter(X).to_numpy()
+y_1 = df_XY_1.filter(Y).to_numpy()
+y_2 = df_XY_2.filter(Y).to_numpy()
+lasso = RidgeCV(cv = 5) # define selection parameters, in this case all features are selected. See Readme for more ifo
+lasso.fit(x_1, y_1) # This will take time
+result_5c = pd.DataFrame({'Variables': X, 'Coefficients': np.ravel(lasso.coef_)})
+result_5c = result_5c.sort_values(by = ['Coefficients'], ascending = False) # Sort dataframe by selected column in descending order
+y_2_KOB = lasso.predict(x_2)
+y_1_hat = lasso.predict(x_1)
+KOB_5c = [
+    "White Average = " + str(round(np.mean(y_1), 4))
+    , "Non-White Average = " + str(round(np.mean(y_2), 4)) 
+    , "Non-White Predicted = " + str(round(np.mean(y_2_KOB), 4))
+    , "Difference in Bs = " + str(round((np.mean(y_1) - np.mean(y_2)), 4))
+    , "Difference in Xs = " + str(round((np.mean(y_2_KOB) - np.mean(y_2)), 4))
+    , "R-squared + " + str(round(r2_score(y_1, y_1_hat), 4))
+    ]
+KOB_5c
+
+### Neural Networks
+model_6 = 'Multi-Layer Perceptron'
+label = "MLP"
+
+### Everything
+X = df_XY.loc[:, df_XY.columns.str.contains('AGE|SEX|SDOH|ICD10|VISIT|CONDITION')].columns.to_list()
+Y = ['Y_log']
+x_1 = df_XY_1.filter(X).to_numpy()
+x_2 = df_XY_2.filter(X).to_numpy()
+y_1 = df_XY_1.filter(Y).to_numpy()
+y_2 = df_XY_2.filter(Y).to_numpy()
+
+#### Train MLP on reference group
+N_input = x_1.shape[1] # Save number of columns as input dimension
+N_nodes = round(N_input / 2) # Number of input dimensions divided by two for nodes in each layer
+N_epochs = 500
+network = Sequential() # Build Network with keras Sequential API
+network.add(Dense(N_nodes, activation = 'relu', kernel_initializer = 'random_normal', input_dim = N_input)) # First dense layer
+network.add(Dense(N_nodes, activation = 'relu', kernel_initializer = 'random_normal')) # Second dense layer
+network.add(Dense(1, activation = 'linear', kernel_initializer = 'random_normal')) # Output layer with binary activation
+network.compile(optimizer = 'adam', loss = 'mean_absolute_error', metrics = ['mean_squared_error']) # Compile network with Adaptive moment estimation, and follow loss and accuracy
+history = network.fit(x_1, y_1, batch_size = 10, epochs = N_epochs) # Fitting the data to the train outcome, with batch size and number of epochs
+result_6 = pd.DataFrame({'Loss': history.history['loss']})
+
+#### Predict focus group with reference group
+y_1_hat = network.predict(x_1) # Predict values from test data
+y_2_KOB = network.predict(x_2) # Predict values from test data
+KOB_6 = [
+    "White Average = " + str(round(np.mean(y_1), 4))
+    , "Non-White Average = " + str(round(np.mean(y_2), 4)) 
+    , "Non-White Predicted = " + str(round(np.mean(y_2_KOB), 4))
+    , "Difference in Bs = " + str(round((np.mean(y_1) - np.mean(y_2)), 4))
+    , "Difference in Xs = " + str(round((np.mean(y_2_KOB) - np.mean(y_2)), 4))
+    , "R-squared + " + str(round(r2_score(y_1, y_1_hat), 4))
+    ]
+KOB_6
 
 ### Export to Summary File
 text_md = open('_docs//' + label_name + '//' + label_run + '//summary.md', 'a')
-text_md.write('#### ' + step_2 + '\n')
-text_md.write(method_2 + '\n')
-text_md.write('\n')
-text_md.write('##### ' + model_1a + '\n')
-text_md.write('See ' + '_fig//' + label_name + '//' + label_run + '//results.xlsx' + '\n')
-text_md.write('\n')
-text_md.write('##### ' + model_1b + '\n')
-text_md.write('See ' + '_fig//' + label_name + '//' + label_run + '//results.xlsx' + '\n')
-text_md.write('\n')
 text_md.write('##### ' + model_2 + '\n')
-text_md.write('Regression Model using hand selected variables: ' + '<br>\n')
-text_md.write('\n')
-text_md.write('\n')
-text_md.write('<pre>')
-text_md.write('\n')
-text_md.write('Rsq: ' + str(RSQ_1) + '<br>\n')
 text_md.write('\n')
 text_md.write(str(result_1) + '\n')
 text_md.write('\n')
 text_md.write('</pre>')
 text_md.write('\n')
+text_md.write(str(KOB_1) + '<br>\n')
 text_md.write('\n')
-text_md.write('Absolute difference between groups: ' + str(OBS_1) + '<br>\n')
-text_md.write('Difference attributable to groups: ' + str(KOB_1) + '<br>\n')
-text_md.write('\n')
-text_md.write('Regression Model using hand selected variables: ' + '\n')
-text_md.write('\n')
-text_md.write('\n')
-text_md.write('<pre>')
-text_md.write('\n')
-text_md.write('Rsq: ' + str(RSQ_2) + '<br>\n')
-text_md.write('\n')
-text_md.write(str(result_2) + '\n')
+text_md.write(str(result_2a) + '\n')
 text_md.write('\n')
 text_md.write('</pre>')
 text_md.write('\n')
+text_md.write(str(KOB_2a) + '<br>\n')
 text_md.write('\n')
-text_md.write('Absolute difference between groups: ' + str(OBS_2) + '<br>\n')
-text_md.write('Difference attributable to groups: ' + str(KOB_2) + '<br>\n')
+text_md.write(str(result_2b) + '\n')
 text_md.write('\n')
-text_md.close() # Close file
-
-## Learn Step 3: Automated Feature Selection
-step_3 = 'Learn Step 3: Automated Feature Selection Assisted with Supervised Learning' 
-method_3 = 'Supervised algorithms are used to automatically identify relevant features and predict outcomes. These models allow for the inclusion of more data in closer to raw form than OLS. The models are trained on the reference group and then predict values for the focus group. The difference in predicted to actual values represents what is explained by group identififcation independent of the predictors.'
-
-### Random Forest Regressor
-model_3 = 'Random Forests'
-label = 'RandomForest'
-forest = RandomForestRegressor(n_estimators = 1000, max_depth = 10) #Use default values except for number of trees. For a further explanation see readme included in repository. 
-forest.fit(x_1, y_1) # Fit Forest model, This will take time
-result = pd.DataFrame({'Variables': X, 'Importances': forest.feature_importances_})
-RSQ_3 = forest.score(x_1, y_1) # rsq value
-y_2_pred = forest.predict(x_2)
-OBS_3 = np.mean(y_1) - np.mean(y_2)
-KOB_3 = np.mean(y_2_pred) - np.mean(y_2)
-with pd.ExcelWriter('_fig//' + label_name + '//' + label_run + '//results.xlsx', mode = 'a', engine = 'openpyxl', if_sheet_exists = 'replace') as writer:  
-        result.to_excel(writer, sheet_name = label, index = False)
-
-### Recursive Feature Elimination
-model_4 = 'Recursive feature Elimination'
-label = "RFE-CV"
-recursive = RFECV(estimator = LinearRegression(), min_features_to_select = 5) # define selection parameters, in this case all features are selected. See Readme for more ifo
-recursive.fit(x_1, y_1) # This will take time
-result = pd.DataFrame({'Variables': X, 'Rankings': recursive.ranking_})
-RSQ_4 = recursive.score(x_1, y_1) # rsq value
-y_2_pred = recursive.predict(x_2)
-OBS_4 = np.mean(y_1) - np.mean(y_2)
-KOB_4 = np.mean(y_2_pred) - np.mean(y_2)
-with pd.ExcelWriter('_fig//' + label_name + '//' + label_run + '//results.xlsx', mode = 'a', engine = 'openpyxl', if_sheet_exists = 'replace') as writer:  
-        result.to_excel(writer, sheet_name = label, index = False)
-
-### Support Vector Machines
-model_5 = 'Support Vector Machines'
-label = 'SVM'
-vector = LinearSVR() # Support vector machines with a linear kernel for multi-level categorical outrcomes
-vector.fit(x_1, y_1) # fit model
-result = pd.DataFrame({'Variables': X, 'Vectors': vector.coef_})
-RSQ_5 = vector.score(x_1, y_1) # rsq value
-y_2_pred = vector.predict(x_2)
-OBS_5 = np.mean(y_1) - np.mean(y_2)
-KOB_5 = np.mean(y_2_pred) - np.mean(y_2)
-with pd.ExcelWriter('_fig//' + label_name + '//' + label_run + '//results.xlsx', mode = 'a', engine = 'openpyxl', if_sheet_exists = 'replace') as writer:  
-        result.to_excel(writer, sheet_name = label, index = False)
-
-### Export to Summary File
-text_md = open('_docs//' + label_name + '//' + label_run + '//summary.md', 'a')
-text_md.write('#### ' + step_3 + '\n')
-text_md.write(method_3 + '\n')
-text_md.write('For feature selection results, see ' + '_fig//' + label_name + '//' + label_run + '//results.xlsx' + '\n')
+text_md.write('</pre>')
+text_md.write('\n')
+text_md.write(str(KOB_2b) + '<br>\n')
+text_md.write('\n')
+text_md.write(str(result_2c) + '\n')
+text_md.write('\n')
+text_md.write('</pre>')
+text_md.write('\n')
+text_md.write(str(KOB_2c) + '<br>\n')
 text_md.write('\n')
 text_md.write('##### ' + model_3 + '\n')
 text_md.write('\n')
-text_md.write('Reference Group Rsq: ' + str(RSQ_3) + '<br>\n')
-text_md.write('Absolute difference between groups: ' + str(OBS_3) + '<br>\n')
-text_md.write('Difference attributable to groups: ' + str(KOB_3) + '<br>\n')
+text_md.write(str(result_3a) + '\n')
+text_md.write('\n')
+text_md.write('</pre>')
+text_md.write('\n')
+text_md.write(str(KOB_3a) + '<br>\n')
+text_md.write('\n')
+text_md.write(str(result_3b) + '\n')
+text_md.write('\n')
+text_md.write('</pre>')
+text_md.write('\n')
+text_md.write(str(KOB_3b) + '<br>\n')
+text_md.write('\n')
+text_md.write(str(result_3c) + '\n')
+text_md.write('\n')
+text_md.write('</pre>')
+text_md.write('\n')
+text_md.write(str(KOB_3c) + '<br>\n')
 text_md.write('\n')
 text_md.write('##### ' + model_4 + '\n')
 text_md.write('\n')
-text_md.write('Reference Group Rsq: ' + str(RSQ_4) + '<br>\n')
-text_md.write('Absolute difference between groups: ' + str(OBS_4) + '<br>\n')
-text_md.write('Difference attributable to groups: ' + str(KOB_4) + '<br>\n')
+text_md.write(str(result_4a) + '\n')
+text_md.write('\n')
+text_md.write('</pre>')
+text_md.write('\n')
+text_md.write(str(KOB_4a) + '<br>\n')
+text_md.write('\n')
+text_md.write(str(result_4b) + '\n')
+text_md.write('\n')
+text_md.write('</pre>')
+text_md.write('\n')
+text_md.write(str(KOB_4b) + '<br>\n')
+text_md.write('\n')
+text_md.write(str(result_4c) + '\n')
+text_md.write('\n')
+text_md.write('</pre>')
+text_md.write('\n')
+text_md.write(str(KOB_4c) + '<br>\n')
 text_md.write('\n')
 text_md.write('##### ' + model_5 + '\n')
 text_md.write('\n')
-text_md.write('Reference Group Rsq: ' + str(RSQ_5) + '<br>\n')
-text_md.write('Absolute difference between groups: ' + str(OBS_5) + '<br>\n')
-text_md.write('Difference attributable to groups: ' + str(KOB_5) + '<br>\n')
+text_md.write(str(result_5a) + '\n')
 text_md.write('\n')
-text_md.close() # Close file
-
-## Learn Step 4: Deep Learning with Expanded predictors
-step_4 = 'Learn Step 4: Deep Learning with Expanded predictors' 
-method_4 = 'Deep learning algorithms are used for an expanded set of predictors in raw format. These models allow for virtually all structured data without processing and can handle complex interactions not yet understood. The models are trained on the reference group and then predict values for the focus group. The difference in predicted to actual values represents what is explained by group identififcation independent of the predictors.'
-
-### MLP Using ACA and Diagnosis Data
-model_6 = 'MLP Using ACA Data'
-label = 'MLP_ACA'
-df_XY3 = df_XY.loc[:, df_XY.columns.str.contains('YEAR|AGE|SEX|RACE|FPL_PERCENT|Y_log')]
-df_XY3.info(verbose = True)
-
-#### Create Outcome and predictor standard scaled numpy arrays for reference group (n_1, x_1, y_1)
-df_XY3_1 = df_XY3[df_XY3['RACE'] == 2].dropna()
-y3_1 = df_XY3_1.filter(['Y_log']).to_numpy()
-x3_1 = StandardScaler().fit_transform(df_XY3_1.drop(columns = ['Y_log', 'RACE']).to_numpy())
-n3_1 = df_XY3_1.index.to_numpy()
-
-#### Create Outcome and predictor standard scaled numpy arrays for focus group (n_2, x_2, y_2)
-df_XY3_2 = df_XY3[df_XY3['RACE'] != 2].dropna()
-y3_2 = df_XY3_2.filter(['Y_log']).to_numpy()
-x3_2 = StandardScaler().fit_transform(df_XY3_2.drop(columns = ['Y_log', 'RACE']).to_numpy())
-n3_2 = df_XY3_2.index.to_numpy()
-
-#### Train MLP on reference group
-N_input = x3_1.shape[1] # Save number of columns as input dimension
-N_nodes = round(N_input / 2) # Number of input dimensions divided by two for nodes in each layer
-N_epochs = 100
-network = Sequential() # Build Network with keras Sequential API
-network.add(Dense(N_nodes, activation = 'relu', kernel_initializer = 'random_normal', input_dim = N_input)) # First dense layer
-network.add(Dense(N_nodes, activation = 'relu', kernel_initializer = 'random_normal')) # Second dense layer
-network.add(Dense(1, activation = 'linear', kernel_initializer = 'random_normal')) # Output layer with binary activation
-network.compile(optimizer = 'adam', loss = 'mean_absolute_error', metrics = ['mean_squared_error']) # Compile network with Adaptive moment estimation, and follow loss and accuracy
-history = network.fit(x3_1, y3_1, batch_size = 10, epochs = N_epochs) # Fitting the data to the train outcome, with batch size and number of epochs
-result = pd.DataFrame({'Loss': history.history['loss']})
-with pd.ExcelWriter('_fig//' + label_name + '//' + label_run + '//results.xlsx', mode = 'a', engine = 'openpyxl', if_sheet_exists = 'replace') as writer:  
-        result.to_excel(writer, sheet_name = label, index = False)
-
-### Predict focus group
-y3_2_pred = network.predict(x3_2) # Predict values from test data
-OBS_6 = np.mean(y3_1) - np.mean(y3_2)
-KOB_6 = np.mean(y3_2_pred) - np.mean(y3_2)
-KOB_6
-
-### MLP Using ACA and Diagnosis Data
-model_7 = 'MLP Using ACA and Diagnosis Data'
-label = 'MLP_DX'
-df_XY3 = df_XY.loc[:, df_XY.columns.str.contains('YEAR|AGE|SEX|RACE|FPL_PERCENT|ICD10|Y_log')]
-df_XY3.info(verbose = True)
-
-#### Create Outcome and predictor standard scaled numpy arrays for reference group (n_1, x_1, y_1)
-df_XY3_1 = df_XY3[df_XY3['RACE'] == 2].dropna()
-y3_1 = df_XY3_1.filter(['Y_log']).to_numpy()
-x3_1 = StandardScaler().fit_transform(df_XY3_1.drop(columns = ['Y_log', 'RACE']).to_numpy())
-n3_1 = df_XY3_1.index.to_numpy()
-
-#### Create Outcome and predictor standard scaled numpy arrays for focus group (n_2, x_2, y_2)
-df_XY3_2 = df_XY3[df_XY3['RACE'] != 2].dropna()
-y3_2 = df_XY3_2.filter(['Y_log']).to_numpy()
-x3_2 = StandardScaler().fit_transform(df_XY3_2.drop(columns = ['Y_log', 'RACE']).to_numpy())
-n3_2 = df_XY3_2.index.to_numpy()
-
-#### Train MLP on reference group
-N_input = x3_1.shape[1] # Save number of columns as input dimension
-N_nodes = round(N_input / 2) # Number of input dimensions divided by two for nodes in each layer
-N_epochs = 100
-network = Sequential() # Build Network with keras Sequential API
-network.add(Dense(N_nodes, activation = 'relu', kernel_initializer = 'random_normal', input_dim = N_input)) # First dense layer
-network.add(Dense(N_nodes, activation = 'relu', kernel_initializer = 'random_normal')) # Second dense layer
-network.add(Dense(1, activation = 'linear', kernel_initializer = 'random_normal')) # Output layer with binary activation
-network.compile(optimizer = 'adam', loss = 'mean_absolute_error', metrics = ['mean_squared_error']) # Compile network with Adaptive moment estimation, and follow loss and accuracy
-history = network.fit(x3_1, y3_1, batch_size = 10, epochs = N_epochs) # Fitting the data to the train outcome, with batch size and number of epochs
-result = pd.DataFrame({'Loss': history.history['loss']})
-with pd.ExcelWriter('_fig//' + label_name + '//' + label_run + '//results.xlsx', mode = 'a', engine = 'openpyxl', if_sheet_exists = 'replace') as writer:  
-        result.to_excel(writer, sheet_name = label, index = False)
-
-### Predict focus group
-y3_2_pred = network.predict(x3_2) # Predict values from test data
-OBS_7 = np.mean(y3_1) - np.mean(y3_2)
-KOB_7 = np.mean(y3_2_pred) - np.mean(y3_2)
-KOB_7
-
-### MLP Using Diagnosis and Office Visit Data
-
-#### Extract Office Visit Data
-model_8 = 'MLP Using ACA, Diagnosis, and Office Visit Data'
-label = 'MLP_OF'
-QUERY = """
-    SELECT
-        2018 AS YEAR
-        , SQ.DUPERSID AS PERSON_ID
-        , G.*
-    FROM (
-        SELECT DISTINCT Y.DUPERSID 
-        FROM h209 Y
-        WHERE
-            Y.AGELAST > 25
-            AND Y.AGELAST < 65
-            AND Y.PRSTX18 = 1
-            AND Y.INSCOV18 = 1
-        ) SQ
-    INNER JOIN (SELECT * FROM h206g WHERE EVNTIDX <> 'NONE') G
-        ON SQ.DUPERSID = G.DUPERSID
-"""
-df_X3 = pd.read_sql_query(QUERY, db_con)
-df_X3 = df_X3.dropna()
-df_X3[W] = df_X3[W].astype('int64') # Change column data type to integer
-df_X3[Z] = df_X3[Z].astype('int64') # Change column data type to integer
-df_X3['EVENT_ID'] = df_X3['EVNTIDX'].astype('int64') # Change column data type to integer
-df_XY3 = pd.merge(df_WXYZ, df_X3, on = [W, Z], how = 'inner')
-df_XY3 = df_XY3.drop_duplicates(subset = [W, Z, 'EVENT_ID'])
-df_XY3 = df_XY3.set_index([W, Z, 'EVENT_ID'])
-df_XY3['Y_log'] = np.log(df_XY3[Y]).replace([np.inf, -np.inf], np.nan).fillna(0).astype(np.float64)
-df_XY3 = df_XY3.drop(columns = [Y])
-df_XY3 = df_XY3.drop(columns = ['DUID', 'PID', 'DUPERSID', 'EVNTIDX', 'FFEEIDX'])
-df_XY3.info(verbose = True)
-
-#### Create Outcome and predictor standard scaled numpy arrays for reference group (n_1, x_1, y_1)
-df_XY3_1 = df_XY3[df_XY3['RACE'] == 2].dropna()
-y3_1 = df_XY3_1.filter(['Y_log']).to_numpy()
-x3_1 = StandardScaler().fit_transform(df_XY3_1.drop(columns = ['Y_log', 'RACE']).to_numpy())
-n3_1 = df_XY3_1.index.to_numpy()
-
-#### Create Outcome and predictor standard scaled numpy arrays for focus group (n_2, x_2, y_2)
-df_XY3_2 = df_XY3[df_XY3['RACE'] != 2].dropna()
-y3_2 = df_XY3_2.filter(['Y_log']).to_numpy()
-x3_2 = StandardScaler().fit_transform(df_XY3_2.drop(columns = ['Y_log', 'RACE']).to_numpy())
-n3_2 = df_XY3_2.index.to_numpy()
-
-#### Train MLP on reference group
-N_input = x3_1.shape[1] # Save number of columns as input dimension
-N_nodes = round(N_input / 2) # Number of input dimensions divided by two for nodes in each layer
-N_epochs = 100
-network = Sequential() # Build Network with keras Sequential API
-network.add(Dense(N_nodes, activation = 'relu', kernel_initializer = 'random_normal', input_dim = N_input)) # First dense layer
-network.add(Dense(N_nodes, activation = 'relu', kernel_initializer = 'random_normal')) # Second dense layer
-network.add(Dense(1, activation = 'linear', kernel_initializer = 'random_normal')) # Output layer with binary activation
-network.compile(optimizer = 'adam', loss = 'mean_absolute_error', metrics = ['mean_squared_error']) # Compile network with Adaptive moment estimation, and follow loss and accuracy
-history = network.fit(x3_1, y3_1, batch_size = 10, epochs = N_epochs) # Fitting the data to the train outcome, with batch size and number of epochs
-result = pd.DataFrame({'Loss': history.history['loss']})
-with pd.ExcelWriter('_fig//' + label_name + '//' + label_run + '//results.xlsx', mode = 'a', engine = 'openpyxl', if_sheet_exists = 'replace') as writer:  
-        result.to_excel(writer, sheet_name = label, index = False)
-
-#### Predict focus group
-y3_2_pred = network.predict(x3_2) # Predict values from test data
-OBS_8 = np.mean(y3_1) - np.mean(y3_2)
-KOB_8 = np.mean(y3_2_pred) - np.mean(y3_2)
-KOB_8
-
-
-### MLP Using Diagnosis and Hospital Visit Data
-model_9 = 'MLP Using ACA, Diagnosis, and Hospital Visit Data'
-label = 'MLP_IP'
-
-#### Extract Hospital Visit Data
-QUERY = """
-    SELECT
-        2018 AS YEAR
-        , SQ.DUPERSID AS PERSON_ID
-        , D.*
-    FROM (
-        SELECT DISTINCT Y.DUPERSID 
-        FROM h209 Y
-        WHERE
-            Y.AGELAST > 25
-            AND Y.AGELAST < 65
-            AND Y.PRSTX18 = 1
-            AND Y.INSCOV18 = 1
-        ) SQ
-    INNER JOIN (SELECT * FROM h206d WHERE EVNTIDX <> 'NONE') D
-        ON SQ.DUPERSID = D.DUPERSID
-"""
-df_X3 = pd.read_sql_query(QUERY, db_con)
-df_X3 = df_X3.dropna()
-df_X3[W] = df_X3[W].astype('int64') # Change column data type to integer
-df_X3[Z] = df_X3[Z].astype('int64') # Change column data type to integer
-df_X3['EVENT_ID'] = df_X3['EVNTIDX'].astype('int64') # Change column data type to integer
-df_XY3 = pd.merge(df_WXYZ, df_X3, on = [W, Z], how = 'inner')
-df_XY3 = df_XY3.drop_duplicates(subset = [W, Z, 'EVENT_ID'])
-df_XY3 = df_XY3.set_index([W, Z, 'EVENT_ID'])
-df_XY3['Y_log'] = np.log(df_XY3[Y]).replace([np.inf, -np.inf], np.nan).fillna(0).astype(np.float64)
-df_XY3 = df_XY3.drop(columns = [Y])
-df_XY3 = df_XY3.drop(columns = ['DUID', 'PID', 'DUPERSID', 'EVNTIDX'])
-df_XY3.info(verbose = True)
-
-#### Create Outcome and predictor standard scaled numpy arrays for reference group (n_1, x_1, y_1)
-df_XY3_1 = df_XY3[df_XY3['RACE'] == 2].dropna()
-y3_1 = df_XY3_1.filter(['Y_log']).to_numpy()
-x3_1 = StandardScaler().fit_transform(df_XY3_1.drop(columns = ['Y_log', 'RACE']).to_numpy())
-n3_1 = df_XY3_1.index.to_numpy()
-
-#### Create Outcome and predictor standard scaled numpy arrays for focus group (n_2, x_2, y_2)
-df_XY3_2 = df_XY3[df_XY3['RACE'] != 2].dropna()
-y3_2 = df_XY3_2.filter(['Y_log']).to_numpy()
-x3_2 = StandardScaler().fit_transform(df_XY3_2.drop(columns = ['Y_log', 'RACE']).to_numpy())
-n3_2 = df_XY3_2.index.to_numpy()
-
-#### Train MLP on reference group
-N_input = x3_1.shape[1] # Save number of columns as input dimension
-N_nodes = round(N_input / 2) # Number of input dimensions divided by two for nodes in each layer
-N_epochs = 100
-network = Sequential() # Build Network with keras Sequential API
-network.add(Dense(N_nodes, activation = 'relu', kernel_initializer = 'random_normal', input_dim = N_input)) # First dense layer
-network.add(Dense(N_nodes, activation = 'relu', kernel_initializer = 'random_normal')) # Second dense layer
-network.add(Dense(1, activation = 'linear', kernel_initializer = 'random_normal')) # Output layer with binary activation
-network.compile(optimizer = 'adam', loss = 'mean_absolute_error', metrics = ['mean_squared_error']) # Compile network with Adaptive moment estimation, and follow loss and accuracy
-history = network.fit(x3_1, y3_1, batch_size = 10, epochs = N_epochs) # Fitting the data to the train outcome, with batch size and number of epochs
-result = pd.DataFrame({'Loss': history.history['loss']})
-with pd.ExcelWriter('_fig//' + label_name + '//' + label_run + '//results.xlsx', mode = 'a', engine = 'openpyxl', if_sheet_exists = 'replace') as writer:  
-        result.to_excel(writer, sheet_name = label, index = False)
-
-#### Predict focus group
-y3_2_pred = network.predict(x3_2) # Predict values from test data
-OBS_9 = np.mean(y3_1) - np.mean(y3_2)
-KOB_9 = np.mean(y3_2_pred) - np.mean(y3_2)
-KOB_9
-
-### MLP Using Diagnosis and ER Visit Data
-model_10 = 'MLP Using ACA, Diagnosis, and ER Visit Data'
-label = 'MLP_ER'
-
-#### Extract ER Visit Data
-QUERY = """
-    SELECT
-        2018 AS YEAR
-        , SQ.DUPERSID AS PERSON_ID
-        , E.*
-    FROM (
-        SELECT DISTINCT Y.DUPERSID 
-        FROM h209 Y
-        WHERE
-            Y.AGELAST > 25
-            AND Y.AGELAST < 65
-            AND Y.PRSTX18 = 1
-            AND Y.INSCOV18 = 1
-        ) SQ
-    INNER JOIN (SELECT * FROM h206e WHERE EVNTIDX <> 'NONE') E
-        ON SQ.DUPERSID = E.DUPERSID
-"""
-df_X3 = pd.read_sql_query(QUERY, db_con)
-df_X3 = df_X3.dropna()
-df_X3[W] = df_X3[W].astype('int64') # Change column data type to integer
-df_X3[Z] = df_X3[Z].astype('int64') # Change column data type to integer
-df_X3['EVENT_ID'] = df_X3['EVNTIDX'].astype('int64') # Change column data type to integer
-df_XY3 = pd.merge(df_WXYZ, df_X3, on = [W, Z], how = 'inner')
-df_XY3 = df_XY3.drop_duplicates(subset = [W, Z, 'EVENT_ID'])
-df_XY3 = df_XY3.set_index([W, Z, 'EVENT_ID'])
-df_XY3['Y_log'] = np.log(df_XY3[Y]).replace([np.inf, -np.inf], np.nan).fillna(0).astype(np.float64)
-df_XY3 = df_XY3.drop(columns = [Y])
-df_XY3 = df_XY3.drop(columns = ['DUID', 'PID', 'DUPERSID', 'EVNTIDX'])
-df_XY3.info(verbose = True)
-
-#### Create Outcome and predictor standard scaled numpy arrays for reference group (n_1, x_1, y_1)
-df_XY3_1 = df_XY3[df_XY3['RACE'] == 2].dropna()
-y3_1 = df_XY3_1.filter(['Y_log']).to_numpy()
-x3_1 = StandardScaler().fit_transform(df_XY3_1.drop(columns = ['Y_log', 'RACE']).to_numpy())
-n3_1 = df_XY3_1.index.to_numpy()
-
-#### Create Outcome and predictor standard scaled numpy arrays for focus group (n_2, x_2, y_2)
-df_XY3_2 = df_XY3[df_XY3['RACE'] != 2].dropna()
-y3_2 = df_XY3_2.filter(['Y_log']).to_numpy()
-x3_2 = StandardScaler().fit_transform(df_XY3_2.drop(columns = ['Y_log', 'RACE']).to_numpy())
-n3_2 = df_XY3_2.index.to_numpy()
-
-#### Train MLP on reference group
-N_input = x3_1.shape[1] # Save number of columns as input dimension
-N_nodes = round(N_input / 2) # Number of input dimensions divided by two for nodes in each layer
-N_epochs = 100
-network = Sequential() # Build Network with keras Sequential API
-network.add(Dense(N_nodes, activation = 'relu', kernel_initializer = 'random_normal', input_dim = N_input)) # First dense layer
-network.add(Dense(N_nodes, activation = 'relu', kernel_initializer = 'random_normal')) # Second dense layer
-network.add(Dense(1, activation = 'linear', kernel_initializer = 'random_normal')) # Output layer with binary activation
-network.compile(optimizer = 'adam', loss = 'mean_absolute_error', metrics = ['mean_squared_error']) # Compile network with Adaptive moment estimation, and follow loss and accuracy
-history = network.fit(x3_1, y3_1, batch_size = 10, epochs = N_epochs) # Fitting the data to the train outcome, with batch size and number of epochs
-result = pd.DataFrame({'Loss': history.history['loss']})
-with pd.ExcelWriter('_fig//' + label_name + '//' + label_run + '//results.xlsx', mode = 'a', engine = 'openpyxl', if_sheet_exists = 'replace') as writer:  
-        result.to_excel(writer, sheet_name = label, index = False)
-
-#### Predict focus group
-y3_2_pred = network.predict(x3_2) # Predict values from test data
-OBS_10 = np.mean(y3_1) - np.mean(y3_2)
-KOB_10 = np.mean(y3_2_pred) - np.mean(y3_2)
-KOB_10
-
-### Export to Summary File
-text_md = open('_docs//' + label_name + '//' + label_run + '//summary.md', 'a')
-text_md.write('#### ' + step_4 + '\n')
-text_md.write(method_4 + '<br>\n')
+text_md.write('</pre>')
 text_md.write('\n')
-text_md.write('For training results, see ' + '_fig//' + label_name + '//' + label_run + '//results.xlsx' + '\n')
+text_md.write(str(KOB_5a) + '<br>\n')
+text_md.write('\n')
+text_md.write(str(result_5b) + '\n')
+text_md.write('\n')
+text_md.write('</pre>')
+text_md.write('\n')
+text_md.write(str(KOB_5b) + '<br>\n')
+text_md.write('\n')
+text_md.write(str(result_5c) + '\n')
+text_md.write('\n')
+text_md.write('</pre>')
+text_md.write('\n')
+text_md.write(str(KOB_5c) + '<br>\n')
 text_md.write('\n')
 text_md.write('##### ' + model_6 + '\n')
 text_md.write('\n')
-text_md.write('Absolute difference between groups: ' + str(OBS_6) + '<br>\n')
-text_md.write('Difference attributable to groups: ' + str(KOB_6) + '<br>\n')
+text_md.write(str(result_6) + '\n')
 text_md.write('\n')
-text_md.write('##### ' + model_7 + '\n')
+text_md.write('</pre>')
 text_md.write('\n')
-text_md.write('Absolute difference between groups: ' + str(OBS_7) + '<br>\n')
-text_md.write('Difference attributable to groups: ' + str(KOB_7) + '<br>\n')
-text_md.write('\n')
-text_md.write('##### ' + model_8 + '\n')
-text_md.write('\n')
-text_md.write('Absolute difference between groups: ' + str(OBS_8) + '<br>\n')
-text_md.write('Difference attributable to groups: ' + str(KOB_8) + '<br>\n')
-text_md.write('\n')
-text_md.write('##### ' + model_9 + '\n')
-text_md.write('\n')
-text_md.write('Absolute difference between groups: ' + str(OBS_9) + '<br>\n')
-text_md.write('Difference attributable to groups: ' + str(KOB_9) + '<br>\n')
-text_md.write('\n')
-text_md.write('##### ' + model_10 + '\n')
-text_md.write('\n')
-text_md.write('Absolute difference between groups: ' + str(OBS_10) + '<br>\n')
-text_md.write('Difference attributable to groups: ' + str(KOB_10) + '<br>\n')
+text_md.write(str(KOB_6) + '<br>\n')
 text_md.write('\n')
 text_md.close() # Close file
 
-### Save Results
-label = 'KOB'
-ls_model = [[model_1a, model_1b], model_2, model_3, model_4, model_5, model_6, model_7, model_8, model_9, model_10]
-ls_OBS = [OBS_1, OBS_2, OBS_3, OBS_4, OBS_5, OBS_6, OBS_7, OBS_8, OBS_9, OBS_10]
-ls_KOB = [KOB_1, KOB_2, KOB_3, KOB_4, KOB_5, KOB_6, KOB_7, KOB_8, KOB_9, KOB_10]
-result = pd.DataFrame({'Observed Difference per Person': ls_OBS, 'Kitigawa-Oaxaca-Blinder': ls_KOB, 'Machine Learning Model': ls_model})
-result.to_csv('_data//' + label_name + '//' + label_run + '//results_Q2.csv', index = False)
-with pd.ExcelWriter('_fig//' + label_name + '//' + label_run + '//results.xlsx', mode = 'a', engine = 'openpyxl', if_sheet_exists = 'replace') as writer:  
-        result.to_excel(writer, sheet_name = label, index = False)
+### Group Level Statistics
+XY = df_WXYZ.loc[:, df_WXYZ.columns.str.contains('PERSON_ID|YEAR|RACE|ICD10')].columns.to_list()
+df = df_WXYZ.filter(XY).groupby(['PERSON_ID', 'YEAR', 'RACE'], as_index = False).sum() # Keep selected columns and sum by key columns (keeping all as columns not index)
+df['PERSON_N'] = 1
+XY = df.loc[:, df.columns.str.contains('PERSON_N|RACE|ICD10')].columns.to_list()
+df = df.filter(XY).groupby(['RACE'], as_index = False).sum() # Keep selected columns and sum by key columns (keeping all as columns not index)
+df.columns
+for i in df.loc[:, df.columns.str.contains('ICD10')].columns.to_list(): df[i] = df[i]/df['PERSON_N']
+df['RACE'] = np.where(df['RACE'] == 1, 'HISPANIC',
+                    np.where(df['RACE'] == 2, 'WHITE',
+                        np.where(df['RACE'] == 3, 'BLACK',
+                            'ASIAN'))) # Create column based nested conditions
+df = df.transpose()
+df.columns = df.iloc[0]
+df = df.iloc[1:]
+df['DISPARITY_HISPANIC'] = (df['WHITE'] - df["HISPANIC"])
+df['DISPARITY_ASIAN'] = (df['WHITE'] - df['ASIAN'])
+df['DISPARITY_BLACK'] = (df['WHITE'] - df["BLACK"])
+df = df.sort_values(by = ['DISPARITY_BLACK'], ascending = False) # Sort dataframe by selected column in descending order
+df = df.iloc[1:]
+df.reset_index()
+df = df.rename(columns = {'index': 'Variable'}) # Rename selected columns with dictionary
+df.to_csv(r'_data/AIM3_disparity_ICD.csv', index = False) # Write dataframe to CSV
+desc_ICD = df
+
+### Group Level Statistics
+XY = df_WXYZ.loc[:, df_WXYZ.columns.str.contains('PERSON_ID|YEAR|RACE|VISIT')].columns.to_list()
+df = df_WXYZ.filter(XY).groupby(['PERSON_ID', 'YEAR', 'RACE'], as_index = False).sum() # Keep selected columns and sum by key columns (keeping all as columns not index)
+df['PERSON_N'] = 1
+XY = df.loc[:, df.columns.str.contains('PERSON_N|RACE|VISIT')].columns.to_list()
+df = df.filter(XY).groupby(['RACE'], as_index = False).sum() # Keep selected columns and sum by key columns (keeping all as columns not index)
+df.columns
+for i in df.loc[:, df.columns.str.contains('VISIT')].columns.to_list(): df[i] = df[i]/df['PERSON_N']
+df['RACE'] = np.where(df['RACE'] == 1, 'HISPANIC',
+                    np.where(df['RACE'] == 2, 'WHITE',
+                        np.where(df['RACE'] == 3, 'BLACK',
+                            'ASIAN'))) # Create column based nested conditions
+df = df.transpose()
+df.columns = df.iloc[0]
+df = df.iloc[1:]
+df['DISPARITY_HISPANIC'] = (df['WHITE'] - df["HISPANIC"])
+df['DISPARITY_ASIAN'] = (df['WHITE'] - df['ASIAN'])
+df['DISPARITY_BLACK'] = (df['WHITE'] - df["BLACK"])
+df = df.sort_values(by = ['DISPARITY_BLACK'], ascending = False) # Sort dataframe by selected column in descending order
+df = df.iloc[1:]
+df.reset_index()
+df = df.rename(columns = {'index': 'Variable'}) # Rename selected columns with dictionary
+df.to_csv(r'_data/AIM3_disparity_VISIT.csv', index = False) # Write dataframe to CSV
+desc_VISIT = df
+
+### Group Level Statistics
+XY = df_WXYZ.loc[:, df_WXYZ.columns.str.contains('PERSON_ID|YEAR|RACE|SDOH')].columns.to_list()
+df = df_WXYZ.filter(XY).groupby(['PERSON_ID', 'YEAR', 'RACE'], as_index = False).sum() # Keep selected columns and sum by key columns (keeping all as columns not index)
+df['PERSON_N'] = 1
+XY = df.loc[:, df.columns.str.contains('PERSON_N|RACE|SDOH')].columns.to_list()
+df = df.filter(XY).groupby(['RACE'], as_index = False).sum() # Keep selected columns and sum by key columns (keeping all as columns not index)
+df.columns
+for i in df.loc[:, df.columns.str.contains('SDOH')].columns.to_list(): df[i] = df[i]/df['PERSON_N']
+df['RACE'] = np.where(df['RACE'] == 1, 'HISPANIC',
+                    np.where(df['RACE'] == 2, 'WHITE',
+                        np.where(df['RACE'] == 3, 'BLACK',
+                            'ASIAN'))) # Create column based nested conditions
+df = df.transpose()
+df.columns = df.iloc[0]
+df = df.iloc[1:]
+df['DISPARITY_HISPANIC'] = (df['WHITE'] - df["HISPANIC"])
+df['DISPARITY_ASIAN'] = (df['WHITE'] - df['ASIAN'])
+df['DISPARITY_BLACK'] = (df['WHITE'] - df["BLACK"])
+df = df.sort_values(by = ['DISPARITY_BLACK'], ascending = False) # Sort dataframe by selected column in descending order
+df = df.iloc[1:]
+df.reset_index()
+df = df.rename(columns = {'index': 'Variable'}) # Rename selected columns with dictionary
+df.to_csv(r'_data/AIM3_disparity_SDOH.csv', index = False) # Write dataframe to CSV
+desc_SDOH = df
+
