@@ -9,6 +9,10 @@ QUERY = """
         , W.MARRY20X AS MARRY
         , W.HIDEG
         , W.FOODST20 AS FOODST
+        , W.RTHLTH53 AS HEALTH_STATUS
+        , W.TOTSLF20 AS PAID_OOP
+        , W.TOTPRV20 AS PAID_INS
+        , W.TOTSLF20 + W.TOTPRV20 AS ALWD_TOTAL
     FROM h224 W
     WHERE
         W.AGELAST > 18
@@ -24,6 +28,10 @@ QUERY = """
         , W.MARRY19X AS MARRY
         , W.HIDEG
         , W.FOODST19 AS FOODST
+        , W.RTHLTH53 AS HEALTH_STATUS
+        , W.TOTSLF19 AS PAID_OOP
+        , W.TOTPRV19 AS PAID_INS
+        , W.TOTSLF19 + W.TOTPRV19 AS ALWD_TOTAL
     FROM h216 W
     WHERE
         W.AGELAST > 18
@@ -39,6 +47,10 @@ QUERY = """
         , W.MARRY18X AS MARRY
         , W.HIDEG 
         , W.FOODST18 AS FOODST
+        , W.RTHLTH53 AS HEALTH_STATUS
+        , W.TOTSLF18 AS PAID_OOP
+        , W.TOTPRV18 AS PAID_INS
+        , W.TOTSLF18 + W.TOTPRV18 AS ALWD_TOTAL
     FROM h209 W
     WHERE
         W.AGELAST > 18
@@ -50,10 +62,11 @@ QUERY = """
 df_V = pd.read_sql_query(QUERY, db_con)
 df_V['PERSON_ID'] = df_V['PERSON_ID'].astype('int64')
 df_V['SDOH_FPL'] = df_V['POVLEV']
+df_V['HEALTH_BAD'] = np.where(df_V['HEALTH_STATUS'] <= 4.0, 1, 0) # Create column based on conditions
 df_V['SDOH_EDUCATION'] = np.where(df_V['HIDEG'] <= 3.0, 1, 0) # Create column based on conditions
 df_V['SDOH_MARITAL'] = np.where(df_V['MARRY'] > 1, 1, 0) # Create column based nested conditions
 df_V['SDOH_FOOD'] = np.where(df_V['FOODST'] == 1, 1, 0) # Create column based nested conditions
-df_V = df_V.filter(['PERSON_ID', 'YEAR', 'SDOH_FPL', 'SDOH_EDUCATION', 'SDOH_MARITAL', 'SDOH_FOOD']) # Keep selected columns
+df_V = df_V.filter(['PERSON_ID', 'YEAR', 'HEALTH_STATUS', 'HEALTH_BAD', 'PAID_OOP', 'PAID_INS', 'ALWD_TOTAL', 'SDOH_FPL', 'SDOH_EDUCATION', 'SDOH_MARITAL', 'SDOH_FOOD']) # Keep selected columns
 df_WXYZ = pd.read_csv('_data//' + label_name + '//' + label_run + '//analytical_Q2.csv')
 df_WXYZ = df_WXYZ.loc[:, ~df_WXYZ.columns.str.contains('SDOH')]
 df_VWXYZ = pd.merge(df_V, df_WXYZ, on = ['PERSON_ID', 'YEAR'], how = 'inner') # Inner join

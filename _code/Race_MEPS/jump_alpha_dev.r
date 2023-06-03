@@ -17,6 +17,7 @@ library(lmtest) # Linear model tests including Breusch Pagan
 library(lmerTest) # Linear mixed effect model tests allowing for Saittherwaier DOF and signficiance tests
 library(DescTools) # Descriptive statistics including Jarque-Bera, Andrerson-Darling, Durbin-Watson, Cronbach's Alpha
 library(performance) # Inter class correlation coefficient foir HLM
+library(twopartm) # Two part modeling 
 
 ### Machine Learning
 library(randomForest) # Popular random forest package for R

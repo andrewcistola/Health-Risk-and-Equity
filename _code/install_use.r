@@ -18,6 +18,7 @@ install.packages("lmtest") # Linear model tests including Breusch Pagan
 install.packages("lmerTest") # Linear mixed effect model tests allowing for Saittherwaite DOF and signficiance tests
 install.packages("DescTools") # Descriptive statistics including Jarque-Bera, Andrerson-Darling, Durbin-Watson, Cronbach's Alpha
 install.packages("performance") # Inter class correlation coefficient foir HLM
+install.packages("twopartm") # Two part modeling 
 
 ### Machine Learning
 install.packages("randomForest") # Popular random forest package for R
