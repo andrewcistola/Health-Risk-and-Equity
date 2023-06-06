@@ -747,6 +747,7 @@ dtypes: float64(353), int64(2)
 memory usage: 5.5 MB
 
 </pre>
+
 ###  Regression Modeling Result Summary 
 The following results were collected using  R version 4.2.2 (2022-10-31 ucrt) 
 
@@ -755,7 +756,7 @@ The following results were collected using  R version 4.2.2 (2022-10-31 ucrt)
 Source:  _data//Race_MEPS//alpha_dev_20221216152657//analytical_Q1.csv 
 
 W (ID variables):  PERSON_ID <br>
-X (Predictor variables):  NON_WHITE AGE SEX FPL_PERCENT CONDITIONS <br>
+X (Predictor variables):  RACE_GRP AGE SEX FPL_PERCENT CONDITIONS <br>
 Y (Outcome variables):  PAID_TOTAL ALWD_TOTAL <br>
 Z (Subgroup variables):  YEAR <br>
 
@@ -765,10 +766,10 @@ Z (Subgroup variables):  YEAR <br>
                            Values 
 Name                       df_WXYZ
 Number of rows             2024   
-Number of columns          383    
+Number of columns          378    
 _______________________           
 Column type frequency:            
-  numeric                  383    
+  numeric                  378    
 ________________________          
 Group variables            None   
 
@@ -1139,24 +1140,19 @@ Group variables            None
 363 ICD10_T88                 0             1 9.88e-4        0.0314  0      
 364 ICD10_U07                 0             1 9.88e-3        0.0989  0      
 365 CONDITIONS                0             1 2.29e+0        2.80    0      
-366 HISPANIC                  0             1 2.45e-1        0.430   0      
-367 WHITE                     0             1 5.48e-1        0.498   0      
-368 BLACK                     0             1 1.15e-1        0.319   0      
-369 ASIAN                     0             1 9.24e-2        0.290   0      
-370 OTHER                     0             1 0              0       0      
-371 NON_WHITE                 0             1 4.52e-1        0.498   0      
-372 PAID_raw                  0             1 4.34e+3    25899.      0      
-373 PAID_binary               0             1 6.31e-1        0.483   0      
-374 PAID_sqrt                 0             1 3.09e+1       58.2     0      
-375 PAID_ZERO                 0             1 4.34e+3    25899.      1   e-3
-376 PAID_log                  0             1 1.63e+0        6.77   -6.91e+0
-377 PAID_scale                0             1 1   e+0        5.96    2.30e-7
-378 ALWD_raw                  0             1 5.12e+3    17388.      0      
-379 ALWD_binary               0             1 8.45e-1        0.362   0      
-380 ALWD_sqrt                 0             1 4.57e+1       55.1     0      
-381 ALWD_ZERO                 0             1 5.12e+3    17388.      1   e-3
-382 ALWD_log                  0             1 5.04e+0        5.36   -6.91e+0
-383 ALWD_scale                0             1 1   e+0        3.40    1.95e-7
+366 RACE_GRP                  0             1 1.06e+0        1.28    0      
+367 PAID_raw                  0             1 4.34e+3    25899.      0      
+368 PAID_binary               0             1 6.31e-1        0.483   0      
+369 PAID_sqrt                 0             1 3.09e+1       58.2     0      
+370 PAID_ZERO                 0             1 4.34e+3    25899.      1   e-3
+371 PAID_log                  0             1 1.63e+0        6.77   -6.91e+0
+372 PAID_scale                0             1 1   e+0        5.96    2.30e-7
+373 ALWD_raw                  0             1 5.12e+3    17388.      0      
+374 ALWD_binary               0             1 8.45e-1        0.362   0      
+375 ALWD_sqrt                 0             1 4.57e+1       55.1     0      
+376 ALWD_ZERO                 0             1 5.12e+3    17388.      1   e-3
+377 ALWD_log                  0             1 5.04e+0        5.36   -6.91e+0
+378 ALWD_scale                0             1 1   e+0        3.40    1.95e-7
          p25     p50     p75         p100 hist 
   1  2.32e+9 2.33e+9 2.46e+9 2579815101   ▇▁▂▂▁
   2  2.02e+3 2.02e+3 2.02e+3       2020   ▇▁▇▁▇
@@ -1523,24 +1519,19 @@ Group variables            None
 363  0       0       0                1   ▇▁▁▁▁
 364  0       0       0                1   ▇▁▁▁▁
 365  0       1   e+0 3   e+0         25   ▇▁▁▁▁
-366  0       0       0                1   ▇▁▁▁▂
-367  0       1   e+0 1   e+0          1   ▆▁▁▁▇
-368  0       0       0                1   ▇▁▁▁▁
-369  0       0       0                1   ▇▁▁▁▁
-370  0       0       0                0   ▁▁▇▁▁
-371  0       0       1   e+0          1   ▇▁▁▁▆
-372  0       1.44e+2 1.39e+3     788296.  ▇▁▁▁▁
-373  0       1   e+0 1   e+0          1   ▅▁▁▁▇
-374  0       1.20e+1 3.72e+1        888.  ▇▁▁▁▁
-375  1   e-3 1.44e+2 1.39e+3     788296.  ▇▁▁▁▁
-376 -6.91e+0 4.97e+0 7.24e+0         13.6 ▇▁▃▇▁
-377  2.30e-7 3.32e-2 3.19e-1        182.  ▇▁▁▁▁
-378  1.70e+2 9.64e+2 3.38e+3     290708   ▇▁▁▁▁
-379  1   e+0 1   e+0 1   e+0          1   ▂▁▁▁▇
-380  1.30e+1 3.11e+1 5.81e+1        539.  ▇▁▁▁▁
-381  1.70e+2 9.64e+2 3.38e+3     290708   ▇▁▁▁▁
-382  5.13e+0 6.87e+0 8.13e+0         12.6 ▂▁▁▇▂
-383  3.32e-2 1.88e-1 6.60e-1         56.8 ▇▁▁▁▁
+366  0       0       2   e+0          3   ▇▂▁▂▃
+367  0       1.44e+2 1.39e+3     788296.  ▇▁▁▁▁
+368  0       1   e+0 1   e+0          1   ▅▁▁▁▇
+369  0       1.20e+1 3.72e+1        888.  ▇▁▁▁▁
+370  1   e-3 1.44e+2 1.39e+3     788296.  ▇▁▁▁▁
+371 -6.91e+0 4.97e+0 7.24e+0         13.6 ▇▁▃▇▁
+372  2.30e-7 3.32e-2 3.19e-1        182.  ▇▁▁▁▁
+373  1.70e+2 9.64e+2 3.38e+3     290708   ▇▁▁▁▁
+374  1   e+0 1   e+0 1   e+0          1   ▂▁▁▁▇
+375  1.30e+1 3.11e+1 5.81e+1        539.  ▇▁▁▁▁
+376  1.70e+2 9.64e+2 3.38e+3     290708   ▇▁▁▁▁
+377  5.13e+0 6.87e+0 8.13e+0         12.6 ▂▁▁▇▂
+378  3.32e-2 1.88e-1 6.60e-1         56.8 ▇▁▁▁▁
 
 </pre>
 
@@ -1556,22 +1547,24 @@ lm(formula = F, data = D)
 
 Residuals:
      Min       1Q   Median       3Q      Max 
--24.4085  -4.8811   0.8782   4.5915  13.2833 
+-24.4063  -4.9090   0.9069   4.5975  13.2807 
 
 Coefficients:
-              Estimate Std. Error t value Pr(>|t|)    
-(Intercept) -2.2940849  0.6000889  -3.823 0.000136 ***
-NON_WHITE   -1.0150293  0.2440262  -4.160 3.32e-05 ***
-AGE          0.0157353  0.0091808   1.714 0.086695 .  
-SEX          0.3416215  0.2445122   1.397 0.162520    
-FPL_PERCENT -0.0004224  0.0003952  -1.069 0.285342    
-CONDITIONS   1.4278794  0.0452794  31.535  < 2e-16 ***
+                    Estimate Std. Error t value Pr(>|t|)    
+(Intercept)       -2.2916126  0.6016485  -3.809 0.000144 ***
+factor(RACE_GRP)1 -0.7825497  0.4255397  -1.839 0.066068 .  
+factor(RACE_GRP)2 -0.9349368  0.3860751  -2.422 0.015538 *  
+factor(RACE_GRP)3 -1.1450908  0.2949438  -3.882 0.000107 ***
+AGE                0.0160507  0.0092236   1.740 0.081982 .  
+SEX                0.3392768  0.2446231   1.387 0.165614    
+FPL_PERCENT       -0.0004535  0.0003977  -1.140 0.254353    
+CONDITIONS         1.4273029  0.0454043  31.435  < 2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 5.297 on 2018 degrees of freedom
-Multiple R-squared:  0.3885,	Adjusted R-squared:  0.387 
-F-statistic: 256.4 on 5 and 2018 DF,  p-value: < 2.2e-16
+Residual standard error: 5.299 on 2016 degrees of freedom
+Multiple R-squared:  0.3887,	Adjusted R-squared:  0.3866 
+F-statistic: 183.1 on 7 and 2016 DF,  p-value: < 2.2e-16
 
 
 </pre>
@@ -1583,7 +1576,7 @@ F-statistic: 256.4 on 5 and 2018 DF,  p-value: < 2.2e-16
 	Rainbow test
 
 data:  OLS
-Rain = 0.98729, df1 = 1012, df2 = 1006, p-value = 0.5805
+Rain = 0.98924, df1 = 1012, df2 = 1004, p-value = 0.5682
 
 [1] "Significant = Non-linearity"
 
@@ -1596,7 +1589,7 @@ Rain = 0.98729, df1 = 1012, df2 = 1006, p-value = 0.5805
 	Robust Jarque Bera Test
 
 data:  resid(OLS)
-X-squared = 88.531, df = 2, p-value < 2.2e-16
+X-squared = 88.685, df = 2, p-value < 2.2e-16
 
 [1] "Significant = Non-normal"
 
@@ -1622,7 +1615,7 @@ An = Inf, p-value = 2.964e-07
 	Durbin-Watson test
 
 data:  OLS
-DW = 1.9245, p-value = 0.04356
+DW = 1.9247, p-value = 0.04292
 alternative hypothesis: true autocorrelation is greater than 0
 
 [1] "Signficiant = Autocorrelation"
@@ -1637,7 +1630,7 @@ alternative hypothesis: true autocorrelation is greater than 0
 	studentized Breusch-Pagan test
 
 data:  OLS
-BP = 42.021, df = 5, p-value = 5.833e-08
+BP = 45.849, df = 7, p-value = 9.355e-08
 
 [1] "Signficiant = Homoscedastic"
 
@@ -1651,7 +1644,7 @@ BP = 42.021, df = 5, p-value = 5.833e-08
 	Goldfeld-Quandt test
 
 data:  OLS
-GQ = 0.9924, df1 = 1006, df2 = 1006, p-value = 0.5482
+GQ = 0.99406, df1 = 1004, df2 = 1004, p-value = 0.5376
 alternative hypothesis: variance increases from segment 1 to 2
 
 [1] "Signficiant = Heteroscedastic"
@@ -1672,22 +1665,24 @@ lm(formula = F, data = D)
 
 Residuals:
     Min      1Q  Median      3Q     Max 
--125.75  -15.83   -7.91   -0.77  813.20 
+-125.95  -15.76   -7.87   -0.54  813.15 
 
 Coefficients:
-             Estimate Std. Error t value Pr(>|t|)    
-(Intercept) 20.500363   5.730557   3.577 0.000355 ***
-NON_WHITE   -4.637047   2.330332  -1.990 0.046740 *  
-AGE         -0.062916   0.087673  -0.718 0.473074    
-SEX         -5.068871   2.334972  -2.171 0.030059 *  
-FPL_PERCENT -0.001002   0.003774  -0.265 0.790683    
-CONDITIONS  10.388033   0.432396  24.024  < 2e-16 ***
+                   Estimate Std. Error t value Pr(>|t|)    
+(Intercept)       20.301055   5.745951   3.533  0.00042 ***
+factor(RACE_GRP)1 -2.877173   4.064051  -0.708  0.47905    
+factor(RACE_GRP)2 -5.851196   3.687150  -1.587  0.11269    
+factor(RACE_GRP)3 -4.720673   2.816815  -1.676  0.09391 .  
+AGE               -0.058062   0.088089  -0.659  0.50988    
+SEX               -5.061268   2.336235  -2.166  0.03040 *  
+FPL_PERCENT       -0.001208   0.003799  -0.318  0.75050    
+CONDITIONS        10.402128   0.433627  23.989  < 2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 50.59 on 2018 degrees of freedom
-Multiple R-squared:  0.2473,	Adjusted R-squared:  0.2455 
-F-statistic: 132.6 on 5 and 2018 DF,  p-value: < 2.2e-16
+Residual standard error: 50.61 on 2016 degrees of freedom
+Multiple R-squared:  0.2475,	Adjusted R-squared:  0.2449 
+F-statistic: 94.71 on 7 and 2016 DF,  p-value: < 2.2e-16
 
 
 </pre>
@@ -1699,7 +1694,7 @@ F-statistic: 132.6 on 5 and 2018 DF,  p-value: < 2.2e-16
 	Rainbow test
 
 data:  OLS
-Rain = 0.64372, df1 = 1012, df2 = 1006, p-value = 1
+Rain = 0.64249, df1 = 1012, df2 = 1004, p-value = 1
 
 [1] "Significant = Non-linearity"
 
@@ -1712,7 +1707,7 @@ Rain = 0.64372, df1 = 1012, df2 = 1006, p-value = 1
 	Robust Jarque Bera Test
 
 data:  resid(OLS)
-X-squared = 16449832, df = 2, p-value < 2.2e-16
+X-squared = 16478611, df = 2, p-value < 2.2e-16
 
 [1] "Significant = Non-normal"
 
@@ -1738,7 +1733,7 @@ An = Inf, p-value = 2.964e-07
 	Durbin-Watson test
 
 data:  OLS
-DW = 2.013, p-value = 0.6107
+DW = 2.0122, p-value = 0.5993
 alternative hypothesis: true autocorrelation is greater than 0
 
 [1] "Signficiant = Autocorrelation"
@@ -1753,7 +1748,7 @@ alternative hypothesis: true autocorrelation is greater than 0
 	studentized Breusch-Pagan test
 
 data:  OLS
-BP = 40.807, df = 5, p-value = 1.026e-07
+BP = 41.16, df = 7, p-value = 7.542e-07
 
 [1] "Signficiant = Homoscedastic"
 
@@ -1767,7 +1762,7 @@ BP = 40.807, df = 5, p-value = 1.026e-07
 	Goldfeld-Quandt test
 
 data:  OLS
-GQ = 0.92879, df1 = 1006, df2 = 1006, p-value = 0.8792
+GQ = 0.92786, df1 = 1004, df2 = 1004, p-value = 0.8822
 alternative hypothesis: variance increases from segment 1 to 2
 
 [1] "Signficiant = Heteroscedastic"
@@ -1783,29 +1778,31 @@ alternative hypothesis: variance increases from segment 1 to 2
 $Firstpart.model
 
 Call:
-glm(formula = nonzero ~ NON_WHITE + AGE + SEX + FPL_PERCENT + 
+glm(formula = nonzero ~ factor(RACE_GRP) + AGE + SEX + FPL_PERCENT + 
     CONDITIONS, family = binomial(link = "logit"), data = D)
 
 Deviance Residuals: 
     Min       1Q   Median       3Q      Max  
--5.3547  -0.5765   0.0222   0.4258   2.1284  
+-5.3663  -0.5740   0.0214   0.4213   2.1462  
 
 Coefficients:
-              Estimate Std. Error z value Pr(>|z|)    
-(Intercept) -1.2286588  0.3329280  -3.690 0.000224 ***
-NON_WHITE   -0.2056304  0.1411403  -1.457 0.145138    
-AGE         -0.0058846  0.0052915  -1.112 0.266105    
-SEX          0.0622418  0.1391154   0.447 0.654578    
-FPL_PERCENT -0.0005318  0.0002375  -2.239 0.025166 *  
-CONDITIONS   1.9882384  0.0983395  20.218  < 2e-16 ***
+                    Estimate Std. Error z value Pr(>|z|)    
+(Intercept)       -1.2530513  0.3336592  -3.755 0.000173 ***
+factor(RACE_GRP)1  0.0503273  0.2249554   0.224 0.822974    
+factor(RACE_GRP)2 -0.4463839  0.2373030  -1.881 0.059962 .  
+factor(RACE_GRP)3 -0.2243608  0.1678113  -1.337 0.181228    
+AGE               -0.0053279  0.0053104  -1.003 0.315716    
+SEX                0.0654245  0.1393175   0.470 0.638636    
+FPL_PERCENT       -0.0005659  0.0002396  -2.362 0.018171 *  
+CONDITIONS         1.9994220  0.0988893  20.219  < 2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 (Dispersion parameter for binomial family taken to be 1)
 
     Null deviance: 2665.4  on 2023  degrees of freedom
-Residual deviance: 1320.5  on 2018  degrees of freedom
-AIC: 1332.5
+Residual deviance: 1317.7  on 2016  degrees of freedom
+AIC: 1333.7
 
 Number of Fisher Scoring iterations: 7
 
@@ -1813,31 +1810,33 @@ Number of Fisher Scoring iterations: 7
 $Secondpart.model
 
 Call:
-glm(formula = Y_raw ~ NON_WHITE + AGE + SEX + FPL_PERCENT + CONDITIONS, 
-    family = poisson(link = "log"), data = D)
+glm(formula = PAID_raw ~ factor(RACE_GRP) + AGE + SEX + FPL_PERCENT + 
+    CONDITIONS, family = poisson(link = "log"), data = D)
 
 Deviance Residuals: 
     Min       1Q   Median       3Q      Max  
--402.69   -94.48   -76.28   -44.64  2368.18  
+-396.51   -94.55   -76.63   -44.47  2353.17  
 
 Coefficients:
-              Estimate Std. Error z value Pr(>|z|)    
-(Intercept)  8.996e+00  1.858e-03 4841.73   <2e-16 ***
-NON_WHITE   -8.465e-02  7.213e-04 -117.34   <2e-16 ***
-AGE         -3.036e-03  2.840e-05 -106.90   <2e-16 ***
-SEX         -4.353e-01  7.286e-04 -597.42   <2e-16 ***
-FPL_PERCENT -5.337e-05  1.212e-06  -44.02   <2e-16 ***
-CONDITIONS   1.677e-01  6.957e-05 2410.62   <2e-16 ***
+                    Estimate Std. Error z value Pr(>|z|)    
+(Intercept)        9.021e+00  1.862e-03 4844.91   <2e-16 ***
+factor(RACE_GRP)1 -2.931e-01  1.649e-03 -177.71   <2e-16 ***
+factor(RACE_GRP)2 -7.431e-02  1.125e-03  -66.03   <2e-16 ***
+factor(RACE_GRP)3 -3.475e-02  8.815e-04  -39.42   <2e-16 ***
+AGE               -3.492e-03  2.859e-05 -122.17   <2e-16 ***
+SEX               -4.370e-01  7.289e-04 -599.52   <2e-16 ***
+FPL_PERCENT       -4.142e-05  1.217e-06  -34.03   <2e-16 ***
+CONDITIONS         1.672e-01  6.968e-05 2400.17   <2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 (Dispersion parameter for poisson family taken to be 1)
 
     Null deviance: 34770303  on 1276  degrees of freedom
-Residual deviance: 30270956  on 1271  degrees of freedom
+Residual deviance: 30248433  on 1269  degrees of freedom
 AIC: Inf
 
-Number of Fisher Scoring iterations: 7
+Number of Fisher Scoring iterations: 8
 
 
 
@@ -1856,23 +1855,25 @@ Call:
 lm(formula = F, data = D)
 
 Residuals:
-    Min      1Q  Median      3Q     Max 
--15.636  -0.868   1.380   2.945   8.779 
+     Min       1Q   Median       3Q      Max 
+-15.6349  -0.9061   1.3836   2.9285   8.7662 
 
 Coefficients:
-             Estimate Std. Error t value Pr(>|t|)    
-(Intercept)  0.531899   0.519213   1.024  0.30575    
-NON_WHITE   -1.672911   0.211138  -7.923 3.79e-15 ***
-AGE          0.037607   0.007943   4.734 2.35e-06 ***
-SEX          0.874644   0.211559   4.134 3.71e-05 ***
-FPL_PERCENT  0.001000   0.000342   2.925  0.00348 ** 
-CONDITIONS   0.786194   0.039177  20.068  < 2e-16 ***
+                    Estimate Std. Error t value Pr(>|t|)    
+(Intercept)        0.5515043  0.5195815   1.061  0.28862    
+factor(RACE_GRP)1 -1.0519090  0.3674945  -2.862  0.00425 ** 
+factor(RACE_GRP)2 -1.3504050  0.3334131  -4.050 5.31e-05 ***
+factor(RACE_GRP)3 -2.0740609  0.2547124  -8.143 6.69e-16 ***
+AGE                0.0383027  0.0079655   4.809 1.63e-06 ***
+SEX                0.8668685  0.2112556   4.103 4.23e-05 ***
+FPL_PERCENT        0.0009156  0.0003435   2.666  0.00775 ** 
+CONDITIONS         0.7835528  0.0392110  19.983  < 2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 4.583 on 2018 degrees of freedom
-Multiple R-squared:  0.2699,	Adjusted R-squared:  0.2681 
-F-statistic: 149.2 on 5 and 2018 DF,  p-value: < 2.2e-16
+Residual standard error: 4.576 on 2016 degrees of freedom
+Multiple R-squared:  0.2729,	Adjusted R-squared:  0.2704 
+F-statistic: 108.1 on 7 and 2016 DF,  p-value: < 2.2e-16
 
 
 </pre>
@@ -1884,7 +1885,7 @@ F-statistic: 149.2 on 5 and 2018 DF,  p-value: < 2.2e-16
 	Rainbow test
 
 data:  OLS
-Rain = 1.0495, df1 = 1012, df2 = 1006, p-value = 0.2216
+Rain = 1.0487, df1 = 1012, df2 = 1004, p-value = 0.2253
 
 [1] "Significant = Non-linearity"
 
@@ -1897,7 +1898,7 @@ Rain = 1.0495, df1 = 1012, df2 = 1006, p-value = 0.2216
 	Robust Jarque Bera Test
 
 data:  resid(OLS)
-X-squared = 1373.1, df = 2, p-value < 2.2e-16
+X-squared = 1367.7, df = 2, p-value < 2.2e-16
 
 [1] "Significant = Non-normal"
 
@@ -1923,7 +1924,7 @@ An = Inf, p-value = 2.964e-07
 	Durbin-Watson test
 
 data:  OLS
-DW = 1.8107, p-value = 9.686e-06
+DW = 1.8176, p-value = 1.822e-05
 alternative hypothesis: true autocorrelation is greater than 0
 
 [1] "Signficiant = Autocorrelation"
@@ -1938,7 +1939,7 @@ alternative hypothesis: true autocorrelation is greater than 0
 	studentized Breusch-Pagan test
 
 data:  OLS
-BP = 233.71, df = 5, p-value < 2.2e-16
+BP = 238.2, df = 7, p-value < 2.2e-16
 
 [1] "Signficiant = Homoscedastic"
 
@@ -1952,7 +1953,7 @@ BP = 233.71, df = 5, p-value < 2.2e-16
 	Goldfeld-Quandt test
 
 data:  OLS
-GQ = 0.94324, df1 = 1006, df2 = 1006, p-value = 0.8229
+GQ = 0.95576, df1 = 1004, df2 = 1004, p-value = 0.7632
 alternative hypothesis: variance increases from segment 1 to 2
 
 [1] "Signficiant = Heteroscedastic"
@@ -1971,22 +1972,24 @@ lm(formula = F, data = D)
 
 Residuals:
     Min      1Q  Median      3Q     Max 
--128.29  -20.53  -11.04    7.75  483.43 
+-127.93  -20.73  -10.94    7.87  484.76 
 
 Coefficients:
-             Estimate Std. Error t value Pr(>|t|)    
-(Intercept) 21.539786   5.264013   4.092 4.45e-05 ***
-NON_WHITE   -9.436029   2.140612  -4.408 1.10e-05 ***
-AGE          0.094622   0.080535   1.175   0.2402    
-SEX         -1.131351   2.144875  -0.527   0.5979    
-FPL_PERCENT  0.007997   0.003467   2.307   0.0212 *  
-CONDITIONS  10.080718   0.397193  25.380  < 2e-16 ***
+                    Estimate Std. Error t value Pr(>|t|)    
+(Intercept)        21.237551   5.276400   4.025 5.91e-05 ***
+factor(RACE_GRP)1  -5.493820   3.731943  -1.472  0.14115    
+factor(RACE_GRP)2 -10.951532   3.385842  -3.235  0.00124 ** 
+factor(RACE_GRP)3 -10.219342   2.586629  -3.951 8.06e-05 ***
+AGE                 0.103863   0.080890   1.284  0.19929    
+SEX                -1.131091   2.145321  -0.527  0.59809    
+FPL_PERCENT         0.007516   0.003488   2.155  0.03130 *  
+CONDITIONS         10.100082   0.398192  25.365  < 2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 46.47 on 2018 degrees of freedom
-Multiple R-squared:  0.2903,	Adjusted R-squared:  0.2885 
-F-statistic: 165.1 on 5 and 2018 DF,  p-value: < 2.2e-16
+Residual standard error: 46.47 on 2016 degrees of freedom
+Multiple R-squared:  0.2908,	Adjusted R-squared:  0.2884 
+F-statistic: 118.1 on 7 and 2016 DF,  p-value: < 2.2e-16
 
 
 </pre>
@@ -1998,7 +2001,7 @@ F-statistic: 165.1 on 5 and 2018 DF,  p-value: < 2.2e-16
 	Rainbow test
 
 data:  OLS
-Rain = 0.77213, df1 = 1012, df2 = 1006, p-value = 1
+Rain = 0.77171, df1 = 1012, df2 = 1004, p-value = 1
 
 [1] "Significant = Non-linearity"
 
@@ -2011,7 +2014,7 @@ Rain = 0.77213, df1 = 1012, df2 = 1006, p-value = 1
 	Robust Jarque Bera Test
 
 data:  resid(OLS)
-X-squared = 558954, df = 2, p-value < 2.2e-16
+X-squared = 569242, df = 2, p-value < 2.2e-16
 
 [1] "Significant = Non-normal"
 
@@ -2037,7 +2040,7 @@ An = Inf, p-value = 2.964e-07
 	Durbin-Watson test
 
 data:  OLS
-DW = 2.0212, p-value = 0.6789
+DW = 2.019, p-value = 0.6568
 alternative hypothesis: true autocorrelation is greater than 0
 
 [1] "Signficiant = Autocorrelation"
@@ -2052,7 +2055,7 @@ alternative hypothesis: true autocorrelation is greater than 0
 	studentized Breusch-Pagan test
 
 data:  OLS
-BP = 51.382, df = 5, p-value = 7.223e-10
+BP = 51.25, df = 7, p-value = 8.203e-09
 
 [1] "Signficiant = Homoscedastic"
 
@@ -2066,7 +2069,7 @@ BP = 51.382, df = 5, p-value = 7.223e-10
 	Goldfeld-Quandt test
 
 data:  OLS
-GQ = 0.87219, df1 = 1006, df2 = 1006, p-value = 0.9849
+GQ = 0.87266, df1 = 1004, df2 = 1004, p-value = 0.9845
 alternative hypothesis: variance increases from segment 1 to 2
 
 [1] "Signficiant = Heteroscedastic"
@@ -2082,29 +2085,31 @@ alternative hypothesis: variance increases from segment 1 to 2
 $Firstpart.model
 
 Call:
-glm(formula = nonzero ~ NON_WHITE + AGE + SEX + FPL_PERCENT + 
+glm(formula = nonzero ~ factor(RACE_GRP) + AGE + SEX + FPL_PERCENT + 
     CONDITIONS, family = binomial(link = "logit"), data = D)
 
 Deviance Residuals: 
     Min       1Q   Median       3Q      Max  
--6.1161   0.0000   0.0232   0.2209   1.5515  
+-6.1232   0.0000   0.0233   0.2174   1.6272  
 
 Coefficients:
-              Estimate Std. Error z value Pr(>|z|)    
-(Intercept) -0.7156364  0.3823376  -1.872  0.06124 .  
-NON_WHITE   -0.8730683  0.1638364  -5.329 9.88e-08 ***
-AGE          0.0111123  0.0059595   1.865  0.06223 .  
-SEX          0.4975721  0.1593653   3.122  0.00179 ** 
-FPL_PERCENT  0.0004678  0.0002953   1.584  0.11311    
-CONDITIONS   3.5231967  0.3249341  10.843  < 2e-16 ***
+                    Estimate Std. Error z value Pr(>|z|)    
+(Intercept)       -0.6930920  0.3834015  -1.808  0.07065 .  
+factor(RACE_GRP)1 -0.4699095  0.2465325  -1.906  0.05664 .  
+factor(RACE_GRP)2 -0.8242859  0.2704311  -3.048  0.00230 ** 
+factor(RACE_GRP)3 -1.0710219  0.1890479  -5.665 1.47e-08 ***
+AGE                0.0117192  0.0059876   1.957  0.05032 .  
+SEX                0.4917029  0.1600139   3.073  0.00212 ** 
+FPL_PERCENT        0.0003650  0.0002978   1.226  0.22037    
+CONDITIONS         3.5305403  0.3253011  10.853  < 2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 (Dispersion parameter for binomial family taken to be 1)
 
     Null deviance: 1743.40  on 2023  degrees of freedom
-Residual deviance:  943.08  on 2018  degrees of freedom
-AIC: 955.08
+Residual deviance:  937.41  on 2016  degrees of freedom
+AIC: 953.41
 
 Number of Fisher Scoring iterations: 10
 
@@ -2112,29 +2117,31 @@ Number of Fisher Scoring iterations: 10
 $Secondpart.model
 
 Call:
-glm(formula = ALWD_TOTAL ~ NON_WHITE + AGE + SEX + FPL_PERCENT + 
+glm(formula = ALWD_TOTAL ~ factor(RACE_GRP) + AGE + SEX + FPL_PERCENT + 
     CONDITIONS, family = poisson(link = "log"), data = D)
 
 Deviance Residuals: 
     Min       1Q   Median       3Q      Max  
--414.23   -75.64   -58.87   -23.47  1337.09  
+-419.08   -75.65   -58.24   -22.73  1316.69  
 
 Coefficients:
-              Estimate Std. Error z value Pr(>|z|)    
-(Intercept)  8.411e+00  1.718e-03  4895.5   <2e-16 ***
-NON_WHITE   -1.960e-01  6.741e-04  -290.8   <2e-16 ***
-AGE          2.650e-03  2.634e-05   100.6   <2e-16 ***
-SEX         -2.419e-01  6.725e-04  -359.7   <2e-16 ***
-FPL_PERCENT  9.931e-05  1.008e-06    98.5   <2e-16 ***
-CONDITIONS   1.619e-01  6.439e-05  2515.1   <2e-16 ***
+                    Estimate Std. Error z value Pr(>|z|)    
+(Intercept)        8.401e+00  1.724e-03 4872.49   <2e-16 ***
+factor(RACE_GRP)1 -1.144e-01  1.334e-03  -85.71   <2e-16 ***
+factor(RACE_GRP)2 -1.012e-01  1.028e-03  -98.50   <2e-16 ***
+factor(RACE_GRP)3 -2.824e-01  8.732e-04 -323.38   <2e-16 ***
+AGE                2.770e-03  2.650e-05  104.52   <2e-16 ***
+SEX               -2.408e-01  6.719e-04 -358.35   <2e-16 ***
+FPL_PERCENT        9.714e-05  1.011e-06   96.11   <2e-16 ***
+CONDITIONS         1.625e-01  6.464e-05 2514.20   <2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 (Dispersion parameter for poisson family taken to be 1)
 
     Null deviance: 29150742  on 1710  degrees of freedom
-Residual deviance: 23893688  on 1705  degrees of freedom
-AIC: 23909218
+Residual deviance: 23867171  on 1703  degrees of freedom
+AIC: 23882705
 
 Number of Fisher Scoring iterations: 7
 
@@ -2142,7 +2149,7 @@ Number of Fisher Scoring iterations: 7
 
 </pre>
 
-### Machine Learning Result Summary
+### Machine Learning Result Summary (ASIAN)
 Various machine learning models were trained on a reference population and then used to predict values from a focus populaiton. The difference in predicted to actual values for the focus group then to reflects the impact of group identification. This is an adaptation of the Kitigawa-Oaxaca-Blinder method.<br>
 The following results used the scikit-learn and keras libraries for Python version 3.9.13 (tags/v3.9.13:6de2ca5, May 17 2022, 16:36:42) [MSC v.1929 64 bit (AMD64)]
 
@@ -2153,7 +2160,7 @@ W (ID variables): PERSON_ID<br>
 Z (Subgroup variables): YEAR<br>
 
 Reference group: Non-Hispanic White (RACETH == 2)<br>
-Focus group: Not Non-Hispanic White (RACETH != 2)<br>
+Focus group: Not Non-Hispanic White (RACETH == 4)<br>
 
 
 <pre>
@@ -2165,10 +2172,8 @@ memory usage: 5.6 MB
 
 ##### Linear Regression Model for All Groups
 
-      WHITE  ...  CONDITIONS
-0  0.434167  ...    0.284923
-
-[1 rows x 5 columns]
+      WHITE       AGE      SEX  SDOH_FPL  CONDITIONS
+0  0.434167  0.000701  0.02779  0.000566    0.284923
 
 </pre>
 
@@ -2180,49 +2185,49 @@ memory usage: 5.6 MB
 0 -0.010835 -0.770117    0.639617 -0.000826
 
 </pre>
-['White Average = 5.5123', 'Non-White Average = 5.1205', 'Non-White Predicted = 5.2745', 'Difference in Bs = 0.3919', 'Difference in Xs = 0.154', 'R-squared + 0.1956']<br>
+['White Average = 5.5123', 'Non-White Average = 5.562', 'Non-White Predicted = 4.94', 'Difference in Bs = -0.0497', 'Difference in Xs = -0.622', 'R-squared + 0.1956']<br>
 
         Variables  Importances
-0        SDOH_FPL     0.582250
-4             AGE     0.269482
-1  SDOH_EDUCATION     0.053430
-5             SEX     0.042507
-2    SDOH_MARITAL     0.042317
-3       SDOH_FOOD     0.010013
+0        SDOH_FPL     0.584608
+4             AGE     0.268133
+1  SDOH_EDUCATION     0.053495
+2    SDOH_MARITAL     0.041899
+5             SEX     0.041778
+3       SDOH_FOOD     0.010087
 
 </pre>
-['White Average = 5.5123', 'Non-White Average = 5.1205', 'Non-White Predicted = 5.4783', 'Difference in Bs = 0.3919', 'Difference in Xs = 0.3579', 'R-squared + 0.5723']<br>
+['White Average = 5.5123', 'Non-White Average = 5.562', 'Non-White Predicted = 5.2725', 'Difference in Bs = -0.0497', 'Difference in Xs = -0.2895', 'R-squared + 0.5717']<br>
 
      Variables  Importances
-0          AGE     0.100938
-53   ICD10_E78     0.086533
-63   ICD10_F32     0.063301
-201  ICD10_M19     0.054986
-204  ICD10_M25     0.035454
+0          AGE     0.100108
+53   ICD10_E78     0.086701
+63   ICD10_F32     0.062884
+201  ICD10_M19     0.055748
+66   ICD10_F41     0.035373
 ..         ...          ...
-254  ICD10_O03     0.000000
-258  ICD10_R03     0.000000
-282  ICD10_R50     0.000000
-286  ICD10_R55     0.000000
+126  ICD10_I87     0.000000
+84   ICD10_G58     0.000000
 203  ICD10_M23     0.000000
+237  ICD10_N41     0.000000
+254  ICD10_O03     0.000000
 
 [336 rows x 2 columns]
 
 </pre>
-['White Average = 5.5123', 'Non-White Average = 5.1205', 'Non-White Predicted = 5.2803', 'Difference in Bs = 0.3919', 'Difference in Xs = 0.1598', 'R-squared + 0.3285']<br>
+['White Average = 5.5123', 'Non-White Average = 5.562', 'Non-White Predicted = 5.1566', 'Difference in Bs = -0.0497', 'Difference in Xs = -0.4054', 'R-squared + 0.3279']<br>
 
            Variables  Importances
-5      OFFICE_VISITS     0.303003
-7          RX_VISITS     0.287500
-0                AGE     0.228124
-6  OUTPATIENT_VISITS     0.068909
-2          ER_VISITS     0.049892
-4   INPATIENT_VISITS     0.030930
-1                SEX     0.030563
-3        HOME_VISITS     0.001079
+5      OFFICE_VISITS     0.303700
+7          RX_VISITS     0.288776
+0                AGE     0.227729
+6  OUTPATIENT_VISITS     0.067518
+2          ER_VISITS     0.049853
+4   INPATIENT_VISITS     0.030946
+1                SEX     0.030440
+3        HOME_VISITS     0.001040
 
 </pre>
-['White Average = 5.5123', 'Non-White Average = 5.1205', 'Non-White Predicted = 4.7862', 'Difference in Bs = 0.3919', 'Difference in Xs = -0.3343', 'R-squared + 0.8053']<br>
+['White Average = 5.5123', 'Non-White Average = 5.562', 'Non-White Predicted = 4.6179', 'Difference in Bs = -0.0497', 'Difference in Xs = -0.9441', 'R-squared + 0.8038']<br>
 
 ##### Gradient Boosting
 
@@ -2235,7 +2240,7 @@ memory usage: 5.6 MB
 3       SDOH_FOOD     0.014133
 
 </pre>
-['White Average = 5.5123', 'Non-White Average = 5.1205', 'Non-White Predicted = 5.6191', 'Difference in Bs = 0.3919', 'Difference in Xs = 0.4986', 'R-squared + 0.2893']<br>
+['White Average = 5.5123', 'Non-White Average = 5.562', 'Non-White Predicted = 5.465', 'Difference in Bs = -0.0497', 'Difference in Xs = -0.097', 'R-squared + 0.2893']<br>
 
      Variables  Importances
 53   ICD10_E78     0.082688
@@ -2253,7 +2258,7 @@ memory usage: 5.6 MB
 [336 rows x 2 columns]
 
 </pre>
-['White Average = 5.5123', 'Non-White Average = 5.1205', 'Non-White Predicted = 5.3086', 'Difference in Bs = 0.3919', 'Difference in Xs = 0.1881', 'R-squared + 0.3005']<br>
+['White Average = 5.5123', 'Non-White Average = 5.562', 'Non-White Predicted = 5.0222', 'Difference in Bs = -0.0497', 'Difference in Xs = -0.5398', 'R-squared + 0.3005']<br>
 
            Variables  Importances
 5      OFFICE_VISITS     0.358868
@@ -2266,7 +2271,7 @@ memory usage: 5.6 MB
 3        HOME_VISITS     0.000812
 
 </pre>
-['White Average = 5.5123', 'Non-White Average = 5.1205', 'Non-White Predicted = 4.7483', 'Difference in Bs = 0.3919', 'Difference in Xs = -0.3722', 'R-squared + 0.5905']<br>
+['White Average = 5.5123', 'Non-White Average = 5.562', 'Non-White Predicted = 4.5384', 'Difference in Bs = -0.0497', 'Difference in Xs = -1.0236', 'R-squared + 0.5905']<br>
 
 ##### Ridge Regression (with Cross Validation)
 
@@ -2279,7 +2284,7 @@ memory usage: 5.6 MB
 5             SEX     -0.214214
 
 </pre>
-['White Average = 5.5123', 'Non-White Average = 5.1205', 'Non-White Predicted = 5.6224', 'Difference in Bs = 0.3919', 'Difference in Xs = 0.5019', 'R-squared + 0.0201']<br>
+['White Average = 5.5123', 'Non-White Average = 5.562', 'Non-White Predicted = 5.3129', 'Difference in Bs = -0.0497', 'Difference in Xs = -0.2491', 'R-squared + 0.0201']<br>
 
      Variables  Coefficients
 21   ICD10_C50      2.055176
@@ -2297,7 +2302,7 @@ memory usage: 5.6 MB
 [336 rows x 2 columns]
 
 </pre>
-['White Average = 5.5123', 'Non-White Average = 5.1205', 'Non-White Predicted = 5.2137', 'Difference in Bs = 0.3919', 'Difference in Xs = 0.0932', 'R-squared + 0.2756']<br>
+['White Average = 5.5123', 'Non-White Average = 5.562', 'Non-White Predicted = 4.9314', 'Difference in Bs = -0.0497', 'Difference in Xs = -0.6306', 'R-squared + 0.2756']<br>
 
            Variables  Coefficients
 4   INPATIENT_VISITS      1.452032
@@ -2310,7 +2315,7 @@ memory usage: 5.6 MB
 1                SEX     -0.324354
 
 </pre>
-['White Average = 5.5123', 'Non-White Average = 5.1205', 'Non-White Predicted = 5.1851', 'Difference in Bs = 0.3919', 'Difference in Xs = 0.0647', 'R-squared + 0.226']<br>
+['White Average = 5.5123', 'Non-White Average = 5.562', 'Non-White Predicted = 4.8223', 'Difference in Bs = -0.0497', 'Difference in Xs = -0.7397', 'R-squared + 0.226']<br>
 
 ##### Least absolute shrinkage and selection operator
 
@@ -2323,7 +2328,7 @@ memory usage: 5.6 MB
 0        SDOH_FPL     -0.001329
 
 </pre>
-['White Average = 5.5123', 'Non-White Average = 5.1205', 'Non-White Predicted = 5.6023', 'Difference in Bs = 0.3919', 'Difference in Xs = 0.4818', 'R-squared + 0.017']<br>
+['White Average = 5.5123', 'Non-White Average = 5.562', 'Non-White Predicted = 5.3585', 'Difference in Bs = -0.0497', 'Difference in Xs = -0.2035', 'R-squared + 0.017']<br>
 
      Variables  Coefficients
 21   ICD10_C50      2.055176
@@ -2341,7 +2346,7 @@ memory usage: 5.6 MB
 [336 rows x 2 columns]
 
 </pre>
-['White Average = 5.5123', 'Non-White Average = 5.1205', 'Non-White Predicted = 5.2137', 'Difference in Bs = 0.3919', 'Difference in Xs = 0.0932', 'R-squared + 0.2756']<br>
+['White Average = 5.5123', 'Non-White Average = 5.562', 'Non-White Predicted = 4.9314', 'Difference in Bs = -0.0497', 'Difference in Xs = -0.6306', 'R-squared + 0.2756']<br>
 
            Variables  Coefficients
 4   INPATIENT_VISITS      1.452032
@@ -2354,27 +2359,27 @@ memory usage: 5.6 MB
 1                SEX     -0.324354
 
 </pre>
-['White Average = 5.5123', 'Non-White Average = 5.1205', 'Non-White Predicted = 5.1851', 'Difference in Bs = 0.3919', 'Difference in Xs = 0.0647', 'R-squared + 0.226']<br>
+['White Average = 5.5123', 'Non-White Average = 5.562', 'Non-White Predicted = 4.8223', 'Difference in Bs = -0.0497', 'Difference in Xs = -0.7397', 'R-squared + 0.226']<br>
 
 ##### Multi-Layer Perceptron
 
          Loss
-0    3.544198
-1    3.071435
-2    2.832519
-3    2.715207
-4    2.811593
+0    3.612802
+1    3.276658
+2    3.001048
+3    2.882109
+4    2.921885
 ..        ...
-495  0.683220
-496  0.696989
-497  0.782873
-498  0.660523
-499  0.686674
+495  0.648976
+496  0.696601
+497  0.626267
+498  0.601877
+499  0.663583
 
 [500 rows x 1 columns]
 
 </pre>
-['White Average = 5.5123', 'Non-White Average = 5.1205', 'Non-White Predicted = 5.6092', 'Difference in Bs = 0.3919', 'Difference in Xs = 0.4888', 'R-squared + 0.8387']<br>
+['White Average = 5.5123', 'Non-White Average = 5.562', 'Non-White Predicted = 4.6521', 'Difference in Bs = -0.0497', 'Difference in Xs = -0.9099', 'R-squared + 0.8801']<br>
 
 #### Learn Step 2: Decomposition Using Machine Learning Models
 
@@ -2384,49 +2389,49 @@ memory usage: 5.6 MB
 0  0.006754 -0.05776    0.275156  0.000343
 
 </pre>
-['White Average = 7.6875', 'Non-White Average = 7.0618', 'Non-White Predicted = 7.5087', 'Difference in Bs = 0.6257', 'Difference in Xs = 0.4469', 'R-squared + 0.1987']<br>
+['White Average = 7.6875', 'Non-White Average = 7.292', 'Non-White Predicted = 7.3687', 'Difference in Bs = 0.3955', 'Difference in Xs = 0.0767', 'R-squared + 0.1987']<br>
 
         Variables  Importances
-0        SDOH_FPL     0.567689
-4             AGE     0.276226
-5             SEX     0.054055
-1  SDOH_EDUCATION     0.046670
-2    SDOH_MARITAL     0.043207
-3       SDOH_FOOD     0.012154
+0        SDOH_FPL     0.574317
+4             AGE     0.273393
+5             SEX     0.052735
+1  SDOH_EDUCATION     0.044669
+2    SDOH_MARITAL     0.042908
+3       SDOH_FOOD     0.011978
 
 </pre>
-['White Average = 7.6875', 'Non-White Average = 7.0618', 'Non-White Predicted = 7.5595', 'Difference in Bs = 0.6257', 'Difference in Xs = 0.4977', 'R-squared + 0.677']<br>
+['White Average = 7.6875', 'Non-White Average = 7.292', 'Non-White Predicted = 7.4953', 'Difference in Bs = 0.3955', 'Difference in Xs = 0.2033', 'R-squared + 0.6796']<br>
 
      Variables  Importances
-0          AGE     0.208390
-133  ICD10_J09     0.078167
-214  ICD10_M53     0.054795
-66   ICD10_F41     0.050110
-43   ICD10_E11     0.035708
+0          AGE     0.209664
+133  ICD10_J09     0.071211
+214  ICD10_M53     0.056722
+66   ICD10_F41     0.051369
+43   ICD10_E11     0.034681
 ..         ...          ...
-248  ICD10_N85     0.000000
-305  ICD10_S20     0.000000
-307  ICD10_S29     0.000000
-126  ICD10_I87     0.000000
-237  ICD10_N41     0.000000
+15   ICD10_B49     0.000000
+230  ICD10_N19     0.000000
+229  ICD10_N18     0.000000
+203  ICD10_M23     0.000000
+292  ICD10_R68     0.000000
 
 [336 rows x 2 columns]
 
 </pre>
-['White Average = 7.6875', 'Non-White Average = 7.0618', 'Non-White Predicted = 7.493', 'Difference in Bs = 0.6257', 'Difference in Xs = 0.4312', 'R-squared + 0.4664']<br>
+['White Average = 7.6875', 'Non-White Average = 7.292', 'Non-White Predicted = 7.3235', 'Difference in Bs = 0.3955', 'Difference in Xs = 0.0315', 'R-squared + 0.4674']<br>
 
            Variables  Importances
-5      OFFICE_VISITS     0.354730
-7          RX_VISITS     0.228025
-0                AGE     0.206176
-6  OUTPATIENT_VISITS     0.084191
-4   INPATIENT_VISITS     0.054750
-2          ER_VISITS     0.042580
-1                SEX     0.024182
-3        HOME_VISITS     0.005368
+5      OFFICE_VISITS     0.355758
+7          RX_VISITS     0.228209
+0                AGE     0.208431
+6  OUTPATIENT_VISITS     0.081424
+4   INPATIENT_VISITS     0.054751
+2          ER_VISITS     0.042737
+1                SEX     0.023552
+3        HOME_VISITS     0.005137
 
 </pre>
-['White Average = 7.6875', 'Non-White Average = 7.0618', 'Non-White Predicted = 7.3387', 'Difference in Bs = 0.6257', 'Difference in Xs = 0.2769', 'R-squared + 0.7858']<br>
+['White Average = 7.6875', 'Non-White Average = 7.292', 'Non-White Predicted = 7.1268', 'Difference in Bs = 0.3955', 'Difference in Xs = -0.1652', 'R-squared + 0.7877']<br>
 
 ##### Gradient Boosting
 
@@ -2439,7 +2444,7 @@ memory usage: 5.6 MB
 3       SDOH_FOOD     0.005087
 
 </pre>
-['White Average = 7.6875', 'Non-White Average = 7.0618', 'Non-White Predicted = 7.5365', 'Difference in Bs = 0.6257', 'Difference in Xs = 0.4747', 'R-squared + 0.3261']<br>
+['White Average = 7.6875', 'Non-White Average = 7.292', 'Non-White Predicted = 7.4279', 'Difference in Bs = 0.3955', 'Difference in Xs = 0.1359', 'R-squared + 0.3261']<br>
 
      Variables  Importances
 0          AGE     0.115948
@@ -2457,7 +2462,7 @@ memory usage: 5.6 MB
 [336 rows x 2 columns]
 
 </pre>
-['White Average = 7.6875', 'Non-White Average = 7.0618', 'Non-White Predicted = 7.5137', 'Difference in Bs = 0.6257', 'Difference in Xs = 0.4519', 'R-squared + 0.4038']<br>
+['White Average = 7.6875', 'Non-White Average = 7.292', 'Non-White Predicted = 7.334', 'Difference in Bs = 0.3955', 'Difference in Xs = 0.042', 'R-squared + 0.4038']<br>
 
            Variables  Importances
 5      OFFICE_VISITS     0.405402
@@ -2470,7 +2475,7 @@ memory usage: 5.6 MB
 1                SEX     0.004473
 
 </pre>
-['White Average = 7.6875', 'Non-White Average = 7.0618', 'Non-White Predicted = 7.3325', 'Difference in Bs = 0.6257', 'Difference in Xs = 0.2707', 'R-squared + 0.5833']<br>
+['White Average = 7.6875', 'Non-White Average = 7.292', 'Non-White Predicted = 7.1179', 'Difference in Bs = 0.3955', 'Difference in Xs = -0.1741', 'R-squared + 0.5833']<br>
 
 ##### Ridge Regression (with Cross Validation)
 
@@ -2483,7 +2488,7 @@ memory usage: 5.6 MB
 1  SDOH_EDUCATION     -0.049788
 
 </pre>
-['White Average = 7.6875', 'Non-White Average = 7.0618', 'Non-White Predicted = 7.6264', 'Difference in Bs = 0.6257', 'Difference in Xs = 0.5646', 'R-squared + 0.033']<br>
+['White Average = 7.6875', 'Non-White Average = 7.292', 'Non-White Predicted = 7.4952', 'Difference in Bs = 0.3955', 'Difference in Xs = 0.2032', 'R-squared + 0.033']<br>
 
      Variables  Coefficients
 21   ICD10_C50      0.756602
@@ -2501,7 +2506,7 @@ memory usage: 5.6 MB
 [336 rows x 2 columns]
 
 </pre>
-['White Average = 7.6875', 'Non-White Average = 7.0618', 'Non-White Predicted = 7.4976', 'Difference in Bs = 0.6257', 'Difference in Xs = 0.4358', 'R-squared + 0.3079']<br>
+['White Average = 7.6875', 'Non-White Average = 7.292', 'Non-White Predicted = 7.2981', 'Difference in Bs = 0.3955', 'Difference in Xs = 0.0061', 'R-squared + 0.3079']<br>
 
            Variables  Coefficients
 4   INPATIENT_VISITS      0.720393
@@ -2514,7 +2519,7 @@ memory usage: 5.6 MB
 5      OFFICE_VISITS      0.005487
 
 </pre>
-['White Average = 7.6875', 'Non-White Average = 7.0618', 'Non-White Predicted = 7.5205', 'Difference in Bs = 0.6257', 'Difference in Xs = 0.4587', 'R-squared + 0.2789']<br>
+['White Average = 7.6875', 'Non-White Average = 7.292', 'Non-White Predicted = 7.2981', 'Difference in Bs = 0.3955', 'Difference in Xs = 0.0061', 'R-squared + 0.2789']<br>
 
 ##### Least absolute shrinkage and selection operator
 
@@ -2527,7 +2532,7 @@ memory usage: 5.6 MB
 5             SEX      0.000000
 
 </pre>
-['White Average = 7.6875', 'Non-White Average = 7.0618', 'Non-White Predicted = 7.6408', 'Difference in Bs = 0.6257', 'Difference in Xs = 0.579', 'R-squared + 0.0275']<br>
+['White Average = 7.6875', 'Non-White Average = 7.292', 'Non-White Predicted = 7.5408', 'Difference in Bs = 0.3955', 'Difference in Xs = 0.2488', 'R-squared + 0.0275']<br>
 
      Variables  Coefficients
 21   ICD10_C50      0.756602
@@ -2545,7 +2550,7 @@ memory usage: 5.6 MB
 [336 rows x 2 columns]
 
 </pre>
-['White Average = 7.6875', 'Non-White Average = 7.0618', 'Non-White Predicted = 7.4976', 'Difference in Bs = 0.6257', 'Difference in Xs = 0.4358', 'R-squared + 0.3079']<br>
+['White Average = 7.6875', 'Non-White Average = 7.292', 'Non-White Predicted = 7.2981', 'Difference in Bs = 0.3955', 'Difference in Xs = 0.0061', 'R-squared + 0.3079']<br>
 
            Variables  Coefficients
 4   INPATIENT_VISITS      0.720393
@@ -2558,25 +2563,897 @@ memory usage: 5.6 MB
 5      OFFICE_VISITS      0.005487
 
 </pre>
-['White Average = 7.6875', 'Non-White Average = 7.0618', 'Non-White Predicted = 7.5205', 'Difference in Bs = 0.6257', 'Difference in Xs = 0.4587', 'R-squared + 0.2789']<br>
+['White Average = 7.6875', 'Non-White Average = 7.292', 'Non-White Predicted = 7.2981', 'Difference in Bs = 0.3955', 'Difference in Xs = 0.0061', 'R-squared + 0.2789']<br>
 
 ##### Multi-Layer Perceptron
 
          Loss
-0    2.821078
-1    1.664096
-2    1.711197
-3    1.500776
-4    1.518384
+0    2.783449
+1    1.858967
+2    1.646672
+3    1.560276
+4    1.500449
 ..        ...
-495  0.355434
-496  0.356035
-497  0.386294
-498  0.365152
-499  0.417769
+495  0.344992
+496  0.372512
+497  0.365971
+498  0.332368
+499  0.344926
 
 [500 rows x 1 columns]
 
 </pre>
-['White Average = 7.6875', 'Non-White Average = 7.0618', 'Non-White Predicted = 7.3304', 'Difference in Bs = 0.6257', 'Difference in Xs = 0.2686', 'R-squared + 0.7273']<br>
+['White Average = 7.6875', 'Non-White Average = 7.292', 'Non-White Predicted = 7.0869', 'Difference in Bs = 0.3955', 'Difference in Xs = -0.2051', 'R-squared + 0.8018']<br>
+
+### Machine Learning Result Summary (BLAKC)
+Various machine learning models were trained on a reference population and then used to predict values from a focus populaiton. The difference in predicted to actual values for the focus group then to reflects the impact of group identification. This is an adaptation of the Kitigawa-Oaxaca-Blinder method.<br>
+The following results used the scikit-learn and keras libraries for Python version 3.9.13 (tags/v3.9.13:6de2ca5, May 17 2022, 16:36:42) [MSC v.1929 64 bit (AMD64)]
+
+#### Machine Learning Step 1: Data Processing of Predictors and Outcomes
+Source: _data//Race_MEPS//alpha_dev_20221216152657//analytical_Q2.csv
+
+W (ID variables): PERSON_ID<br>
+Z (Subgroup variables): YEAR<br>
+
+Reference group: Non-Hispanic White (RACETH == 2)<br>
+Focus group: Not Non-Hispanic White (RACETH == 3)<br>
+
+
+<pre>
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 2024 entries, 0 to 2023
+Columns: 365 entries, PERSON_ID to CONDITIONS
+dtypes: float64(22), int64(343)
+memory usage: 5.6 MB
+
+##### Linear Regression Model for All Groups
+
+      WHITE       AGE      SEX  SDOH_FPL  CONDITIONS
+0  0.434167  0.000701  0.02779  0.000566    0.284923
+
+</pre>
+
+#### Learn Step 2: Decomposition Paid amount Using Machine Learning Models
+
+##### Random Forests
+
+        AGE       SEX  CONDITIONS  SDOH_FPL
+0 -0.010835 -0.770117    0.639617 -0.000826
+
+</pre>
+['White Average = 5.5123', 'Non-White Average = 4.8807', 'Non-White Predicted = 5.5474', 'Difference in Bs = 0.6316', 'Difference in Xs = 0.6667', 'R-squared + 0.1956']<br>
+
+        Variables  Importances
+0        SDOH_FPL     0.582337
+4             AGE     0.267517
+1  SDOH_EDUCATION     0.053870
+5             SEX     0.043704
+2    SDOH_MARITAL     0.042331
+3       SDOH_FOOD     0.010241
+
+</pre>
+['White Average = 5.5123', 'Non-White Average = 4.8807', 'Non-White Predicted = 5.6266', 'Difference in Bs = 0.6316', 'Difference in Xs = 0.7459', 'R-squared + 0.5757']<br>
+
+     Variables  Importances
+0          AGE     0.102219
+53   ICD10_E78     0.086885
+63   ICD10_F32     0.062354
+201  ICD10_M19     0.053543
+66   ICD10_F41     0.035416
+..         ...          ...
+305  ICD10_S20     0.000000
+307  ICD10_S29     0.000000
+126  ICD10_I87     0.000000
+50   ICD10_E58     0.000000
+227  ICD10_M89     0.000000
+
+[336 rows x 2 columns]
+
+</pre>
+['White Average = 5.5123', 'Non-White Average = 4.8807', 'Non-White Predicted = 5.4462', 'Difference in Bs = 0.6316', 'Difference in Xs = 0.5655', 'R-squared + 0.3308']<br>
+
+           Variables  Importances
+5      OFFICE_VISITS     0.300218
+7          RX_VISITS     0.291120
+0                AGE     0.228656
+6  OUTPATIENT_VISITS     0.068973
+2          ER_VISITS     0.048883
+4   INPATIENT_VISITS     0.031166
+1                SEX     0.029973
+3        HOME_VISITS     0.001011
+
+</pre>
+['White Average = 5.5123', 'Non-White Average = 4.8807', 'Non-White Predicted = 5.2448', 'Difference in Bs = 0.6316', 'Difference in Xs = 0.3641', 'R-squared + 0.8039']<br>
+
+##### Gradient Boosting
+
+        Variables  Importances
+0        SDOH_FPL     0.688149
+4             AGE     0.234533
+1  SDOH_EDUCATION     0.025410
+2    SDOH_MARITAL     0.021700
+5             SEX     0.016075
+3       SDOH_FOOD     0.014133
+
+</pre>
+['White Average = 5.5123', 'Non-White Average = 4.8807', 'Non-White Predicted = 5.6669', 'Difference in Bs = 0.6316', 'Difference in Xs = 0.7861', 'R-squared + 0.2893']<br>
+
+     Variables  Importances
+53   ICD10_E78     0.082688
+63   ICD10_F32     0.059815
+201  ICD10_M19     0.057758
+204  ICD10_M25     0.040978
+0          AGE     0.040074
+..         ...          ...
+170  ICD10_K74     0.000000
+171  ICD10_K76     0.000000
+172  ICD10_K80     0.000000
+174  ICD10_K85     0.000000
+188  ICD10_L70     0.000000
+
+[336 rows x 2 columns]
+
+</pre>
+['White Average = 5.5123', 'Non-White Average = 4.8807', 'Non-White Predicted = 5.495', 'Difference in Bs = 0.6316', 'Difference in Xs = 0.6142', 'R-squared + 0.3005']<br>
+
+           Variables  Importances
+5      OFFICE_VISITS     0.358868
+7          RX_VISITS     0.339052
+6  OUTPATIENT_VISITS     0.101971
+0                AGE     0.082351
+2          ER_VISITS     0.057792
+4   INPATIENT_VISITS     0.053922
+1                SEX     0.005232
+3        HOME_VISITS     0.000812
+
+</pre>
+['White Average = 5.5123', 'Non-White Average = 4.8807', 'Non-White Predicted = 5.1807', 'Difference in Bs = 0.6316', 'Difference in Xs = 0.3', 'R-squared + 0.5905']<br>
+
+##### Ridge Regression (with Cross Validation)
+
+        Variables  Coefficients
+3       SDOH_FOOD      0.799767
+2    SDOH_MARITAL      0.097803
+4             AGE      0.027528
+0        SDOH_FPL     -0.001288
+1  SDOH_EDUCATION     -0.018546
+5             SEX     -0.214214
+
+</pre>
+['White Average = 5.5123', 'Non-White Average = 4.8807', 'Non-White Predicted = 5.7645', 'Difference in Bs = 0.6316', 'Difference in Xs = 0.8838', 'R-squared + 0.0201']<br>
+
+     Variables  Coefficients
+21   ICD10_C50      2.055176
+46   ICD10_E34      1.411262
+247  ICD10_N83      1.256830
+72   ICD10_F90      1.210083
+43   ICD10_E11      1.180790
+..         ...           ...
+133  ICD10_J09     -0.739588
+184  ICD10_L50     -0.850364
+273  ICD10_R25     -0.893235
+155  ICD10_K25     -1.066067
+198  ICD10_M10     -1.119535
+
+[336 rows x 2 columns]
+
+</pre>
+['White Average = 5.5123', 'Non-White Average = 4.8807', 'Non-White Predicted = 5.4575', 'Difference in Bs = 0.6316', 'Difference in Xs = 0.5768', 'R-squared + 0.2756']<br>
+
+           Variables  Coefficients
+4   INPATIENT_VISITS      1.452032
+2          ER_VISITS      0.244232
+7          RX_VISITS      0.139614
+6  OUTPATIENT_VISITS      0.052833
+3        HOME_VISITS      0.039073
+5      OFFICE_VISITS      0.007957
+0                AGE     -0.000341
+1                SEX     -0.324354
+
+</pre>
+['White Average = 5.5123', 'Non-White Average = 4.8807', 'Non-White Predicted = 5.4426', 'Difference in Bs = 0.6316', 'Difference in Xs = 0.5619', 'R-squared + 0.226']<br>
+
+##### Least absolute shrinkage and selection operator
+
+        Variables  Coefficients
+4             AGE      0.025987
+1  SDOH_EDUCATION     -0.000000
+2    SDOH_MARITAL      0.000000
+3       SDOH_FOOD      0.000000
+5             SEX     -0.000000
+0        SDOH_FPL     -0.001329
+
+</pre>
+['White Average = 5.5123', 'Non-White Average = 4.8807', 'Non-White Predicted = 5.7066', 'Difference in Bs = 0.6316', 'Difference in Xs = 0.8259', 'R-squared + 0.017']<br>
+
+     Variables  Coefficients
+21   ICD10_C50      2.055176
+46   ICD10_E34      1.411262
+247  ICD10_N83      1.256830
+72   ICD10_F90      1.210083
+43   ICD10_E11      1.180790
+..         ...           ...
+133  ICD10_J09     -0.739588
+184  ICD10_L50     -0.850364
+273  ICD10_R25     -0.893235
+155  ICD10_K25     -1.066067
+198  ICD10_M10     -1.119535
+
+[336 rows x 2 columns]
+
+</pre>
+['White Average = 5.5123', 'Non-White Average = 4.8807', 'Non-White Predicted = 5.4575', 'Difference in Bs = 0.6316', 'Difference in Xs = 0.5768', 'R-squared + 0.2756']<br>
+
+           Variables  Coefficients
+4   INPATIENT_VISITS      1.452032
+2          ER_VISITS      0.244232
+7          RX_VISITS      0.139614
+6  OUTPATIENT_VISITS      0.052833
+3        HOME_VISITS      0.039073
+5      OFFICE_VISITS      0.007957
+0                AGE     -0.000341
+1                SEX     -0.324354
+
+</pre>
+['White Average = 5.5123', 'Non-White Average = 4.8807', 'Non-White Predicted = 5.4426', 'Difference in Bs = 0.6316', 'Difference in Xs = 0.5619', 'R-squared + 0.226']<br>
+
+##### Multi-Layer Perceptron
+
+         Loss
+0    3.316610
+1    2.970459
+2    2.872564
+3    2.815425
+4    2.691707
+..        ...
+495  0.683407
+496  0.638818
+497  0.700528
+498  0.647766
+499  0.676767
+
+[500 rows x 1 columns]
+
+</pre>
+['White Average = 5.5123', 'Non-White Average = 4.8807', 'Non-White Predicted = 5.676', 'Difference in Bs = 0.6316', 'Difference in Xs = 0.7953', 'R-squared + 0.8773']<br>
+
+#### Learn Step 2: Decomposition Using Machine Learning Models
+
+##### Random Forests
+
+        AGE      SEX  CONDITIONS  SDOH_FPL
+0  0.006754 -0.05776    0.275156  0.000343
+
+</pre>
+['White Average = 7.6875', 'Non-White Average = 7.1208', 'Non-White Predicted = 7.6463', 'Difference in Bs = 0.5667', 'Difference in Xs = 0.5255', 'R-squared + 0.1987']<br>
+
+        Variables  Importances
+0        SDOH_FPL     0.574320
+4             AGE     0.273728
+5             SEX     0.051420
+1  SDOH_EDUCATION     0.044764
+2    SDOH_MARITAL     0.043763
+3       SDOH_FOOD     0.012005
+
+</pre>
+['White Average = 7.6875', 'Non-White Average = 7.1208', 'Non-White Predicted = 7.6724', 'Difference in Bs = 0.5667', 'Difference in Xs = 0.5516', 'R-squared + 0.6783']<br>
+
+     Variables  Importances
+0          AGE     0.209214
+133  ICD10_J09     0.070222
+214  ICD10_M53     0.057445
+66   ICD10_F41     0.051118
+43   ICD10_E11     0.033462
+..         ...          ...
+91   ICD10_H18     0.000000
+15   ICD10_B49     0.000000
+179  ICD10_L21     0.000000
+305  ICD10_S20     0.000000
+289  ICD10_R59     0.000000
+
+[336 rows x 2 columns]
+
+</pre>
+['White Average = 7.6875', 'Non-White Average = 7.1208', 'Non-White Predicted = 7.5535', 'Difference in Bs = 0.5667', 'Difference in Xs = 0.4327', 'R-squared + 0.467']<br>
+
+           Variables  Importances
+5      OFFICE_VISITS     0.355213
+7          RX_VISITS     0.227775
+0                AGE     0.204959
+6  OUTPATIENT_VISITS     0.084678
+4   INPATIENT_VISITS     0.055482
+2          ER_VISITS     0.042545
+1                SEX     0.024309
+3        HOME_VISITS     0.005040
+
+</pre>
+['White Average = 7.6875', 'Non-White Average = 7.1208', 'Non-White Predicted = 7.5287', 'Difference in Bs = 0.5667', 'Difference in Xs = 0.4079', 'R-squared + 0.7856']<br>
+
+##### Gradient Boosting
+
+        Variables  Importances
+0        SDOH_FPL     0.586552
+4             AGE     0.326545
+2    SDOH_MARITAL     0.030766
+1  SDOH_EDUCATION     0.028003
+5             SEX     0.023047
+3       SDOH_FOOD     0.005087
+
+</pre>
+['White Average = 7.6875', 'Non-White Average = 7.1208', 'Non-White Predicted = 7.68', 'Difference in Bs = 0.5667', 'Difference in Xs = 0.5592', 'R-squared + 0.3261']<br>
+
+     Variables  Importances
+0          AGE     0.115948
+133  ICD10_J09     0.108863
+66   ICD10_F41     0.057747
+43   ICD10_E11     0.047580
+72   ICD10_F90     0.045197
+..         ...          ...
+147  ICD10_J98     0.000000
+149  ICD10_K02     0.000000
+150  ICD10_K04     0.000000
+151  ICD10_K05     0.000000
+335  ICD10_U07     0.000000
+
+[336 rows x 2 columns]
+
+</pre>
+['White Average = 7.6875', 'Non-White Average = 7.1208', 'Non-White Predicted = 7.5788', 'Difference in Bs = 0.5667', 'Difference in Xs = 0.458', 'R-squared + 0.4038']<br>
+
+           Variables  Importances
+5      OFFICE_VISITS     0.405402
+7          RX_VISITS     0.246435
+0                AGE     0.111153
+6  OUTPATIENT_VISITS     0.088422
+4   INPATIENT_VISITS     0.075675
+2          ER_VISITS     0.061196
+3        HOME_VISITS     0.007244
+1                SEX     0.004473
+
+</pre>
+['White Average = 7.6875', 'Non-White Average = 7.1208', 'Non-White Predicted = 7.5294', 'Difference in Bs = 0.5667', 'Difference in Xs = 0.4086', 'R-squared + 0.5833']<br>
+
+##### Ridge Regression (with Cross Validation)
+
+        Variables  Coefficients
+2    SDOH_MARITAL      0.190235
+5             SEX      0.168737
+3       SDOH_FOOD      0.078411
+4             AGE      0.023777
+0        SDOH_FPL      0.000144
+1  SDOH_EDUCATION     -0.049788
+
+</pre>
+['White Average = 7.6875', 'Non-White Average = 7.1208', 'Non-White Predicted = 7.7333', 'Difference in Bs = 0.5667', 'Difference in Xs = 0.6125', 'R-squared + 0.033']<br>
+
+     Variables  Coefficients
+21   ICD10_C50      0.756602
+43   ICD10_E11      0.743104
+72   ICD10_F90      0.740985
+247  ICD10_N83      0.722187
+284  ICD10_R52      0.662059
+..         ...           ...
+266  ICD10_R12     -0.320411
+36   ICD10_D64     -0.323280
+198  ICD10_M10     -0.362099
+214  ICD10_M53     -0.511099
+133  ICD10_J09     -0.983439
+
+[336 rows x 2 columns]
+
+</pre>
+['White Average = 7.6875', 'Non-White Average = 7.1208', 'Non-White Predicted = 7.6028', 'Difference in Bs = 0.5667', 'Difference in Xs = 0.482', 'R-squared + 0.3079']<br>
+
+           Variables  Coefficients
+4   INPATIENT_VISITS      0.720393
+2          ER_VISITS      0.107840
+1                SEX      0.078017
+7          RX_VISITS      0.058982
+6  OUTPATIENT_VISITS      0.030091
+3        HOME_VISITS      0.020296
+0                AGE      0.013602
+5      OFFICE_VISITS      0.005487
+
+</pre>
+['White Average = 7.6875', 'Non-White Average = 7.1208', 'Non-White Predicted = 7.6774', 'Difference in Bs = 0.5667', 'Difference in Xs = 0.5566', 'R-squared + 0.2789']<br>
+
+##### Least absolute shrinkage and selection operator
+
+        Variables  Coefficients
+4             AGE      0.023030
+0        SDOH_FPL      0.000075
+1  SDOH_EDUCATION     -0.000000
+2    SDOH_MARITAL      0.000000
+3       SDOH_FOOD      0.000000
+5             SEX      0.000000
+
+</pre>
+['White Average = 7.6875', 'Non-White Average = 7.1208', 'Non-White Predicted = 7.7017', 'Difference in Bs = 0.5667', 'Difference in Xs = 0.5809', 'R-squared + 0.0275']<br>
+
+     Variables  Coefficients
+21   ICD10_C50      0.756602
+43   ICD10_E11      0.743104
+72   ICD10_F90      0.740985
+247  ICD10_N83      0.722187
+284  ICD10_R52      0.662059
+..         ...           ...
+266  ICD10_R12     -0.320411
+36   ICD10_D64     -0.323280
+198  ICD10_M10     -0.362099
+214  ICD10_M53     -0.511099
+133  ICD10_J09     -0.983439
+
+[336 rows x 2 columns]
+
+</pre>
+['White Average = 7.6875', 'Non-White Average = 7.1208', 'Non-White Predicted = 7.6028', 'Difference in Bs = 0.5667', 'Difference in Xs = 0.482', 'R-squared + 0.3079']<br>
+
+           Variables  Coefficients
+4   INPATIENT_VISITS      0.720393
+2          ER_VISITS      0.107840
+1                SEX      0.078017
+7          RX_VISITS      0.058982
+6  OUTPATIENT_VISITS      0.030091
+3        HOME_VISITS      0.020296
+0                AGE      0.013602
+5      OFFICE_VISITS      0.005487
+
+</pre>
+['White Average = 7.6875', 'Non-White Average = 7.1208', 'Non-White Predicted = 7.6774', 'Difference in Bs = 0.5667', 'Difference in Xs = 0.5566', 'R-squared + 0.2789']<br>
+
+##### Multi-Layer Perceptron
+
+         Loss
+0    2.997121
+1    1.681265
+2    1.695459
+3    1.642773
+4    1.553380
+..        ...
+495  0.382289
+496  0.369685
+497  0.369936
+498  0.391471
+499  0.366578
+
+[500 rows x 1 columns]
+
+</pre>
+['White Average = 7.6875', 'Non-White Average = 7.1208', 'Non-White Predicted = 7.5273', 'Difference in Bs = 0.5667', 'Difference in Xs = 0.4065', 'R-squared + 0.7235']<br>
+
+### Machine Learning Result Summary (HISPANIC)
+Various machine learning models were trained on a reference population and then used to predict values from a focus populaiton. The difference in predicted to actual values for the focus group then to reflects the impact of group identification. This is an adaptation of the Kitigawa-Oaxaca-Blinder method.<br>
+The following results used the scikit-learn and keras libraries for Python version 3.9.13 (tags/v3.9.13:6de2ca5, May 17 2022, 16:36:42) [MSC v.1929 64 bit (AMD64)]
+
+#### Machine Learning Step 1: Data Processing of Predictors and Outcomes
+Source: _data//Race_MEPS//alpha_dev_20221216152657//analytical_Q2.csv
+
+W (ID variables): PERSON_ID<br>
+Z (Subgroup variables): YEAR<br>
+
+Reference group: Non-Hispanic White (RACETH == 2)<br>
+Focus group: Not Non-Hispanic White (RACETH == 1)<br>
+
+
+<pre>
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 2024 entries, 0 to 2023
+Columns: 365 entries, PERSON_ID to CONDITIONS
+dtypes: float64(22), int64(343)
+memory usage: 5.6 MB
+
+##### Linear Regression Model for All Groups
+
+      WHITE       AGE      SEX  SDOH_FPL  CONDITIONS
+0  0.434167  0.000701  0.02779  0.000566    0.284923
+
+</pre>
+
+#### Learn Step 2: Decomposition Paid amount Using Machine Learning Models
+
+##### Random Forests
+
+        AGE       SEX  CONDITIONS  SDOH_FPL
+0 -0.010835 -0.770117    0.639617 -0.000826
+
+</pre>
+['White Average = 5.5123', 'Non-White Average = 5.1068', 'Non-White Predicted = 5.232', 'Difference in Bs = 0.4055', 'Difference in Xs = 0.1252', 'R-squared + 0.1956']<br>
+
+        Variables  Importances
+0        SDOH_FPL     0.581661
+4             AGE     0.269192
+1  SDOH_EDUCATION     0.054670
+5             SEX     0.042270
+2    SDOH_MARITAL     0.041793
+3       SDOH_FOOD     0.010415
+
+</pre>
+['White Average = 5.5123', 'Non-White Average = 5.1068', 'Non-White Predicted = 5.4716', 'Difference in Bs = 0.4055', 'Difference in Xs = 0.3648', 'R-squared + 0.5761']<br>
+
+     Variables  Importances
+0          AGE     0.099252
+53   ICD10_E78     0.088109
+63   ICD10_F32     0.062581
+201  ICD10_M19     0.054852
+204  ICD10_M25     0.035147
+..         ...          ...
+227  ICD10_M89     0.000000
+282  ICD10_R50     0.000000
+191  ICD10_L73     0.000000
+229  ICD10_N18     0.000000
+70   ICD10_F80     0.000000
+
+[336 rows x 2 columns]
+
+</pre>
+['White Average = 5.5123', 'Non-White Average = 5.1068', 'Non-White Predicted = 5.2426', 'Difference in Bs = 0.4055', 'Difference in Xs = 0.1358', 'R-squared + 0.3266']<br>
+
+           Variables  Importances
+5      OFFICE_VISITS     0.303378
+7          RX_VISITS     0.287594
+0                AGE     0.227389
+6  OUTPATIENT_VISITS     0.069737
+2          ER_VISITS     0.048552
+4   INPATIENT_VISITS     0.031277
+1                SEX     0.031076
+3        HOME_VISITS     0.000997
+
+</pre>
+['White Average = 5.5123', 'Non-White Average = 5.1068', 'Non-White Predicted = 4.5607', 'Difference in Bs = 0.4055', 'Difference in Xs = -0.5461', 'R-squared + 0.8035']<br>
+
+##### Gradient Boosting
+
+        Variables  Importances
+0        SDOH_FPL     0.688149
+4             AGE     0.234533
+1  SDOH_EDUCATION     0.025410
+2    SDOH_MARITAL     0.021700
+5             SEX     0.016075
+3       SDOH_FOOD     0.014133
+
+</pre>
+['White Average = 5.5123', 'Non-White Average = 5.1068', 'Non-White Predicted = 5.6446', 'Difference in Bs = 0.4055', 'Difference in Xs = 0.5378', 'R-squared + 0.2893']<br>
+
+     Variables  Importances
+53   ICD10_E78     0.082688
+63   ICD10_F32     0.059815
+201  ICD10_M19     0.057758
+204  ICD10_M25     0.040978
+0          AGE     0.040074
+..         ...          ...
+170  ICD10_K74     0.000000
+171  ICD10_K76     0.000000
+172  ICD10_K80     0.000000
+174  ICD10_K85     0.000000
+188  ICD10_L70     0.000000
+
+[336 rows x 2 columns]
+
+</pre>
+['White Average = 5.5123', 'Non-White Average = 5.1068', 'Non-White Predicted = 5.2996', 'Difference in Bs = 0.4055', 'Difference in Xs = 0.1928', 'R-squared + 0.3005']<br>
+
+           Variables  Importances
+5      OFFICE_VISITS     0.358868
+7          RX_VISITS     0.339052
+6  OUTPATIENT_VISITS     0.101971
+0                AGE     0.082351
+2          ER_VISITS     0.057792
+4   INPATIENT_VISITS     0.053922
+1                SEX     0.005232
+3        HOME_VISITS     0.000812
+
+</pre>
+['White Average = 5.5123', 'Non-White Average = 5.1068', 'Non-White Predicted = 4.5702', 'Difference in Bs = 0.4055', 'Difference in Xs = -0.5366', 'R-squared + 0.5905']<br>
+
+##### Ridge Regression (with Cross Validation)
+
+        Variables  Coefficients
+3       SDOH_FOOD      0.799767
+2    SDOH_MARITAL      0.097803
+4             AGE      0.027528
+0        SDOH_FPL     -0.001288
+1  SDOH_EDUCATION     -0.018546
+5             SEX     -0.214214
+
+</pre>
+['White Average = 5.5123', 'Non-White Average = 5.1068', 'Non-White Predicted = 5.6471', 'Difference in Bs = 0.4055', 'Difference in Xs = 0.5403', 'R-squared + 0.0201']<br>
+
+     Variables  Coefficients
+21   ICD10_C50      2.055176
+46   ICD10_E34      1.411262
+247  ICD10_N83      1.256830
+72   ICD10_F90      1.210083
+43   ICD10_E11      1.180790
+..         ...           ...
+133  ICD10_J09     -0.739588
+184  ICD10_L50     -0.850364
+273  ICD10_R25     -0.893235
+155  ICD10_K25     -1.066067
+198  ICD10_M10     -1.119535
+
+[336 rows x 2 columns]
+
+</pre>
+['White Average = 5.5123', 'Non-White Average = 5.1068', 'Non-White Predicted = 5.1699', 'Difference in Bs = 0.4055', 'Difference in Xs = 0.0631', 'R-squared + 0.2756']<br>
+
+           Variables  Coefficients
+4   INPATIENT_VISITS      1.452032
+2          ER_VISITS      0.244232
+7          RX_VISITS      0.139614
+6  OUTPATIENT_VISITS      0.052833
+3        HOME_VISITS      0.039073
+5      OFFICE_VISITS      0.007957
+0                AGE     -0.000341
+1                SEX     -0.324354
+
+</pre>
+['White Average = 5.5123', 'Non-White Average = 5.1068', 'Non-White Predicted = 5.1613', 'Difference in Bs = 0.4055', 'Difference in Xs = 0.0545', 'R-squared + 0.226']<br>
+
+##### Least absolute shrinkage and selection operator
+
+        Variables  Coefficients
+4             AGE      0.025987
+1  SDOH_EDUCATION     -0.000000
+2    SDOH_MARITAL      0.000000
+3       SDOH_FOOD      0.000000
+5             SEX     -0.000000
+0        SDOH_FPL     -0.001329
+
+</pre>
+['White Average = 5.5123', 'Non-White Average = 5.1068', 'Non-White Predicted = 5.6261', 'Difference in Bs = 0.4055', 'Difference in Xs = 0.5193', 'R-squared + 0.017']<br>
+
+     Variables  Coefficients
+21   ICD10_C50      2.055176
+46   ICD10_E34      1.411262
+247  ICD10_N83      1.256830
+72   ICD10_F90      1.210083
+43   ICD10_E11      1.180790
+..         ...           ...
+133  ICD10_J09     -0.739588
+184  ICD10_L50     -0.850364
+273  ICD10_R25     -0.893235
+155  ICD10_K25     -1.066067
+198  ICD10_M10     -1.119535
+
+[336 rows x 2 columns]
+
+</pre>
+['White Average = 5.5123', 'Non-White Average = 5.1068', 'Non-White Predicted = 5.1699', 'Difference in Bs = 0.4055', 'Difference in Xs = 0.0631', 'R-squared + 0.2756']<br>
+
+           Variables  Coefficients
+4   INPATIENT_VISITS      1.452032
+2          ER_VISITS      0.244232
+7          RX_VISITS      0.139614
+6  OUTPATIENT_VISITS      0.052833
+3        HOME_VISITS      0.039073
+5      OFFICE_VISITS      0.007957
+0                AGE     -0.000341
+1                SEX     -0.324354
+
+</pre>
+['White Average = 5.5123', 'Non-White Average = 5.1068', 'Non-White Predicted = 5.1613', 'Difference in Bs = 0.4055', 'Difference in Xs = 0.0545', 'R-squared + 0.226']<br>
+
+##### Multi-Layer Perceptron
+
+         Loss
+0    3.420915
+1    2.937585
+2    2.776081
+3    2.932892
+4    2.659459
+..        ...
+495  0.695654
+496  0.684668
+497  0.753422
+498  0.765759
+499  0.669294
+
+[500 rows x 1 columns]
+
+</pre>
+['White Average = 5.5123', 'Non-White Average = 5.1068', 'Non-White Predicted = 5.3204', 'Difference in Bs = 0.4055', 'Difference in Xs = 0.2136', 'R-squared + 0.8549']<br>
+
+#### Learn Step 2: Decomposition Using Machine Learning Models
+
+##### Random Forests
+
+        AGE      SEX  CONDITIONS  SDOH_FPL
+0  0.006754 -0.05776    0.275156  0.000343
+
+</pre>
+['White Average = 7.6875', 'Non-White Average = 6.948', 'Non-White Predicted = 7.4773', 'Difference in Bs = 0.7395', 'Difference in Xs = 0.5293', 'R-squared + 0.1987']<br>
+
+        Variables  Importances
+0        SDOH_FPL     0.571695
+4             AGE     0.272567
+5             SEX     0.054543
+1  SDOH_EDUCATION     0.045507
+2    SDOH_MARITAL     0.043275
+3       SDOH_FOOD     0.012413
+
+</pre>
+['White Average = 7.6875', 'Non-White Average = 6.948', 'Non-White Predicted = 7.5096', 'Difference in Bs = 0.7395', 'Difference in Xs = 0.5616', 'R-squared + 0.6784']<br>
+
+     Variables  Importances
+0          AGE     0.211733
+133  ICD10_J09     0.069133
+214  ICD10_M53     0.057685
+66   ICD10_F41     0.047845
+43   ICD10_E11     0.034469
+..         ...          ...
+22   ICD10_C55     0.000000
+254  ICD10_O03     0.000000
+251  ICD10_N93     0.000000
+64   ICD10_F34     0.000000
+286  ICD10_R55     0.000000
+
+[336 rows x 2 columns]
+
+</pre>
+['White Average = 7.6875', 'Non-White Average = 6.948', 'Non-White Predicted = 7.5116', 'Difference in Bs = 0.7395', 'Difference in Xs = 0.5636', 'R-squared + 0.47']<br>
+
+           Variables  Importances
+5      OFFICE_VISITS     0.359242
+7          RX_VISITS     0.227093
+0                AGE     0.203826
+6  OUTPATIENT_VISITS     0.083524
+4   INPATIENT_VISITS     0.054901
+2          ER_VISITS     0.043582
+1                SEX     0.022657
+3        HOME_VISITS     0.005175
+
+</pre>
+['White Average = 7.6875', 'Non-White Average = 6.948', 'Non-White Predicted = 7.2965', 'Difference in Bs = 0.7395', 'Difference in Xs = 0.3485', 'R-squared + 0.7855']<br>
+
+##### Gradient Boosting
+
+        Variables  Importances
+0        SDOH_FPL     0.586552
+4             AGE     0.326545
+2    SDOH_MARITAL     0.030766
+1  SDOH_EDUCATION     0.028003
+5             SEX     0.023047
+3       SDOH_FOOD     0.005087
+
+</pre>
+['White Average = 7.6875', 'Non-White Average = 6.948', 'Non-White Predicted = 7.4908', 'Difference in Bs = 0.7395', 'Difference in Xs = 0.5428', 'R-squared + 0.3261']<br>
+
+     Variables  Importances
+0          AGE     0.115948
+133  ICD10_J09     0.108863
+66   ICD10_F41     0.057747
+43   ICD10_E11     0.047580
+72   ICD10_F90     0.045197
+..         ...          ...
+147  ICD10_J98     0.000000
+149  ICD10_K02     0.000000
+150  ICD10_K04     0.000000
+151  ICD10_K05     0.000000
+335  ICD10_U07     0.000000
+
+[336 rows x 2 columns]
+
+</pre>
+['White Average = 7.6875', 'Non-White Average = 6.948', 'Non-White Predicted = 7.538', 'Difference in Bs = 0.7395', 'Difference in Xs = 0.59', 'R-squared + 0.4038']<br>
+
+           Variables  Importances
+5      OFFICE_VISITS     0.405402
+7          RX_VISITS     0.246435
+0                AGE     0.111153
+6  OUTPATIENT_VISITS     0.088422
+4   INPATIENT_VISITS     0.075675
+2          ER_VISITS     0.061196
+3        HOME_VISITS     0.007244
+1                SEX     0.004473
+
+</pre>
+['White Average = 7.6875', 'Non-White Average = 6.948', 'Non-White Predicted = 7.2926', 'Difference in Bs = 0.7395', 'Difference in Xs = 0.3446', 'R-squared + 0.5833']<br>
+
+##### Ridge Regression (with Cross Validation)
+
+        Variables  Coefficients
+2    SDOH_MARITAL      0.190235
+5             SEX      0.168737
+3       SDOH_FOOD      0.078411
+4             AGE      0.023777
+0        SDOH_FPL      0.000144
+1  SDOH_EDUCATION     -0.049788
+
+</pre>
+['White Average = 7.6875', 'Non-White Average = 6.948', 'Non-White Predicted = 7.6098', 'Difference in Bs = 0.7395', 'Difference in Xs = 0.6618', 'R-squared + 0.033']<br>
+
+     Variables  Coefficients
+21   ICD10_C50      0.756602
+43   ICD10_E11      0.743104
+72   ICD10_F90      0.740985
+247  ICD10_N83      0.722187
+284  ICD10_R52      0.662059
+..         ...           ...
+266  ICD10_R12     -0.320411
+36   ICD10_D64     -0.323280
+198  ICD10_M10     -0.362099
+214  ICD10_M53     -0.511099
+133  ICD10_J09     -0.983439
+
+[336 rows x 2 columns]
+
+</pre>
+['White Average = 7.6875', 'Non-White Average = 6.948', 'Non-White Predicted = 7.5056', 'Difference in Bs = 0.7395', 'Difference in Xs = 0.5576', 'R-squared + 0.3079']<br>
+
+           Variables  Coefficients
+4   INPATIENT_VISITS      0.720393
+2          ER_VISITS      0.107840
+1                SEX      0.078017
+7          RX_VISITS      0.058982
+6  OUTPATIENT_VISITS      0.030091
+3        HOME_VISITS      0.020296
+0                AGE      0.013602
+5      OFFICE_VISITS      0.005487
+
+</pre>
+['White Average = 7.6875', 'Non-White Average = 6.948', 'Non-White Predicted = 7.5065', 'Difference in Bs = 0.7395', 'Difference in Xs = 0.5585', 'R-squared + 0.2789']<br>
+
+##### Least absolute shrinkage and selection operator
+
+        Variables  Coefficients
+4             AGE      0.023030
+0        SDOH_FPL      0.000075
+1  SDOH_EDUCATION     -0.000000
+2    SDOH_MARITAL      0.000000
+3       SDOH_FOOD      0.000000
+5             SEX      0.000000
+
+</pre>
+['White Average = 7.6875', 'Non-White Average = 6.948', 'Non-White Predicted = 7.6401', 'Difference in Bs = 0.7395', 'Difference in Xs = 0.6921', 'R-squared + 0.0275']<br>
+
+     Variables  Coefficients
+21   ICD10_C50      0.756602
+43   ICD10_E11      0.743104
+72   ICD10_F90      0.740985
+247  ICD10_N83      0.722187
+284  ICD10_R52      0.662059
+..         ...           ...
+266  ICD10_R12     -0.320411
+36   ICD10_D64     -0.323280
+198  ICD10_M10     -0.362099
+214  ICD10_M53     -0.511099
+133  ICD10_J09     -0.983439
+
+[336 rows x 2 columns]
+
+</pre>
+['White Average = 7.6875', 'Non-White Average = 6.948', 'Non-White Predicted = 7.5056', 'Difference in Bs = 0.7395', 'Difference in Xs = 0.5576', 'R-squared + 0.3079']<br>
+
+           Variables  Coefficients
+4   INPATIENT_VISITS      0.720393
+2          ER_VISITS      0.107840
+1                SEX      0.078017
+7          RX_VISITS      0.058982
+6  OUTPATIENT_VISITS      0.030091
+3        HOME_VISITS      0.020296
+0                AGE      0.013602
+5      OFFICE_VISITS      0.005487
+
+</pre>
+['White Average = 7.6875', 'Non-White Average = 6.948', 'Non-White Predicted = 7.5065', 'Difference in Bs = 0.7395', 'Difference in Xs = 0.5585', 'R-squared + 0.2789']<br>
+
+##### Multi-Layer Perceptron
+
+         Loss
+0    2.874324
+1    1.763538
+2    1.976484
+3    1.636414
+4    1.504555
+..        ...
+495  0.358312
+496  0.384264
+497  0.340395
+498  0.348731
+499  0.342771
+
+[500 rows x 1 columns]
+
+</pre>
+['White Average = 7.6875', 'Non-White Average = 6.948', 'Non-White Predicted = 7.4465', 'Difference in Bs = 0.7395', 'Difference in Xs = 0.4985', 'R-squared + 0.7809']<br>
 

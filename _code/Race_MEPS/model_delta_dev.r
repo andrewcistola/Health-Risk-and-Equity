@@ -3,7 +3,7 @@
 ## Regression Step 1: Import and Clean Data
 step_1 = 'Regression Step 1: Import and Clean Data'
 W = 'PERSON_ID'
-X = c('NON_WHITE', 'AGE', 'SEX', 'FPL_PERCENT', 'CONDITIONS')
+X = c('RACE_GRP', 'AGE', 'SEX', 'FPL_PERCENT', 'CONDITIONS')
 Y = c('PAID_TOTAL', 'ALWD_TOTAL')
 Z = 'YEAR'
 
@@ -11,19 +11,12 @@ Z = 'YEAR'
 df_WXYZ = read.csv(paste('_data', label_name, label_run, 'analytical_Q2.csv', sep = '//'), stringsAsFactors = FALSE) # Import dataset from _data folder
 df_WXYZ[is.na(df_WXYZ)] <- 0
 
-### Recode Racial Groups
-df_WXYZ$HISPANIC <- 0
-df_WXYZ$WHITE <- 0
-df_WXYZ$BLACK <- 0
-df_WXYZ$ASIAN <- 0
-df_WXYZ$OTHER <- 0
-df_WXYZ$NON_WHITE <- 0
-df_WXYZ$HISPANIC[df_WXYZ$RACE == 1] <- 1
-df_WXYZ$WHITE[df_WXYZ$RACE == 2] <- 1
-df_WXYZ$BLACK[df_WXYZ$RACE == 3] <- 1
-df_WXYZ$ASIAN[df_WXYZ$RACE == 4] <- 1
-df_WXYZ$NON_WHITE[df_WXYZ$RACE != 2 & df_WXYZ$RACE != 5] <- 1
+### Recode Racial Groups for White as reference category
 df_WXYZ = df_WXYZ[which(df_WXYZ$RACE < 5), ] # based on variable values
+df_WXYZ$RACE_GRP <- 0
+df_WXYZ$RACE_GRP[df_WXYZ$RACE == 1] <- 3
+df_WXYZ$RACE_GRP[df_WXYZ$RACE == 3] <- 2
+df_WXYZ$RACE_GRP[df_WXYZ$RACE == 4] <- 1
 
 ### Transform Y variables: PAID
 df_WXYZ$PAID_raw <- df_WXYZ$PAID_TOTAL
@@ -77,12 +70,13 @@ section = "Paid Amount: Visit Based Paid Amounts"
 title = 'OLS on Log costs'
 G = 'FINAL'
 W = 'PERSON_ID'
-F = as.formula('PAID_log ~ factor(RACE) + AGE + SEX + FPL_PERCENT + CONDITIONS')
-D = subset(df_WXYZ, select = c('NON_WHITE', 'AGE', 'SEX', 'FPL_PERCENT', 'CONDITIONS', 'PAID_log'))
+F = as.formula('PAID_log ~ factor(RACE_GRP) + AGE + SEX + FPL_PERCENT + CONDITIONS')
+D = subset(df_WXYZ, select = c('RACE_GRP' , 'AGE', 'SEX', 'FPL_PERCENT', 'CONDITIONS', 'PAID_log'))
 
 ### OLS Assumption 0: Sampling (Observations are a random sample, there are more observations than variables, IV is a result of DV)
 test_0 =  'OLS Assumption 0: Sampling (Random sample, observations > predictors, predictor is independent)'
 OLS = lm(F, data = D) # Identitiy link [Y = DV*1] (aka: Linear) with gaussian error (aka: Linear regression)
+summary(OLS)
 
 ### OLS Assumption 1: Specification (Relationship between predictor and outcome is linear)
 test_1 = 'OLS Assumption 1: Specification (Relationship between predictor and outcome is linear)'
@@ -211,12 +205,13 @@ sink()
 title = 'OLS on Square Root costs'
 G = 'FINAL'
 W = 'PERSON_ID'
-F = as.formula('PAID_sqrt ~ factor(RACE) + AGE + SEX + FPL_PERCENT + CONDITIONS')
-D = subset(df_WXYZ, select = c('NON_WHITE', 'AGE', 'SEX', 'FPL_PERCENT', 'CONDITIONS', 'PAID_sqrt'))
+F = as.formula('PAID_sqrt ~ factor(RACE_GRP) + AGE + SEX + FPL_PERCENT + CONDITIONS')
+D = subset(df_WXYZ, select = c('RACE_GRP', 'AGE', 'SEX', 'FPL_PERCENT', 'CONDITIONS', 'PAID_sqrt'))
 
 ### OLS Assumption 0: Sampling (Observations are a random sample, there are more observations than variables, IV is a result of DV)
 test_0 =  'OLS Assumption 0: Sampling (Random sample, observations > predictors, predictor is independent)'
 OLS = lm(F, data = D) # Identitiy link [Y = DV*1] (aka: Linear) with gaussian error (aka: Linear regression)
+summary(OLS)
 
 ### OLS Assumption 1: Specification (Relationship between predictor and outcome is linear)
 test_1 = 'OLS Assumption 1: Specification (Relationship between predictor and outcome is linear)'
@@ -348,17 +343,9 @@ title = 'Two Part Model (Logistic for non-zero, then Log link)'
 
 #### Two part package
 result = 'Two part model: logistic and poisson'
-F = as.formula('PAID_raw ~ factor(RACE) + AGE + SEX + FPL_PERCENT + CONDITIONS')
-D = subset(df_WXYZ, select = c('NON_WHITE', 'AGE', 'SEX', 'FPL_PERCENT', 'CONDITIONS', 'PAID_raw'))
-TPM = tpm(F, data = D, link_part1 = "logit", family_part2 = gamma(link = "log"))
-summary(TPM)
-logLik(TPM)
-
-#### Two part package
-result = 'Two part model: logistic and poisson'
-F = as.formula('PAID_raw ~ factor(RACE) + AGE + SEX + FPL_PERCENT + CONDITIONS')
-D = subset(df_WXYZ, select = c('NON_WHITE', 'AGE', 'SEX', 'FPL_PERCENT', 'CONDITIONS', 'PAID_raw'))
-TPM = tpm(F, data = D, link_part1 = "logit", family_part2 = gamma(link = "log"))
+F = as.formula('PAID_raw ~ factor(RACE_GRP) + AGE + SEX + FPL_PERCENT + CONDITIONS')
+D = subset(df_WXYZ, select = c('RACE_GRP', 'AGE', 'SEX', 'FPL_PERCENT', 'CONDITIONS', 'PAID_raw'))
+TPM = tpm(F, data = D, link_part1 = "logit", family_part2 = poisson(link = "log"))
 summary(TPM)
 logLik(TPM)
 
@@ -384,12 +371,13 @@ section = "Allowed Amount: Insurance plus out of pocket"
 title = 'OLS on Log costs'
 G = 'FINAL'
 W = 'PERSON_ID'
-F = as.formula('ALWD_log ~ factor(RACE) + AGE + SEX + FPL_PERCENT + CONDITIONS')
-D = subset(df_WXYZ, select = c('NON_WHITE', 'AGE', 'SEX', 'FPL_PERCENT', 'CONDITIONS', 'ALWD_log'))
+F = as.formula('ALWD_log ~ factor(RACE_GRP) + AGE + SEX + FPL_PERCENT + CONDITIONS')
+D = subset(df_WXYZ, select = c('RACE_GRP', 'AGE', 'SEX', 'FPL_PERCENT', 'CONDITIONS', 'ALWD_log'))
 
 ### OLS Assumption 0: Sampling (Observations are a random sample, there are more observations than variables, IV is a result of DV)
 test_0 =  'OLS Assumption 0: Sampling (Random sample, observations > predictors, predictor is independent)'
 OLS = lm(F, data = D) # Identitiy link [Y = DV*1] (aka: Linear) with gaussian error (aka: Linear regression)
+summary(OLS)
 
 ### OLS Assumption 1: Specification (Relationship between predictor and outcome is linear)
 test_1 = 'OLS Assumption 1: Specification (Relationship between predictor and outcome is linear)'
@@ -520,12 +508,13 @@ sink()
 title = 'OLS on Square Root costs'
 G = 'FINAL'
 W = 'PERSON_ID'
-F = as.formula('ALWD_sqrt ~ factor(RACE) + AGE + SEX + FPL_PERCENT + CONDITIONS')
-D = subset(df_WXYZ, select = c('NON_WHITE', 'AGE', 'SEX', 'FPL_PERCENT', 'CONDITIONS', 'ALWD_sqrt'))
+F = as.formula('ALWD_sqrt ~ factor(RACE_GRP) + AGE + SEX + FPL_PERCENT + CONDITIONS')
+D = subset(df_WXYZ, select = c('RACE_GRP', 'AGE', 'SEX', 'FPL_PERCENT', 'CONDITIONS', 'ALWD_sqrt'))
 
 ### OLS Assumption 0: Sampling (Observations are a random sample, there are more observations than variables, IV is a result of DV)
 test_0 =  'OLS Assumption 0: Sampling (Random sample, observations > predictors, predictor is independent)'
 OLS = lm(F, data = D) # Identitiy link [Y = DV*1] (aka: Linear) with gaussian error (aka: Linear regression)
+summary(OLS)
 
 ### OLS Assumption 1: Specification (Relationship between predictor and outcome is linear)
 test_1 = 'OLS Assumption 1: Specification (Relationship between predictor and outcome is linear)'
@@ -655,8 +644,8 @@ title = 'Two Part Model (Logistic for non-zero, then Log link)'
 
 #### Two part package
 result = 'Two part model: logistic and poisson'
-F = as.formula('ALWD_TOTAL ~ factor(RACE) + AGE + SEX + FPL_PERCENT + CONDITIONS')
-D = subset(df_WXYZ, select = c('NON_WHITE', 'AGE', 'SEX', 'FPL_PERCENT', 'CONDITIONS', 'ALWD_TOTAL'))
+F = as.formula('ALWD_TOTAL ~ factor(RACE_GRP) + AGE + SEX + FPL_PERCENT + CONDITIONS')
+D = subset(df_WXYZ, select = c('RACE_GRP', 'AGE', 'SEX', 'FPL_PERCENT', 'CONDITIONS', 'ALWD_TOTAL'))
 TPM = tpm(F, data = D, link_part1 = "logit", family_part2 = poisson(link = "log"))
 summary(TPM)
 

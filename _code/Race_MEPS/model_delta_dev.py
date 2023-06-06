@@ -35,7 +35,7 @@ df_XY_1 = df_XY[df_XY['RACE'] == 2]
 n_1 = df_XY_1.index.to_numpy()
 
 ### Create Outcome and predictor standard scaled numpy arrays for focus group (n_2, x_2, y_2)
-df_XY_2 = df_XY[df_XY['RACE'] != 2]
+df_XY_2 = df_XY[df_XY['RACE'] == 1]
 n_2 = df_XY_2.index.to_numpy()
 
 ### Linear Regression Baseline
